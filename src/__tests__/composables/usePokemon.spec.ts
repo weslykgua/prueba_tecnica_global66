@@ -1,41 +1,41 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
-import { usePokemonViewModel } from '../../presentation/viewmodels/usePokemonViewModel';
-import { IPokemonRepository } from '../../domain/repositories/pokemon.repository';
+import { usePokemon } from '../../pokemon/composable/usePokemon';
+import { PokemonApi } from '@/pokemon/remote/api/pokemon.api';
 
-describe('usePokemonViewModel (MVVM Presentation Layer)', () => {
-  let mockRepo: IPokemonRepository;
+describe('usePokemon Composable', () => {
+  let mockApi: PokemonApi;
 
   beforeEach(() => {
     setActivePinia(createPinia());
     vi.clearAllMocks();
 
-    mockRepo = {
+    mockApi = {
       getPokemonList: vi.fn(),
       getPokemonDetail: vi.fn(),
     };
   });
 
-  it('should fetch pokemon list via GetPokemonListUseCase and update store', async () => {
+  it('should fetch pokemon list via api service and update store', async () => {
     const mockList = [
       { id: 1, name: 'bulbasaur', url: '', spriteUrl: '' },
       { id: 25, name: 'pikachu', url: '', spriteUrl: '' },
     ];
-    vi.mocked(mockRepo.getPokemonList).mockResolvedValue(mockList);
+    vi.mocked(mockApi.getPokemonList).mockResolvedValue(mockList);
 
-    const { fetchPokemonList, filteredPokemonList, isLoading, error } = usePokemonViewModel(mockRepo);
+    const { fetchPokemonList, filteredPokemonList, isLoading, error } = usePokemon(mockApi);
     await fetchPokemonList();
 
-    expect(mockRepo.getPokemonList).toHaveBeenCalled();
+    expect(mockApi.getPokemonList).toHaveBeenCalled();
     expect(filteredPokemonList.value).toEqual(mockList);
     expect(isLoading.value).toBe(false);
-    expect(error.value).toBeNull();
+    expect(error.value).toBeUndefined();
   });
 
   it('should handle API errors during list fetch', async () => {
-    vi.mocked(mockRepo.getPokemonList).mockRejectedValue(new Error('API error'));
+    vi.mocked(mockApi.getPokemonList).mockRejectedValue(new Error('API error'));
 
-    const { fetchPokemonList, filteredPokemonList, error } = usePokemonViewModel(mockRepo);
+    const { fetchPokemonList, filteredPokemonList, error } = usePokemon(mockApi);
     await fetchPokemonList();
 
     expect(filteredPokemonList.value).toEqual([]);
@@ -47,9 +47,9 @@ describe('usePokemonViewModel (MVVM Presentation Layer)', () => {
       { id: 1, name: 'bulbasaur', url: '', spriteUrl: '' },
       { id: 25, name: 'pikachu', url: '', spriteUrl: '' },
     ];
-    vi.mocked(mockRepo.getPokemonList).mockResolvedValue(mockList);
+    vi.mocked(mockApi.getPokemonList).mockResolvedValue(mockList);
 
-    const { fetchPokemonList, toggleFavorite, isFavorite, favoritesList, favoritesCount } = usePokemonViewModel(mockRepo);
+    const { fetchPokemonList, toggleFavorite, isFavorite, favoritesList, favoritesCount } = usePokemon(mockApi);
     await fetchPokemonList();
 
     toggleFavorite('pikachu');

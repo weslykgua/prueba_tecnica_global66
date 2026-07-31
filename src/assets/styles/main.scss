@@ -2,6 +2,8 @@
 @use './mixins' as *;
 @use './animations' as *;
 
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -10,8 +12,8 @@
 
 html, body {
   font-family: $font-family;
-  background-color: #f1f5f9;
-  color: $text-dark;
+  background-color: $bg-color;
+  color: $text-primary;
   min-height: 100vh;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;

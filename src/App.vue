@@ -2,33 +2,33 @@
   <MainLayout>
     <router-view v-slot="{ Component }">
       <transition name="page-fade" mode="out-in">
-        <keep-alive>
+        <keep-alive include="HomeView,FavoritesView">
           <component :is="Component" />
         </keep-alive>
       </transition>
     </router-view>
+
+    <ToastNotification :toasts="activeToasts" @dismiss="removeToast" />
   </MainLayout>
 </template>
 
 <script setup lang="ts">
-import MainLayout from './layouts/MainLayout.vue';
+import ToastNotification from './common/component/ToastNotification.vue';
+import MainLayout from './home/layouts/MainLayout.vue';
+import { useClipboard } from './common/utils/useClipboard.ts';
+
+const { activeToasts, removeToast } = useClipboard();
 </script>
 
 <style lang="scss">
-@import './assets/styles/main.scss';
-
 .page-fade-enter-active,
 .page-fade-leave-active {
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  transition: opacity 150ms ease, transform 150ms ease;
 }
 
-.page-fade-enter-from {
-  opacity: 0;
-  transform: translateY(4px);
-}
-
+.page-fade-enter-from,
 .page-fade-leave-to {
   opacity: 0;
-  transform: translateY(-4px);
+  transform: translateY(4px);
 }
 </style>

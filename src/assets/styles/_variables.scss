@@ -1,56 +1,71 @@
-// Color Palette
-$primary-color: #e63946;
-$primary-hover: #d62828;
-$secondary-color: #ffcb05;
-$secondary-hover: #f1b800;
-$dark-bg: #0f172a;
-$dark-surface: #1e293b;
-$dark-card: #334155;
-$light-bg: #f8fafc;
-$light-surface: #ffffff;
+// Color Palette - Apple / Vercel / Notion Inspired Clean Style
+$primary-color: #D83B3B;
+$primary-hover: #C92F2F;
+$btn-primary-hover: #C92F2F;
 
-$text-dark: #0f172a;
-$text-light: #f8fafc;
-$text-muted: #94a3b8;
-$text-subtle: #64748b;
+$secondary-color: #F2C94C;
+$secondary-hover: #E6B93F;
 
-$border-color: rgba(255, 255, 255, 0.1);
-$border-light: #e2e8f0;
+$bg-color: #FFFEFC;
+$surface-color: #FFFFFF;
+$card-bg: #FFFFFF;
+$section-bg: #FFFDF9;
+
+$dark-bg: #1F1F1F;
+$dark-surface: #2A2A2A;
+$dark-card: #343434;
+
+$text-primary: #222222;
+$text-secondary: #555555;
+$text-muted: #7A7A7A;
+$text-subtle: #999999;
+$text-dark: #222222;
+$text-light: #FFFEFC;
+
+$border-color: #ECECEC;
+$border-light: #ECECEC;
+$border-card: #ECECEC;
+$border-hover: #DDDDDD;
+$border-dark: #3E3E3E;
 
 // Type Badges Colors
-$type-normal: #a8a77a;
-$type-fire: #ee8130;
-$type-water: #6390f0;
-$type-electric: #f7d02c;
-$type-grass: #7ac74c;
-$type-ice: #96d9d6;
-$type-fighting: #c22e28;
-$type-poison: #a33ea2;
-$type-ground: #e2bf65;
-$type-flying: #a98ff3;
-$type-psychic: #f95587;
-$type-bug: #a6b91a;
-$type-rock: #b6a136;
+$type-normal: #A8A77A;
+$type-fire: #EE8130;
+$type-water: #6390F0;
+$type-electric: #F7D02C;
+$type-grass: #7AC74C;
+$type-ice: #96D9D6;
+$type-fighting: #C22E28;
+$type-poison: #A33EA2;
+$type-ground: #E2BF65;
+$type-flying: #A98FF3;
+$type-psychic: #F95587;
+$type-bug: #A6B91A;
+$type-rock: #B6A136;
 $type-ghost: #735797;
-$type-dragon: #6f35fc;
+$type-dragon: #6F35FC;
 $type-dark: #705746;
-$type-steel: #b7b7ce;
-$type-fairy: #d685ad;
+$type-steel: #B7B7CE;
+$type-fairy: #D685AD;
 
 // Typography
-$font-family: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+$font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-// Shadows & Effects
-$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-$shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
-$shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.2);
-$shadow-glow: 0 0 20px rgba(230, 57, 70, 0.35);
+// Crisp Subtle Shadows (No Glow, No Glassmorphism)
+$shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 8px 18px rgba(0, 0, 0, 0.07);
+$shadow-lg: 0 16px 28px rgba(0, 0, 0, 0.09);
 
 // Border Radius
 $radius-sm: 8px;
-$radius-md: 16px;
-$radius-lg: 24px;
+$radius-md: 12px;
+$radius-lg: 14px;
+$radius-card: 14px;
 $radius-full: 9999px;
+
+// Animation Tokens
+$anim-duration: 200ms;
+$anim-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 
 // Breakpoints
 $bp-mobile: 480px;

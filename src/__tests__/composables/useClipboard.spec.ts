@@ -1,14 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { useClipboard } from '../../composables/useClipboard';
-import { PokemonDetail } from '../../types/pokemon.types';
+import { useClipboard } from '../../common/utils/useClipboard';
+import PokemonDetail from '@/pokemon/model/PokemonDetail';
 
 describe('useClipboard Composable', () => {
   const mockPokemon: PokemonDetail = {
     id: 25,
     name: 'pikachu',
     formattedName: 'Pikachu',
-    height: 4,
-    weight: 60,
+    heightM: 4,
+    weightKg: 60,
     spriteUrl: 'https://raw.githubusercontent.com/.../25.png',
     types: ['electric'],
     abilities: ['static'],
@@ -23,7 +23,6 @@ describe('useClipboard Composable', () => {
   it('should format share text correctly according to specification', async () => {
     const { sharePokemon, activeToasts } = useClipboard();
 
-    // Mock navigator.clipboard
     const writeTextMock = vi.fn().mockResolvedValue(undefined);
     Object.defineProperty(navigator, 'clipboard', {
       value: { writeText: writeTextMock },

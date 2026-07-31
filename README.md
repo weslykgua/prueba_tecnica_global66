@@ -1,6 +1,6 @@
 # ⚡ Global66 - Vue 3 + TypeScript Pokédex Technical Solution
 
-Una aplicación web de grado de producción desarrollada en **Vue 3**, **TypeScript**, **Vite** y **Pinia** para visualizar, buscar y administrar Pokémon utilizando la [PokeAPI](https://pokeapi.co/). Diseñada siguiendo **MVVM + Arquitectura Limpia (Clean Architecture)** y principios SOLID, DRY y KISS, priorizando la mantenibilidad, escalabilidad, rendimiento y experiencia de usuario (UX).
+Una aplicación web de grado de producción desarrollada en **Vue 3**, **TypeScript**, **Vite** y **Pinia** para visualizar, buscar y administrar Pokémon utilizando la [PokeAPI](https://pokeapi.co/). Diseñada siguiendo una **Arquitectura por Módulos Autocontenidos (Domain-Driven Module Architecture)**, principios SOLID, DRY y KISS, priorizando la mantenibilidad, escalabilidad, rendimiento y experiencia de usuario (UX).
 
 ---
 
@@ -24,7 +24,7 @@ Una aplicación web de grado de producción desarrollada en **Vue 3**, **TypeScr
 | **Vue 3** | Framework progresivo con Composition API y sintaxis `<script setup lang="ts">`. |
 | **TypeScript** | Tipado estricto (Modo `strict`, 0 `any`) para prevención de errores en compilación. |
 | **Vite** | Build tool ultrarrápido y servidor de desarrollo con HMR instantáneo. |
-| **Pinia** | Gestión de estado local centralizada, dividida en stores puros independientes (`usePokemonStore` y `useFavoritesStore`). |
+| **Pinia** | Gestión de estado local centralizada (`pokemon.store.ts` y `favorites.store.ts`). |
 | **Vue Router** | Enrutamiento cliente para navegar entre la Pokedex principal y Favoritos. |
 | **Axios** | Cliente HTTP con tiempo de espera (10s) e interceptores para manejo amigable de errores. |
 | **Sass / SCSS** | Estilos modernos utilizando variables, mixins y keyframes. |
@@ -33,54 +33,70 @@ Una aplicación web de grado de producción desarrollada en **Vue 3**, **TypeScr
 
 ---
 
-## 📐 Arquitectura MVVM + Clean Architecture
+## 📐 Arquitectura del Proyecto (Módulo Pokémon Autocontenido)
 
-El proyecto aplica **MVVM (Model-View-ViewModel)** combinado con **Clean Architecture en Capas**, separando estrictamente las responsabilidades del sistema:
+El proyecto organiza todo lo relacionado al dominio en un módulo 100% autocontenido dentro de `src/pokemon/`, manteniendo globales únicamente la navegación, el layout base, los estilos y las utilidades generales:
 
 ```
 src/
-├── domain/                       # 1. Capa de Dominio (Pure Domain Layer)
-│   ├── entities/                 # Entidades de negocio (PokemonListItemEntity, PokemonDetailEntity)
-│   ├── repositories/             # Contrato / Interfaz del Repositorio (IPokemonRepository)
-│   └── usecases/                 # Casos de Uso (GetPokemonListUseCase, GetPokemonDetailUseCase)
+├── assets/                    # Estilos globales SCSS y recursos
 │
-├── data/                         # 2. Capa de Datos (Data Layer)
-│   ├── datasources/              # Data Source Remoto con Axios (PokemonRemoteDataSource)
-│   ├── mappers/                  # Mapeadores DTO -> Entity (PokemonMapper)
-│   └── repositories/             # Implementación del Repositorio (PokemonRepositoryImpl)
+├── layouts/                   # Layouts globales de la aplicación (MainLayout.vue)
 │
-├── presentation/                 # 3. Capa de Presentación (MVVM Layer)
-│   ├── viewmodels/               # ViewModels reactivos (usePokemonViewModel, useClipboardViewModel)
-│   ├── stores/                   # Stores locales de Pinia (usePokemonStore, useFavoritesStore)
-│   ├── components/               # Componentes de Vista (PokemonCard, PokemonList, SearchBar, Pagination)
-│   └── views/                    # Vistas principales (HomeView, FavoritesView)
+├── router/                    # Configuración de Vue Router
 │
-└── core/                         # 4. Núcleo / Shared Utilities
-    ├── api/                      # Instancia e interceptores Axios
-    ├── constants/                # Constantes globales de API y paginación
-    └── utils/                    # Funciones puras (formatters)
+├── utils/                     # Utilidades globales (storage.ts)
+│
+├── __tests__/                 # Suite de Pruebas Unitarias con Vitest
+│
+└── pokemon/                   # 📦 Módulo Pokémon (100% Autocontenido)
+    ├── components/            # Componentes visuales del módulo
+    │   ├── PokemonCard.vue
+    │   ├── PokemonList.vue
+    │   ├── PokemonDetailModal.vue
+    │   ├── SearchBar.vue
+    │   ├── Pagination.vue
+    │   ├── PokeballLoader.vue
+    │   ├── EmptyState.vue
+    │   ├── ErrorState.vue
+    │   ├── ModalDialog.vue
+    │   └── ToastNotification.vue
+    │
+    ├── views/                 # Vistas del dominio Pokémon
+    │   ├── HomeView.vue
+    │   └── FavoritesView.vue
+    │
+    ├── composables/           # Lógica reutilizable del dominio
+    │   ├── usePokemon.ts      # Orquestador del catálogo y filtros
+    │   ├── useFavorites.ts    # Gestión de favoritos
+    │   └── useClipboard.ts    # Copiar datos y notificaciones Toast
+    │
+    ├── stores/                # Estado reactivo con Pinia
+    │   ├── pokemon.store.ts   # Estado de la lista y detalles
+    │   └── favorites.store.ts # Estado local de favoritos (Set<string>)
+    │
+    ├── remote/                # Consumo de la PokeAPI
+    │   ├── axios.ts           # Cliente Axios con timeouts e interceptores
+    │   ├── pokemon.api.ts     # Servicio de endpoints PokeAPI
+    │   └── pokemon.mapper.ts  # Mapeador DTOs -> Entidades
+    │
+    ├── types/                 # Interfaces y tipos de TypeScript
+    │   ├── pokemon.ts         # Modelos del dominio Pokémon
+    │   └── api.ts             # Interfaces JSON PokeAPI
+    │
+    ├── constants/             # Constantes del módulo (pokemon.constants.ts)
+    │
+    └── utils/                 # Utilidades de formateo del módulo (formatters.ts)
 ```
-
-### Flujo de Datos MVVM + Clean Architecture
-
-1. **View (Vue Templates)**: Renderizan la interfaz de usuario y capturan interacciones del usuario.
-2. **ViewModel (`usePokemonViewModel`)**: Expone propiedades reactivas y comandos. Llama a los **Casos de Uso**.
-3. **Use Cases (`GetPokemonListUseCase`)**: Ejecutan la regla de negocio pura utilizando la interfaz del repositorio (`IPokemonRepository`).
-4. **Repository Impl (`PokemonRepositoryImpl`)**: Solicita los datos a la **Data Source**, transforma los DTOs usando **Mappers** y devuelve entidades puras de dominio.
-5. **Pinia Stores (`usePokemonStore`, `useFavoritesStore`)**: Mantienen el estado local cliente actualizado de forma reactiva y sincrónica.
 
 ---
 
 ## 🧠 Decisiones Técnicas & Justificación
 
-### 1. ¿Por qué MVVM + Clean Architecture?
-- **Desacoplamiento Total**: La capa de dominio no conoce ni depende de Vue, Pinia ni Axios. Puede reutilizarse o probarse en aislamiento.
-- **Testabilidad Excepcional**: Cada caso de uso y mapper se prueba independientemente con mocks.
-- **Mantenibilidad Senior**: Las reglas de negocio, llamadas a la API e interfaces visuales están claramente delimitadas.
-
-### 2. ¿Por qué Pinia en lugar de Vuex?
-- **Tipado nativo superior**: Diseñado para TypeScript, infiriendo tipos automáticamente.
-- **Gestión eficiente de Favoritos**: Los favoritos se almacenan mediante un `Set<string>` reactivo que guarda únicamente los nombres de los Pokémon. Garantiza **cero duplicación de información** y tiempos de búsqueda de $O(1)$.
+### 1. Módulo 100% Autocontenido (`src/pokemon/`)
+- **Independencia Total**: Componentes, Vistas, Composables, Stores, API Remota y Tipos residen juntos dentro de `src/pokemon/`.
+- **Cohesión Máxima**: Evita la dispersión de archivos y carpetas arbitrarias (`common/`, `views/`) cuando el dominio principal es Pokémon.
+- **Escalabilidad Futura**: Agregar un nuevo módulo (ej. `src/berries/`) solo requerirá crear una nueva carpeta paralela autocontenida sin alterar la estructura existente.
 
 ---
 
