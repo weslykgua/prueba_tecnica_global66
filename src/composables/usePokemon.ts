@@ -1,23 +1,42 @@
-import { ref, computed, onMounted, getCurrentInstance } from 'vue';
+import { ref, computed, watch, onMounted, getCurrentInstance } from 'vue';
 import { usePokemonStore } from '../stores/usePokemonStore';
 import { useFavoritesStore } from '../stores/useFavoritesStore';
 import { pokemonService } from '../services/pokemon.service';
 import { useDebounce } from './useDebounce';
 import { ActiveTab, PokemonListItem, PokemonDetail } from '../types/pokemon.types';
+import { ITEMS_PER_PAGE } from '../constants/pokemon.constants';
 
 /**
- * Main orchestrator composable handling remote API calls and state synchronization with Pinia stores.
+ * Main orchestrator composable handling remote API calls, search feedback, pagination, and Pinia stores.
  */
 export function usePokemon() {
   const pokemonStore = usePokemonStore();
   const favoritesStore = useFavoritesStore();
 
   const searchQuery = ref('');
-  const debouncedSearch = useDebounce(searchQuery, 300);
+  const debouncedSearch = useDebounce(searchQuery, 250);
+  const isSearching = ref(false);
   const activeTab = ref<ActiveTab>('all');
   const isModalOpen = ref(false);
+  const currentPage = ref(1);
 
-  // API Call: Fetch Pokemon List
+  // Set isSearching indicator while typing and debouncing
+  watch(searchQuery, (newVal) => {
+    if (newVal.trim() !== debouncedSearch.value.trim()) {
+      isSearching.value = true;
+    }
+  });
+
+  watch(debouncedSearch, () => {
+    isSearching.value = false;
+    currentPage.value = 1; // Reset to page 1 on new search query
+  });
+
+  watch(activeTab, () => {
+    currentPage.value = 1; // Reset to page 1 on tab change
+  });
+
+  // API Call: Fetch Pokemon List (Complete catalog)
   const fetchPokemonList = async (limit?: number, force = false): Promise<void> => {
     if (pokemonStore.isInitialized && !force && pokemonStore.pokemonList.length > 0) return;
 
@@ -81,6 +100,23 @@ export function usePokemon() {
     );
   });
 
+  // Pagination Computations
+  const totalPages = computed(() => {
+    return Math.ceil(filteredPokemonList.value.length / ITEMS_PER_PAGE);
+  });
+
+  const paginatedPokemonList = computed<PokemonListItem[]>(() => {
+    const start = (currentPage.value - 1) * ITEMS_PER_PAGE;
+    return filteredPokemonList.value.slice(start, start + ITEMS_PER_PAGE);
+  });
+
+  const changePage = (page: number) => {
+    if (page >= 1 && page <= totalPages.value) {
+      currentPage.value = page;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const isFavorite = (name: string): boolean => {
     return favoritesStore.isFavorite(name);
   };
@@ -107,8 +143,11 @@ export function usePokemon() {
     // State & Filters
     searchQuery,
     debouncedSearch,
+    isSearching,
     activeTab,
     isModalOpen,
+    currentPage,
+    totalPages,
 
     // Store Proxies
     isLoading: computed(() => pokemonStore.isLoading),
@@ -119,10 +158,12 @@ export function usePokemon() {
     favoritesList,
     totalCount: computed(() => pokemonStore.pokemonList.length),
     filteredPokemonList,
+    paginatedPokemonList,
 
     // Actions
     fetchPokemonList,
     fetchPokemonDetail,
+    changePage,
     isFavorite,
     toggleFavorite,
     openDetailModal,

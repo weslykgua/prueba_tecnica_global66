@@ -1,5 +1,11 @@
 <template>
-  <div class="pokemon-grid" role="region" aria-label="Lista de Pokémon">
+  <TransitionGroup
+    name="grid-fade"
+    tag="div"
+    class="pokemon-grid"
+    role="region"
+    aria-label="Lista de Pokémon"
+  >
     <PokemonCard
       v-for="pokemon in pokemonList"
       :key="pokemon.id"
@@ -8,7 +14,7 @@
       @select="$emit('select-pokemon', $event)"
       @toggle-favorite="$emit('toggle-favorite', $event)"
     />
-  </div>
+  </TransitionGroup>
 </template>
 
 <script setup lang="ts">
@@ -36,10 +42,31 @@ defineEmits<{
   gap: 1.25rem;
   width: 100%;
   padding-bottom: 2rem;
+  position: relative;
 
   @include respond-to('tablet') {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 1.5rem;
   }
+}
+
+/* Smooth TransitionGroup for grid items */
+.grid-fade-enter-active,
+.grid-fade-leave-active {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.grid-fade-enter-from {
+  opacity: 0;
+  transform: scale(0.92) translateY(12px);
+}
+
+.grid-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.92) translateY(-12px);
+}
+
+.grid-fade-move {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 </style>

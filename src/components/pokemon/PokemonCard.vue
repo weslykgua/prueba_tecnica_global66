@@ -1,10 +1,10 @@
 <template>
   <div
     class="pokemon-card"
+    @click="$emit('select', pokemon.name)"
     tabindex="0"
     role="button"
     :aria-label="`Ver detalle de ${formattedName}`"
-    @click="$emit('select', pokemon.name)"
     @keydown.enter="$emit('select', pokemon.name)"
   >
     <div class="card-media">
@@ -12,9 +12,9 @@
       <img
         :src="currentImageSrc"
         :alt="formattedName"
+        @error="onImageError"
         loading="lazy"
         class="pokemon-sprite"
-        @error="onImageError"
       />
     </div>
 
@@ -25,8 +25,8 @@
         type="button"
         class="favorite-button"
         :class="{ active: isFavorite }"
-        :aria-label="isFavorite ? `Quitar ${formattedName} de favoritos` : `Agregar ${formattedName} a favoritos`"
         @click.stop="$emit('toggle-favorite', pokemon.name)"
+        :aria-label="isFavorite ? `Quitar ${formattedName} de favoritos` : `Agregar ${formattedName} a favoritos`"
       >
         <svg
           class="star-icon"
@@ -87,14 +87,16 @@ const onImageError = () => {
   align-items: center;
   position: relative;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
-    transform: translateY(-6px);
+    transform: translateY(-5px) translateZ(0);
     box-shadow: $shadow-lg;
     
     .pokemon-sprite {
-      transform: scale(1.1);
+      transform: scale(1.08);
     }
   }
 
@@ -130,7 +132,7 @@ const onImageError = () => {
   width: 90px;
   height: 90px;
   object-fit: contain;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
 }
 
