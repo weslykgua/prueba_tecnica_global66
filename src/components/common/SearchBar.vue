@@ -8,17 +8,24 @@
       <input
         type="text"
         :value="modelValue"
+        @input="onInput"
         :placeholder="placeholder"
         class="search-input"
         aria-label="Buscar Pokémon por nombre"
-        @input="onInput"
       />
+
+      <!-- Search loading spinner indicator -->
+      <div v-if="isSearching" class="search-loading-spinner" title="Buscando...">
+        <div class="mini-spinner"></div>
+      </div>
+
+      <!-- Clear button -->
       <button
-        v-if="modelValue"
+        v-else-if="modelValue"
+        @click="clear"
         class="clear-button"
         type="button"
         aria-label="Limpiar búsqueda"
-        @click="clear"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -34,9 +41,11 @@ withDefaults(
   defineProps<{
     modelValue: string;
     placeholder?: string;
+    isSearching?: boolean;
   }>(),
   {
     placeholder: 'Buscar Pokémon...',
+    isSearching: false,
   }
 );
 
@@ -108,6 +117,21 @@ const clear = () => {
   }
 }
 
+.search-loading-spinner {
+  position: absolute;
+  right: 1.25rem;
+  @include flex-center;
+
+  .mini-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(230, 57, 70, 0.2);
+    border-top-color: $primary-color;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+  }
+}
+
 .clear-button {
   position: absolute;
   right: 1rem;
@@ -127,5 +151,9 @@ const clear = () => {
     background-color: rgba(148, 163, 184, 0.2);
     color: $primary-color;
   }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 </style>
