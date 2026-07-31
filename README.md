@@ -4,14 +4,16 @@ Una aplicación web de grado de producción desarrollada en **Vue 3**, **TypeScr
 
 ---
 
-## 🚀 Vista Previa del Proyecto
+## 🚀 Vista Previa & Funcionalidades Clave
 
-- **Pokébola animada 100% CSS** durante la carga de la aplicación.
-- **Buscador en tiempo real** con filtrado optimizado (Debounce).
-- **Gestión de Favoritos** con reactividad automática sin duplicidad de datos en Pinia Store.
-- **Modal de Detalle** consumiendo `GET /pokemon/{name}`.
-- **Acción Compartir** que copia al portapapeles exactamente en el formato: `Nombre, Peso, Altura, Tipos, Habilidades` (Ej: `Pikachu, 60, 4, Electric, Static`) con notificación Toast.
-- **Diseño Moderno & Responsive**: Glassmorphic UI, animaciones fluidas a 60fps, tarjetas responsivas y accesibilidad ARIA.
+- **Pokébola animada 100% CSS (`PokeballLoader.vue`)**: Pantalla de carga animada mediante animaciones CSS puras (sin librerías externas).
+- **Buscador en Tiempo Real con Carga Activa**: Filtrado por nombre e ID con indicador de carga sincrónico (`isSearching`), evitando sensaciones de pantalla congelada.
+- **Catálogo Completo & Paginación Dinámica (`Pagination.vue`)**: Carga del catálogo completo (1025 Pokémon) distribuido en páginas numéricas configurables (30 ítems/pág) con desplazamiento suave (*smooth scroll*).
+- **Navegación Instantánea con `<KeepAlive>`**: Cambio entre las pestañas "Todos" y "Favoritos" en **0ms** manteniendo el estado en memoria.
+- **Gestión de Favoritos en Pinia Store**: Reactividad automática almacenando únicamente identificadores/nombres en un `Set<string>` para garantizar cero duplicidad de información.
+- **Modal de Detalle (`PokemonDetailModal.vue`)**: Consumo de `GET /pokemon/{name}` mostrando imagen oficial, peso, altura, tipos y habilidades.
+- **Acción Compartir**: Copia al portapapeles exactamente en el formato requerido: `Nombre, Peso, Altura, Tipos, Habilidades` (Ej: `Pikachu, 60, 4, Electric, Static`) con notificación flotante Toast.
+- **Diseño Moderno & Responsive**: Estilos Glassmorphic UI, animaciones a 60fps con aceleración por hardware GPU y accesibilidad ARIA.
 
 ---
 
@@ -41,10 +43,10 @@ src/
 ├── assets/
 │   └── styles/           # Sistema de diseño SCSS (variables, mixins, animaciones, estilos globales)
 ├── components/
-│   ├── common/           # Componentes UI reutilizables (PokeballLoader, SearchBar, EmptyState, ErrorState, ModalDialog, ToastNotification)
+│   ├── common/           # Componentes UI reutilizables (PokeballLoader, SearchBar, Pagination, EmptyState, ErrorState, ModalDialog, ToastNotification)
 │   ├── layout/           # Componentes de estructura (AppHeader)
 │   └── pokemon/          # Componentes del dominio Pokémon (PokemonCard, PokemonList, PokemonDetailModal)
-├── composables/          # Orquestadores reactivos (usePokemon) que ejecutan las llamadas a la API y actualizan los stores de Pinia
+├── composables/          # Orquestadores reactivos (usePokemon, useClipboard, useDebounce)
 ├── constants/            # Constantes globales de la API y límites
 ├── layouts/              # Layout base de la aplicación (MainLayout)
 ├── router/               # Configuración de rutas (Home, Favorites)
@@ -53,28 +55,32 @@ src/
 ├── types/                # Interfaces de TypeScript (PokeAPI responses & modelos de dominio)
 ├── utils/                # Funciones puras (formatters, storage)
 ├── views/                # Vistas principales (HomeView, FavoritesView)
-└── __tests__/            # Pruebas unitarias con Vitest (Stores, Composable, Componentes)
+└── __tests__/            # Pruebas unitarias con Vitest (Stores, Composables, Componentes)
 ```
 
 ### Principio de Separación entre Store Local y API
-- **Pinia Stores (`useFavoritesStore`, `usePokemonStore`)**: Son contenedores de estado **100% locales y puros**. No contienen importaciones de Axios ni ejecutan `async fetch` directamente en sus acciones. Se encargan únicamente de mutar y mantener el estado local de forma sincrónica y predecible.
-- **Servicio API (`pokemonService.ts`)**: Encapsula exclusivamente las peticiones HTTP a la PokeAPI.
-- **Composable Orquestador (`usePokemon.ts`)**: Conecta el servicio API con los Stores locales. Realiza las llamadas asíncronas, maneja errores y actualiza el estado de los stores de Pinia.
+- **Pinia Stores (`useFavoritesStore`, `usePokemonStore`)**: Contenedores de estado **100% locales y puros**. No contienen importaciones de Axios ni ejecutan `async fetch` dentro de sus acciones.
+- **Servicios API (`pokemonService.ts`)**: Encapsulan exclusivamente las peticiones HTTP a PokeAPI.
+- **Composable Orquestador (`usePokemon.ts`)**: Conecta el servicio API con los Stores locales. Realiza las llamadas asíncronas, maneja errores, sincroniza la paginación y actualiza los stores de Pinia.
 
 ---
 
 ## 🧠 Decisiones Técnicas & Justificación
 
 ### 1. ¿Por qué Pinia en lugar de Vuex?
-- **Tipado nativo superior**: Diseñado para TypeScript, infiriendo tipos automáticamente sin necesidad de `mapState` o `mapGetters`.
+- **Tipado nativo superior**: Diseñado nativamente para TypeScript, infiriendo tipos automáticamente sin necesidad de `mapState` o `mapGetters`.
 - **Estructura limpia**: Elimina las mutaciones verbosas de Vuex, permitiendo actualizar el estado directamente dentro de acciones asíncronas.
-- **Rendimiento y Ligereza**: Peso de paquete ultra reducido (~1KB gzipped) e integración directa con las DevTools de Vue 3.
-- **Gestión eficiente de Favoritos**: Los favoritos se almacenan mediante un `Set<string>` reactivo que guarda únicamente los identificadores/nombres de los Pokémon. De esta forma se garantiza **cero duplicación de información** y un tiempo de búsqueda $O(1)$.
+- **Gestión eficiente de Favoritos**: Los favoritos se almacenan mediante un `Set<string>` reactivo que guarda únicamente los nombres de los Pokémon. Garantiza **cero duplicación de información** y tiempos de búsqueda de $O(1)$.
 
 ### 2. ¿Por qué Composition API (`<script setup>`)?
 - **Reutilización y Modulardad**: Facilita la extracción de lógica composable (`usePokemon`, `useClipboard`, `useDebounce`) manteniéndola agnóstica de los componentes UI.
-- **Legibilidad**: Agrupa código relacionado funcionalmente en lugar de fragmentarlo por opciones del componente (`data`, `methods`, `computed`).
+- **Legibilidad**: Agrupa código relacionado funcionalmente en lugar de fragmentarlo por opciones de componentes.
 - **Mejor inferencia de TypeScript**: TypeScript comprende el alcance de las variables declaradas directamente en el top-level del bloque `<script setup>`.
+
+### 3. Estrategia para Manejo de Gran Cantidad de Datos & Velocidad
+- **Catálogo Completo + Paginación Dinámica**: Carga todos los registros (1025 Pokémon) paginados en bloques de 30 elementos para evitar saturar el DOM.
+- **Caché de Rutas con `<KeepAlive>`**: Conserva las instancias de `HomeView` y `FavoritesView` en memoria para cambios de pestaña inmediatos en 0ms.
+- **Aceleración por Hardware GPU**: Las tarjetas aplican `will-change: transform, opacity;` y `transform: translateZ(0)` para renderizado fluido a 60 FPS.
 
 ---
 
@@ -101,7 +107,7 @@ La aplicación estará disponible en `http://localhost:5173`.
 ### 3. Ejecutar Pruebas Unitarias
 
 ```bash
-# Ejecutar tests una vez
+# Ejecutar suite de tests unitarios
 npm run test
 
 # Ejecutar tests en modo watch
@@ -111,7 +117,7 @@ npm run test:watch
 ### 4. Verificar Linter y Formato
 
 ```bash
-# Corregir linting
+# Corregir linting con ESLint
 npm run lint
 
 # Formatear archivos con Prettier
