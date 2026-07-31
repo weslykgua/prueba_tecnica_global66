@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
-import PokemonCard from '../../components/pokemon/PokemonCard.vue';
-import { PokemonListItem } from '../../types/pokemon.types';
+import PokemonCard from '../../pokemon/component/PokemonCard.vue';
+import PokemonListItem from '@/pokemon/model/PokemonListItem.ts';
 
 describe('PokemonCard.vue', () => {
   const mockPokemon: PokemonListItem = {
@@ -34,21 +34,21 @@ describe('PokemonCard.vue', () => {
     await wrapper.trigger('click');
 
     expect(wrapper.emitted('select')).toBeTruthy();
-    expect(wrapper.emitted('select')?.[0]).toEqual(['pikachu']);
+    expect(wrapper.emitted('select')![0]).toEqual(['pikachu']);
   });
 
-  it('emits toggle-favorite event when star button is clicked', async () => {
+  it('emits toggle-favorite event when favorite button is clicked', async () => {
     const wrapper = mount(PokemonCard, {
       props: {
         pokemon: mockPokemon,
-        isFavorite: true,
+        isFavorite: false,
       },
     });
 
-    const favButton = wrapper.find('.favorite-button');
-    await favButton.trigger('click');
+    const starBtn = wrapper.find('.favorite-button');
+    await starBtn.trigger('click');
 
     expect(wrapper.emitted('toggle-favorite')).toBeTruthy();
-    expect(wrapper.emitted('toggle-favorite')?.[0]).toEqual(['pikachu']);
+    expect(wrapper.emitted('toggle-favorite')![0]).toEqual(['pikachu']);
   });
 });
