@@ -3,19 +3,25 @@ import { PokemonDetail, ToastMessage } from '../types/pokemon.types';
 import { buildPokemonShareText } from '../utils/formatters';
 
 const activeToasts = ref<ToastMessage[]>([]);
+let toastTimer: ReturnType<typeof setTimeout> | null = null;
 
 /**
- * Handles copying Pokémon details to clipboard using modern Clipboard API with toast feedback.
+ * Handles copying Pokémon details to clipboard using modern Clipboard API with rate-limited toast feedback.
  */
 export function useClipboard() {
   const isCopying = ref(false);
 
   function addToast(message: string, type: 'success' | 'info' | 'error' = 'success') {
+    if (toastTimer) clearTimeout(toastTimer);
     const id = Date.now().toString() + Math.random().toString().slice(2, 6);
-    activeToasts.value.push({ id, message, type });
-    setTimeout(() => {
+
+    // Limit active toasts to 1 single toast to prevent notification stacking on rapid clicks
+    activeToasts.value = [{ id, message, type }];
+
+    toastTimer = setTimeout(() => {
       removeToast(id);
-    }, 3500);
+      toastTimer = null;
+    }, 3000);
   }
 
   function removeToast(id: string) {
