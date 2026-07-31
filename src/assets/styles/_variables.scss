@@ -1,0 +1,59 @@
+// Color Palette
+$primary-color: #e63946;
+$primary-hover: #d62828;
+$secondary-color: #ffcb05;
+$secondary-hover: #f1b800;
+$dark-bg: #0f172a;
+$dark-surface: #1e293b;
+$dark-card: #334155;
+$light-bg: #f8fafc;
+$light-surface: #ffffff;
+
+$text-dark: #0f172a;
+$text-light: #f8fafc;
+$text-muted: #94a3b8;
+$text-subtle: #64748b;
+
+$border-color: rgba(255, 255, 255, 0.1);
+$border-light: #e2e8f0;
+
+// Type Badges Colors
+$type-normal: #a8a77a;
+$type-fire: #ee8130;
+$type-water: #6390f0;
+$type-electric: #f7d02c;
+$type-grass: #7ac74c;
+$type-ice: #96d9d6;
+$type-fighting: #c22e28;
+$type-poison: #a33ea2;
+$type-ground: #e2bf65;
+$type-flying: #a98ff3;
+$type-psychic: #f95587;
+$type-bug: #a6b91a;
+$type-rock: #b6a136;
+$type-ghost: #735797;
+$type-dragon: #6f35fc;
+$type-dark: #705746;
+$type-steel: #b7b7ce;
+$type-fairy: #d685ad;
+
+// Typography
+$font-family: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+// Shadows & Effects
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+$shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+$shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.2);
+$shadow-glow: 0 0 20px rgba(230, 57, 70, 0.35);
+
+// Border Radius
+$radius-sm: 8px;
+$radius-md: 16px;
+$radius-lg: 24px;
+$radius-full: 9999px;
+
+// Breakpoints
+$bp-mobile: 480px;
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+$bp-wide: 1280px;
