@@ -1,6 +1,6 @@
 # ⚡ Global66 - Vue 3 + TypeScript Pokédex Technical Solution
 
-Una aplicación web de grado de producción desarrollada en **Vue 3**, **TypeScript**, **Vite** y **Pinia** para visualizar, buscar y administrar Pokémon utilizando la [PokeAPI](https://pokeapi.co/). Diseñada siguiendo arquitectura limpia (Clean Architecture), principios SOLID, DRY y KISS, priorizando la mantenibilidad, escalabilidad, rendimiento y experiencia de usuario (UX).
+Una aplicación web de grado de producción desarrollada en **Vue 3**, **TypeScript**, **Vite** y **Pinia** para visualizar, buscar y administrar Pokémon utilizando la [PokeAPI](https://pokeapi.co/). Diseñada siguiendo **MVVM + Arquitectura Limpia (Clean Architecture)** y principios SOLID, DRY y KISS, priorizando la mantenibilidad, escalabilidad, rendimiento y experiencia de usuario (UX).
 
 ---
 
@@ -13,7 +13,7 @@ Una aplicación web de grado de producción desarrollada en **Vue 3**, **TypeScr
 - **Gestión de Favoritos en Pinia Store**: Reactividad automática almacenando únicamente identificadores/nombres en un `Set<string>` para garantizar cero duplicidad de información.
 - **Modal de Detalle (`PokemonDetailModal.vue`)**: Consumo de `GET /pokemon/{name}` mostrando imagen oficial, peso, altura, tipos y habilidades.
 - **Acción Compartir**: Copia al portapapeles exactamente en el formato requerido: `Nombre, Peso, Altura, Tipos, Habilidades` (Ej: `Pikachu, 60, 4, Electric, Static`) con notificación flotante Toast.
-- **Diseño Moderno & Responsive**: Estilos Glassmorphic UI, animaciones a 60fps con aceleración por hardware GPU y accesibilidad ARIA.
+- **Diseño Moderno & Responsive**: Estéticas minimalistas, animaciones a 60fps con aceleración por hardware GPU y accesibilidad ARIA.
 
 ---
 
@@ -27,60 +27,60 @@ Una aplicación web de grado de producción desarrollada en **Vue 3**, **TypeScr
 | **Pinia** | Gestión de estado local centralizada, dividida en stores puros independientes (`usePokemonStore` y `useFavoritesStore`). |
 | **Vue Router** | Enrutamiento cliente para navegar entre la Pokedex principal y Favoritos. |
 | **Axios** | Cliente HTTP con tiempo de espera (10s) e interceptores para manejo amigable de errores. |
-| **Sass / SCSS** | Estilos modernos utilizando variables, mixins de glassmorphism y keyframes. |
+| **Sass / SCSS** | Estilos modernos utilizando variables, mixins y keyframes. |
 | **Vitest & Vue Test Utils** | Framework de pruebas unitarias para Stores, Composables y Componentes. |
 | **ESLint & Prettier** | Estándar de código y formateador automático. |
 
 ---
 
-## 📐 Arquitectura del Proyecto & Separación de Capas
+## 📐 Arquitectura MVVM + Clean Architecture
 
-El proyecto aplica **Arquitectura Limpia en Capas (Clean Architecture)** separando explícitamente el **estado local (Stores de Pinia)** del **servicio de llamadas a la API**:
+El proyecto aplica **MVVM (Model-View-ViewModel)** combinado con **Clean Architecture en Capas**, separando estrictamente las responsabilidades del sistema:
 
 ```
 src/
-├── api/                  # Instancia Axios, interceptores de red y configuración de timeouts
-├── assets/
-│   └── styles/           # Sistema de diseño SCSS (variables, mixins, animaciones, estilos globales)
-├── components/
-│   ├── common/           # Componentes UI reutilizables (PokeballLoader, SearchBar, Pagination, EmptyState, ErrorState, ModalDialog, ToastNotification)
-│   ├── layout/           # Componentes de estructura (AppHeader)
-│   └── pokemon/          # Componentes del dominio Pokémon (PokemonCard, PokemonList, PokemonDetailModal)
-├── composables/          # Orquestadores reactivos (usePokemon, useClipboard, useDebounce)
-├── constants/            # Constantes globales de la API y límites
-├── layouts/              # Layout base de la aplicación (MainLayout)
-├── router/               # Configuración de rutas (Home, Favorites)
-├── services/             # Servicios de dominio y peticiones HTTP puras (pokemon.service.ts)
-├── stores/               # Stores locales puros de Pinia (useFavoritesStore.ts, usePokemonStore.ts) sin efectos secundarios HTTP
-├── types/                # Interfaces de TypeScript (PokeAPI responses & modelos de dominio)
-├── utils/                # Funciones puras (formatters, storage)
-├── views/                # Vistas principales (HomeView, FavoritesView)
-└── __tests__/            # Pruebas unitarias con Vitest (Stores, Composables, Componentes)
+├── domain/                       # 1. Capa de Dominio (Pure Domain Layer)
+│   ├── entities/                 # Entidades de negocio (PokemonListItemEntity, PokemonDetailEntity)
+│   ├── repositories/             # Contrato / Interfaz del Repositorio (IPokemonRepository)
+│   └── usecases/                 # Casos de Uso (GetPokemonListUseCase, GetPokemonDetailUseCase)
+│
+├── data/                         # 2. Capa de Datos (Data Layer)
+│   ├── datasources/              # Data Source Remoto con Axios (PokemonRemoteDataSource)
+│   ├── mappers/                  # Mapeadores DTO -> Entity (PokemonMapper)
+│   └── repositories/             # Implementación del Repositorio (PokemonRepositoryImpl)
+│
+├── presentation/                 # 3. Capa de Presentación (MVVM Layer)
+│   ├── viewmodels/               # ViewModels reactivos (usePokemonViewModel, useClipboardViewModel)
+│   ├── stores/                   # Stores locales de Pinia (usePokemonStore, useFavoritesStore)
+│   ├── components/               # Componentes de Vista (PokemonCard, PokemonList, SearchBar, Pagination)
+│   └── views/                    # Vistas principales (HomeView, FavoritesView)
+│
+└── core/                         # 4. Núcleo / Shared Utilities
+    ├── api/                      # Instancia e interceptores Axios
+    ├── constants/                # Constantes globales de API y paginación
+    └── utils/                    # Funciones puras (formatters)
 ```
 
-### Principio de Separación entre Store Local y API
-- **Pinia Stores (`useFavoritesStore`, `usePokemonStore`)**: Contenedores de estado **100% locales y puros**. No contienen importaciones de Axios ni ejecutan `async fetch` dentro de sus acciones.
-- **Servicios API (`pokemonService.ts`)**: Encapsulan exclusivamente las peticiones HTTP a PokeAPI.
-- **Composable Orquestador (`usePokemon.ts`)**: Conecta el servicio API con los Stores locales. Realiza las llamadas asíncronas, maneja errores, sincroniza la paginación y actualiza los stores de Pinia.
+### Flujo de Datos MVVM + Clean Architecture
+
+1. **View (Vue Templates)**: Renderizan la interfaz de usuario y capturan interacciones del usuario.
+2. **ViewModel (`usePokemonViewModel`)**: Expone propiedades reactivas y comandos. Llama a los **Casos de Uso**.
+3. **Use Cases (`GetPokemonListUseCase`)**: Ejecutan la regla de negocio pura utilizando la interfaz del repositorio (`IPokemonRepository`).
+4. **Repository Impl (`PokemonRepositoryImpl`)**: Solicita los datos a la **Data Source**, transforma los DTOs usando **Mappers** y devuelve entidades puras de dominio.
+5. **Pinia Stores (`usePokemonStore`, `useFavoritesStore`)**: Mantienen el estado local cliente actualizado de forma reactiva y sincrónica.
 
 ---
 
 ## 🧠 Decisiones Técnicas & Justificación
 
-### 1. ¿Por qué Pinia en lugar de Vuex?
-- **Tipado nativo superior**: Diseñado nativamente para TypeScript, infiriendo tipos automáticamente sin necesidad de `mapState` o `mapGetters`.
-- **Estructura limpia**: Elimina las mutaciones verbosas de Vuex, permitiendo actualizar el estado directamente dentro de acciones asíncronas.
+### 1. ¿Por qué MVVM + Clean Architecture?
+- **Desacoplamiento Total**: La capa de dominio no conoce ni depende de Vue, Pinia ni Axios. Puede reutilizarse o probarse en aislamiento.
+- **Testabilidad Excepcional**: Cada caso de uso y mapper se prueba independientemente con mocks.
+- **Mantenibilidad Senior**: Las reglas de negocio, llamadas a la API e interfaces visuales están claramente delimitadas.
+
+### 2. ¿Por qué Pinia en lugar de Vuex?
+- **Tipado nativo superior**: Diseñado para TypeScript, infiriendo tipos automáticamente.
 - **Gestión eficiente de Favoritos**: Los favoritos se almacenan mediante un `Set<string>` reactivo que guarda únicamente los nombres de los Pokémon. Garantiza **cero duplicación de información** y tiempos de búsqueda de $O(1)$.
-
-### 2. ¿Por qué Composition API (`<script setup>`)?
-- **Reutilización y Modulardad**: Facilita la extracción de lógica composable (`usePokemon`, `useClipboard`, `useDebounce`) manteniéndola agnóstica de los componentes UI.
-- **Legibilidad**: Agrupa código relacionado funcionalmente en lugar de fragmentarlo por opciones de componentes.
-- **Mejor inferencia de TypeScript**: TypeScript comprende el alcance de las variables declaradas directamente en el top-level del bloque `<script setup>`.
-
-### 3. Estrategia para Manejo de Gran Cantidad de Datos & Velocidad
-- **Catálogo Completo + Paginación Dinámica**: Carga todos los registros (1025 Pokémon) paginados en bloques de 30 elementos para evitar saturar el DOM.
-- **Caché de Rutas con `<KeepAlive>`**: Conserva las instancias de `HomeView` y `FavoritesView` en memoria para cambios de pestaña inmediatos en 0ms.
-- **Aceleración por Hardware GPU**: Las tarjetas aplican `will-change: transform, opacity;` y `transform: translateZ(0)` para renderizado fluido a 60 FPS.
 
 ---
 
