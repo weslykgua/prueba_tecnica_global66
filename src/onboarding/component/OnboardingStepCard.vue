@@ -24,6 +24,7 @@
       </div>
 
       <Button
+        class="onboarding-btn"
         :data-testid="stepData.buttonTestId || 'btn-continue'"
         @click="emit('button-click')"
       >
@@ -35,6 +36,7 @@
 
 <script setup lang="ts">
 import Button from '@/common/component/Button.vue';
+
 export interface OnboardingStepItem {
   id?: number;
   imageSrc: string;
@@ -62,6 +64,8 @@ const emit = defineEmits<{
 </script>
 
 <style lang="scss" scoped>
+@use '../../assets/styles/variables' as *;
+
 .onboarding-step {
   display: flex;
   flex-direction: column;
@@ -103,11 +107,11 @@ const emit = defineEmits<{
 .step-title {
   font-size: 2rem;
   font-weight: 500;
-  color: #121212;
+  color: $text-title;
   line-height: 1.4;
   margin-bottom: 10px;
 
-  @media (max-width: 480px) {
+  @media (max-width: $bp-mobile) {
     font-size: 1.6rem;
     margin-bottom: 0.85rem;
     padding: 0 1rem;
@@ -117,12 +121,12 @@ const emit = defineEmits<{
 .step-subtitle {
   font-size: 1.05rem;
   font-weight: 400;
-  color: #424242;
+  color: $text-body;
   line-height: 1.3;
   margin-bottom: 1.75rem;
   max-width: 460px;
 
-  @media (max-width: 480px) {
+  @media (max-width: $bp-mobile) {
     font-size: 0.95rem;
     margin-bottom: 1.5rem;
     padding: 0 1rem;
@@ -140,7 +144,7 @@ const emit = defineEmits<{
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: #e0e0e0;
+    background-color: $border-color;
     border: none;
     padding: 0;
     cursor: pointer;
@@ -149,8 +153,12 @@ const emit = defineEmits<{
     &.active {
       width: 28px;
       border-radius: 12px;
-      background-color: #173ea5;
+      background-color: $primary-accent;
     }
   }
+}
+
+.onboarding-btn {
+  margin: 24px auto 40px;
 }
 </style>

@@ -27,9 +27,10 @@ describe('PokemonApi Service', () => {
     };
 
     vi.spyOn(api, 'getPokemonDetail').mockResolvedValue(mockDetail);
-    const result = await api.getPokemonDetail('pikachu');
+    const result = await api.getPokemonDetail(25);
 
-    expect(api.getPokemonDetail).toHaveBeenCalledWith('pikachu');
+    expect(api.getPokemonDetail).toHaveBeenCalledWith(25);
     expect(result).toEqual(mockDetail);
   });
+
 });

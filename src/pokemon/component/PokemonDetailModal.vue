@@ -7,7 +7,12 @@
     <div v-else-if="pokemon" class="detail-container">
       <!-- Header banner with main type background -->
       <div class="detail-banner" :class="mainType">
-        <button @click="$emit('close')" class="close-icon-btn" aria-label="Cerrar modal" type="button">
+        <button
+          @click="$emit('close')"
+          class="close-icon-btn"
+          aria-label="Cerrar modal"
+          type="button"
+        >
           &times;
         </button>
         <span class="pokemon-id-tag">#{{ formattedId }}</span>
@@ -23,12 +28,18 @@
         <!-- Types Badges -->
         <div class="types-list">
           <span
-            v-for="type in pokemon.types"
+            v-for="type in categories"
             :key="type"
             class="type-badge"
-            :class="type"
+            :style="{ backgroundColor: getTypeBackgroundColor(type) }"
           >
-            {{ capitalize(type) }}
+            <img
+              v-if="getTypeIcon(type)"
+              :src="getTypeIcon(type)"
+              :alt="formatTypeName(type)"
+              class="type-icon"
+            />
+            {{ formatTypeName(type) }}
           </span>
         </div>
 
@@ -48,11 +59,7 @@
         <div class="abilities-section">
           <h4 class="section-title">Habilidades</h4>
           <div class="abilities-list">
-            <span
-              v-for="ability in pokemon.abilities"
-              :key="ability"
-              class="ability-badge"
-            >
+            <span v-for="ability in pokemon.abilities" :key="ability" class="ability-badge">
               {{ capitalize(ability) }}
             </span>
           </div>
@@ -61,13 +68,7 @@
         <!-- Action Buttons Footer -->
         <div class="actions-footer">
           <button @click="$emit('share', pokemon)" class="action-btn share-btn" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="18" cy="5" r="3"></circle>
-              <circle cx="6" cy="12" r="3"></circle>
-              <circle cx="18" cy="19" r="3"></circle>
-              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-            </svg>
+            <img :src="shareIcon" alt="Compartir" class="btn-icon" />
             Compartir
           </button>
 
@@ -77,20 +78,15 @@
             :class="{ active: isFavorite }"
             type="button"
           >
-            <svg
-              viewBox="0 0 24 24"
-              :fill="isFavorite ? '#F2C94C' : 'none'"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-            </svg>
+            <img
+              :src="isFavorite ? heartFilledIcon : heartOutlineIcon"
+              :alt="isFavorite ? 'Favorito' : 'Agregar Favorito'"
+              class="btn-icon"
+            />
             {{ isFavorite ? 'Favorito' : 'Agregar Favorito' }}
           </button>
 
-          <button @click="$emit('close')" class="action-btn close-btn" type="button">
-            Cerrar
-          </button>
+          <button @click="$emit('close')" class="action-btn close-btn" type="button">Cerrar</button>
         </div>
       </div>
     </div>
@@ -101,8 +97,12 @@
 import { computed } from 'vue';
 import ModalDialog from './ModalDialog.vue';
 import PokeballLoader from './PokeballLoader.vue';
-import { capitalize } from '../utils/formatters.ts';
+import shareIcon from '@/assets/ic_share.svg';
+import heartFilledIcon from '@/assets/ic_heart_filled.svg';
+import heartOutlineIcon from '@/assets/ic_heart_outline.svg';
+import { capitalize, formatTypeName, getTypeBackgroundColor, getTypeIcon } from '../utils/formatters.ts';
 import PokemonDetail from '../model/PokemonDetail.ts';
+import { PokemonType, toPokemonType } from '../type/PokemonType.ts';
 
 const props = defineProps<{
   isOpen: boolean;
@@ -119,6 +119,13 @@ defineEmits<{
 
 const formattedId = computed(() => {
   return props.pokemon ? String(props.pokemon.id).padStart(3, '0') : '000';
+});
+
+const categories = computed<PokemonType[]>(() => {
+  if (!props.pokemon || !props.pokemon.types) return [];
+  return props.pokemon.types
+    .map(t => toPokemonType(t))
+    .filter((cat): cat is PokemonType => cat !== undefined);
 });
 
 const mainType = computed(() => {
@@ -145,13 +152,27 @@ const mainType = computed(() => {
   background-color: #222222;
   border-radius: $radius-card $radius-card 0 0;
 
-  &.fire { background-color: #EE8130; }
-  &.water { background-color: #6390F0; }
-  &.grass { background-color: #7AC74C; }
-  &.electric { background-color: #F7D02C; }
-  &.poison { background-color: #A33EA2; }
-  &.psychic { background-color: #F95587; }
-  &.dragon { background-color: #6F35FC; }
+  &.fire {
+    background-color: #ee8130;
+  }
+  &.water {
+    background-color: #6390f0;
+  }
+  &.grass {
+    background-color: #7ac74c;
+  }
+  &.electric {
+    background-color: #f7d02c;
+  }
+  &.poison {
+    background-color: #a33ea2;
+  }
+  &.psychic {
+    background-color: #f95587;
+  }
+  &.dragon {
+    background-color: #6f35fc;
+  }
 }
 
 .close-icon-btn {
@@ -206,7 +227,7 @@ const mainType = computed(() => {
   color: $text-primary;
 
   @media (prefers-color-scheme: dark) {
-    color: #FFFEFC;
+    color: #fffefc;
   }
 }
 
@@ -225,14 +246,31 @@ const mainType = computed(() => {
   text-transform: capitalize;
   background-color: #555555;
 
-  &.normal { background-color: $type-normal; }
-  &.fire { background-color: $type-fire; }
-  &.water { background-color: $type-water; }
-  &.electric { background-color: $type-electric; color: #222222; }
-  &.grass { background-color: $type-grass; }
-  &.poison { background-color: $type-poison; }
-  &.psychic { background-color: $type-psychic; }
-  &.dragon { background-color: $type-dragon; }
+  &.normal {
+    background-color: $type-normal;
+  }
+  &.fire {
+    background-color: $type-fire;
+  }
+  &.water {
+    background-color: $type-water;
+  }
+  &.electric {
+    background-color: $type-electric;
+    color: #222222;
+  }
+  &.grass {
+    background-color: $type-grass;
+  }
+  &.poison {
+    background-color: $type-poison;
+  }
+  &.psychic {
+    background-color: $type-psychic;
+  }
+  &.dragon {
+    background-color: $type-dragon;
+  }
 }
 
 .stats-grid {
@@ -243,7 +281,7 @@ const mainType = computed(() => {
 }
 
 .stat-card {
-  background-color: #FFFDF9;
+  background-color: #fffdf9;
   border: 1px solid $border-color;
   padding: 0.65rem 0.75rem;
   border-radius: $radius-md;
@@ -270,7 +308,7 @@ const mainType = computed(() => {
   color: $text-primary;
 
   @media (prefers-color-scheme: dark) {
-    color: #FFFEFC;
+    color: #fffefc;
   }
 }
 
@@ -295,7 +333,7 @@ const mainType = computed(() => {
 
 .ability-badge {
   padding: 0.3rem 0.7rem;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border: 1px solid $border-color;
   border-radius: $radius-sm;
   font-size: 0.825rem;
@@ -305,7 +343,7 @@ const mainType = computed(() => {
   @media (prefers-color-scheme: dark) {
     background-color: rgba(255, 255, 255, 0.04);
     border-color: $border-dark;
-    color: #FFFEFC;
+    color: #fffefc;
   }
 }
 
@@ -351,18 +389,18 @@ const mainType = computed(() => {
 }
 
 .favorite-btn {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: #333333;
   border: 1px solid $border-hover;
 
   @media (prefers-color-scheme: dark) {
     background-color: $dark-card;
     border-color: $border-dark;
-    color: #FFFEFC;
+    color: #fffefc;
   }
 
   &:hover {
-    background-color: #F8F8F8;
+    background-color: #f8f8f8;
   }
 
   &.active {
@@ -373,18 +411,18 @@ const mainType = computed(() => {
 }
 
 .close-btn {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border: 1px solid $border-hover;
   color: #333333;
 
   @media (prefers-color-scheme: dark) {
     background-color: $dark-card;
     border-color: $border-dark;
-    color: #FFFEFC;
+    color: #fffefc;
   }
 
   &:hover {
-    background-color: #F8F8F8;
+    background-color: #f8f8f8;
   }
 }
 </style>

@@ -2,7 +2,24 @@
 @use './mixins' as *;
 @use './animations' as *;
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #{$primary-color};
+  --primary-hover: #{$primary-hover};
+  --primary-active: #{$primary-active};
+  --primary-accent: #{$primary-accent};
+  --text-title: #{$text-title};
+  --text-primary: #{$text-primary};
+  --text-body: #{$text-body};
+  --text-secondary: #{$text-secondary};
+  --text-muted: #{$text-muted};
+  --bg-color: #{$bg-color};
+  --bg-light: #{$bg-light};
+  --border-color: #{$border-color};
+  --border-light: #{$border-light};
+  --font-family: #{$font-family};
+}
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -19,11 +36,6 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   @include custom-scrollbar;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: $dark-bg;
-    color: $text-light;
-  }
 }
 
 a {
@@ -43,7 +55,6 @@ input {
   font-family: inherit;
 }
 
-/* Accessible focus ring */
 :focus-visible {
   outline: 2px solid $primary-color;
   outline-offset: 2px;

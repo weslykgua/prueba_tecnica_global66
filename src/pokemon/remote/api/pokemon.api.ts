@@ -6,18 +6,29 @@ import PokemonDetail from "@/pokemon/model/PokemonDetail";
 import { PokemonListItemMapper } from "@/pokemon/mapper/PokemonListMapper";
 import { PokemonDetailMapper } from "@/pokemon/mapper/PokemonDetailMapper";
 import PokeApiPokemon from "../model/PokeApiPokemon";
+import { extractIdFromUrl } from "@/pokemon/utils/formatters";
 
 export class PokemonApi {
   async getPokemonList(limit = DEFAULT_LIST_LIMIT): Promise<PokemonListItem[]> {
     const response = await pokemonClient.get<PokeApiListResponse>(`/pokemon?limit=${limit}`);
 
-    return response.data.results.map(dto => PokemonListItemMapper.fromRemote(dto));
+    return Promise.all(response.data.results.map(async dto => {
+      const id = extractIdFromUrl(dto.url);
+      const detail = await this.getPokemonDetailRemote(id);
+
+      return PokemonListItemMapper.fromRemote(dto, detail);
+    }));
+      
   }
 
-  async getPokemonDetail(name: string): Promise<PokemonDetail> {
-    const response = await pokemonClient.get<PokeApiPokemon>(`/pokemon/${name.toLowerCase()}`);
+  private async getPokemonDetailRemote(id: number): Promise<PokeApiPokemon> {
+    const response = await pokemonClient.get<PokeApiPokemon>(`/pokemon/${id}`);
 
-    return PokemonDetailMapper.fromRemote(response.data);
+    return response.data;
+  }
+
+  async getPokemonDetail(id: number): Promise<PokemonDetail> {
+    return PokemonDetailMapper.fromRemote(await this.getPokemonDetailRemote(id));
   }
 }
 

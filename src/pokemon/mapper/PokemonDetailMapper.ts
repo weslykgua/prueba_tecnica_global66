@@ -4,7 +4,6 @@ import PokeApiAbilitySlot from "../remote/model/PokeApiAbilitySlot";
 import PokeApiPokemon from "../remote/model/PokeApiPokemon";
 import PokeApiTypeSlot from "../remote/model/PokeApiTypeSlot";
 import { capitalize } from "../utils/formatters";
-import { OFFICIAL_ARTWORK_BASE_URL } from "../utils/pokemon.constants";
 
 export class PokemonDetailMapper {
   static fromLocal(pokemon: PokemonDetailLocal): PokemonDetail {
@@ -38,10 +37,7 @@ export class PokemonDetailMapper {
   }
 
   static fromRemote(dto: PokeApiPokemon): PokemonDetail {
-    const spriteUrl =
-      dto.sprites.other?.['official-artwork']?.front_default ||
-      dto.sprites.front_default ||
-      `${OFFICIAL_ARTWORK_BASE_URL}/${dto.id}.png`;
+    const spriteUrl = dto.sprites.front_default
 
     return {
       id: dto.id,

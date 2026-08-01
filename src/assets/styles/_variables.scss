@@ -1,12 +1,13 @@
-// Color Palette - Apple / Vercel / Notion Inspired Clean Style
-$primary-color: #D83B3B;
-$primary-hover: #C92F2F;
-$btn-primary-hover: #C92F2F;
+$primary-color: #1E88E5;
+$primary-hover: #1565C0;
+$primary-active: #0D47A1;
+$primary-accent: #173EA5;
 
 $secondary-color: #F2C94C;
 $secondary-hover: #E6B93F;
 
-$bg-color: #FFFEFC;
+$bg-color: #FFFFFF;
+$bg-light: #FAFAFA;
 $surface-color: #FFFFFF;
 $card-bg: #FFFFFF;
 $section-bg: #FFFDF9;
@@ -15,20 +16,21 @@ $dark-bg: #1F1F1F;
 $dark-surface: #2A2A2A;
 $dark-card: #343434;
 
+$text-title: #121212;
 $text-primary: #222222;
-$text-secondary: #555555;
+$text-body: #424242;
+$text-secondary: #5E5E5E;
 $text-muted: #7A7A7A;
-$text-subtle: #999999;
+$text-subtle: #9E9E9E;
 $text-dark: #222222;
-$text-light: #FFFEFC;
+$text-light: #FFFFFF;
 
-$border-color: #ECECEC;
+$border-color: #E0E0E0;
 $border-light: #ECECEC;
-$border-card: #ECECEC;
+$border-card: #E0E0E0;
 $border-hover: #DDDDDD;
 $border-dark: #3E3E3E;
 
-// Type Badges Colors
 $type-normal: #A8A77A;
 $type-fire: #EE8130;
 $type-water: #6390F0;
@@ -47,27 +49,24 @@ $type-dragon: #6F35FC;
 $type-dark: #705746;
 $type-steel: #B7B7CE;
 $type-fairy: #D685AD;
+$pokeball-top: #F22539;
 
-// Typography
-$font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$font-family: 'Poppins', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-// Crisp Subtle Shadows (No Glow, No Glassmorphism)
 $shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
 $shadow-md: 0 8px 18px rgba(0, 0, 0, 0.07);
 $shadow-lg: 0 16px 28px rgba(0, 0, 0, 0.09);
 
-// Border Radius
 $radius-sm: 8px;
 $radius-md: 12px;
 $radius-lg: 14px;
 $radius-card: 14px;
+$radius-button: 60px;
 $radius-full: 9999px;
 
-// Animation Tokens
 $anim-duration: 200ms;
 $anim-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 
-// Breakpoints
 $bp-mobile: 480px;
 $bp-tablet: 768px;
 $bp-desktop: 1024px;

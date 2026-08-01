@@ -1,19 +1,20 @@
 import PokemonListItemLocal from '../local/model/PokemonListItemLocal';
 import PokemonListItem from '../model/PokemonListItem';
 import NamedApiResource from '../remote/model/NamedApiResource';
-import { OFFICIAL_ARTWORK_BASE_URL } from '../utils/pokemon.constants';
+import PokeApiPokemon from '../remote/model/PokeApiPokemon';
+import { toPokemonType } from '../type/PokemonType';
 
 export class PokemonListItemMapper {
-  static fromRemote(dto: NamedApiResource): PokemonListItem {
-    const id = this.extractIdFromUrl(dto.url);
-    const spriteUrl = `${OFFICIAL_ARTWORK_BASE_URL}/${id}.png`;
+  static fromRemote(dto: NamedApiResource, detail: PokeApiPokemon): PokemonListItem {
+    const types = detail.types.map(type => toPokemonType(type.type.name)!);
 
     return {
-      id,
+      id: detail.id,
       name: dto.name,
-      url: dto.url,
-      spriteUrl
-    }
+      spriteUrl: detail.sprites.front_default,
+      principalType: types[0],
+      types: types,
+    };
   }
 
   static toLocalArray(list: PokemonListItem[]): PokemonListItemLocal[] {
@@ -28,24 +29,19 @@ export class PokemonListItemMapper {
     return {
       id: list.id,
       name: list.name,
-      url: list.url,
-      spriteUrl: list.spriteUrl
-    }
+      spriteUrl: list.spriteUrl,
+      principalType: list.principalType,
+      types: list.types,
+    };
   }
 
   private static fromLocal(list: PokemonListItemLocal): PokemonListItem {
     return {
       id: list.id,
       name: list.name,
-      url: list.url,
-      spriteUrl: list.spriteUrl
-    }
-  }
-
-  private static extractIdFromUrl(url: string): number {
-    const segments = url.split('/').filter(Boolean);
-    const idStr = segments[segments.length - 1];
-
-    return parseInt(idStr, 10) || 0;
+      spriteUrl: list.spriteUrl,
+      principalType: list.principalType,
+      types: list.types,
+    };
   }
 }

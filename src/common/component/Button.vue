@@ -35,17 +35,17 @@ defineEmits<{
 </script>
 
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+@use '../../assets/styles/variables' as *;
 
 .app-button {
-  background-color: #1e88e5;
-  color: #ffffff;
+  background-color: $primary-color;
+  color: $text-light;
   border: none;
-  border-radius: 60px;
+  border-radius: $radius-button;
   padding: 1.05rem;
   font-size: 1.15rem;
   font-weight: 500;
-  font-family: 'Poppins', sans-serif;
+  font-family: $font-family;
   cursor: pointer;
   outline: none;
   box-shadow: 0 4px 14px rgba(30, 136, 229, 0.25);
@@ -55,10 +55,10 @@ defineEmits<{
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 24px auto 40px;
+  margin: 0 auto;
 
   &:hover:not(:disabled) {
-    background-color: #1565c0;
+    background-color: $primary-hover;
   }
 
   &:active:not(:disabled) {

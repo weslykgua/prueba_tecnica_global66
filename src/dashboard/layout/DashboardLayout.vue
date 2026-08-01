@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-layout">
-    <main class="dashboard-content">
+    <main class="dashboard-content" :style="{ paddingBottom: `${tabBarHeight}px` }">
       <router-view v-slot="{ Component }">
         <transition name="page-fade" mode="out-in">
           <keep-alive include="HomeView,FavoritesView">
@@ -9,12 +9,49 @@
         </transition>
       </router-view>
     </main>
-    <AppTadBar />
+    <div class="nav-container">
+      <AppTabBar />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import AppTadBar from '../component/AppTadBar.vue';
+import { ref, onMounted, onUnmounted, nextTick } from 'vue';
+import AppTabBar from '../component/AppTabBar.vue';
+
+const tabBarHeight = ref(0);
+let resizeObserver: ResizeObserver | null = null;
+
+const updateTabBarHeight = () => {
+  const tabbarEl = document.querySelector('.app-tabbar') as HTMLElement | null;
+  if (tabbarEl) {
+    const rect = tabbarEl.getBoundingClientRect();
+    if (rect.height > 0) {
+      tabBarHeight.value = Math.round(rect.height);
+    }
+  }
+};
+
+onMounted(() => {
+  nextTick(() => {
+    updateTabBarHeight();
+    const tabbarEl = document.querySelector('.app-tabbar');
+    if (tabbarEl && typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(() => {
+        updateTabBarHeight();
+      });
+      resizeObserver.observe(tabbarEl);
+    }
+  });
+  window.addEventListener('resize', updateTabBarHeight);
+});
+
+onUnmounted(() => {
+  if (resizeObserver) {
+    resizeObserver.disconnect();
+  }
+  window.removeEventListener('resize', updateTabBarHeight);
+});
 </script>
 
 <style lang="scss" scoped>
@@ -30,16 +67,31 @@ import AppTadBar from '../component/AppTadBar.vue';
 .dashboard-content {
   flex: 1;
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  box-sizing: border-box;
 
-  > :deep(*) {
+  :deep(> *) {
     flex: 1;
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100%;
   }
+
+  :deep(.home-view) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.nav-container {
+  width: 100%;
 }
 
 .page-fade-enter-active,

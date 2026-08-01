@@ -57,7 +57,7 @@ defineProps<{
     left: 0;
     width: 100%;
     height: 50%;
-    background-color: $primary-color;
+    background-color: $pokeball-top;
   }
 
   .pokeball-bottom {

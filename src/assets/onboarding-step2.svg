@@ -1,0 +1,24 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Glow Circle -->
+  <circle cx="100" cy="100" r="90" fill="#FFF9E6"/>
+  
+  <!-- Pokeball Base -->
+  <circle cx="100" cy="105" r="55" fill="white" stroke="#333333" stroke-width="4"/>
+  <mask id="step2_mask" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="45" y="50" width="110" height="55">
+    <rect x="45" y="50" width="110" height="55" fill="#C4C4C4"/>
+  </mask>
+  <g mask="url(#step2_mask)">
+    <circle cx="100" cy="105" r="55" fill="#F22539" stroke="#333333" stroke-width="4"/>
+  </g>
+  <path d="M45 105H155" stroke="#333333" stroke-width="4"/>
+  <circle cx="100" cy="105" r="22" fill="white" stroke="#333333" stroke-width="4"/>
+  <circle cx="100" cy="105" r="11" stroke="#808080" stroke-width="2"/>
+  
+  <!-- Big Golden Star Badge -->
+  <g transform="translate(60, 20)">
+    <path d="M40 0L49.5 25.5L78 27L56 46L63 74L40 59L17 74L24 46L2 27L30.5 25.5L40 0Z" fill="#F2C94C" stroke="#333333" stroke-width="3.5" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Heart Sparkles -->
+  <path d="M150 50 C150 45, 145 40, 140 43 C135 40, 130 45, 130 50 C130 60, 140 68, 140 68 C140 68, 150 60, 150 50 Z" fill="#F22539" stroke="#333333" stroke-width="2"/>
+</svg>
