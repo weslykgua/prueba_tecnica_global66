@@ -10,19 +10,13 @@
         </div>
       </div>
     </div>
-    <p v-if="label" class="loader-label">{{ label }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
-withDefaults(
-  defineProps<{
-    label?: string;
-  }>(),
-  {
-    label: 'Cargando Pokédex...',
-  }
-);
+defineProps<{
+  label?: string;
+}>();
 </script>
 
 <style lang="scss" scoped>
@@ -31,20 +25,25 @@ withDefaults(
 @use '../../assets/styles/animations' as *;
 
 .pokeball-loader {
-  @include flex-center;
+  display: flex;
   flex-direction: column;
-  padding: 3rem 1.5rem;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  height: 100%;
+  flex: 1;
 }
 
 .pokeball-spinner {
   animation: pokeball-spin 1.2s infinite linear;
-  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .pokeball {
-  width: 76px;
-  height: 76px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   border: 3.5px solid #222222;
   position: relative;
@@ -67,7 +66,7 @@ withDefaults(
     left: 0;
     width: 100%;
     height: 50%;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
   }
 
   .pokeball-band {
@@ -75,7 +74,7 @@ withDefaults(
     top: 50%;
     left: 0;
     width: 100%;
-    height: 7px;
+    height: 12px;
     background-color: #222222;
     transform: translateY(-50%);
     z-index: 2;
@@ -85,14 +84,16 @@ withDefaults(
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 22px;
-    height: 22px;
-    background-color: #FFFFFF;
-    border: 3px solid #222222;
+    width: 44px;
+    height: 44px;
+    background-color: #ffffff;
+    border: 5px solid #222222;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
-    @include flex-center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     .pokeball-center-dot {
       width: 7px;
@@ -102,12 +103,5 @@ withDefaults(
       border-radius: 50%;
     }
   }
-}
-
-.loader-label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: $text-secondary;
-  letter-spacing: 0.2px;
 }
 </style>

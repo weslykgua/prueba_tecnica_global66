@@ -10,13 +10,14 @@
     </div>
     <h3 class="title">{{ title }}</h3>
     <p class="description">{{ description }}</p>
-    <button v-if="actionLabel" @click="$emit('action')" class="action-button" type="button">
+    <Button v-if="actionLabel" @click="$emit('action')">
       {{ actionLabel }}
-    </button>
+    </Button>
   </div>
 </template>
 
 <script setup lang="ts">
+import Button from '@/common/component/Button.vue';
 withDefaults(
   defineProps<{
     title?: string;

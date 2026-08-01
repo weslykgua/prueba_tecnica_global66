@@ -8,4 +8,5 @@ export default interface PokemonStoreState {
   isDetailLoading: boolean;
   error: string | undefined;
   isInitialized: boolean;
+  simulatedErrorTriggered?: boolean;
 }

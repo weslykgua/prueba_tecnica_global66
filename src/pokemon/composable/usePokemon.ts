@@ -50,7 +50,20 @@ export function usePokemon(api = pokemonApi) {
     pokemonStore.setLoading(true);
     pokemonStore.setError(undefined);
 
+    if (pokemonStore.simulatedErrorTriggered) {
+      pokemonStore.simulatedErrorTriggered = false;
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+      pokemonStore.setError(
+        'No pudimos cargar la información en este momento. Verifica tu conexión o intenta nuevamente más tarde.'
+      );
+      pokemonStore.setLoading(false);
+      return;
+    }
+
     try {
+      if (force) {
+        await new Promise((resolve) => setTimeout(resolve, 800));
+      }
       const list = await api.getPokemonList(limit);
 
       pokemonStore.setPokemonList(list);

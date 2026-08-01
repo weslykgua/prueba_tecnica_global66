@@ -1,7 +1,7 @@
 <template>
   <header class="app-header">
     <div class="container header-inner">
-      <router-link to="/" class="logo-link">
+      <router-link to="/pokedex" class="logo-link">
         <div class="pokeball-logo">
           <div class="logo-top"></div>
           
@@ -18,9 +18,9 @@
 
       <nav class="nav-tabs" aria-label="Navegación principal">
         <router-link
-          to="/"
+          to="/pokedex"
           class="nav-btn"
-          :class="{ active: currentRoute === '/' }"
+          :class="{ active: currentRoute === '/pokedex' }"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="3" width="7" height="7"></rect>
