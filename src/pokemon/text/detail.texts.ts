@@ -6,7 +6,7 @@ const PokemonDetailTexts = {
   heightLabel: 'ALTURA',
   categoryLabel: 'CATEGORÍA',
   abilityLabel: 'HABILIDAD',
-  genderTitle: 'Género',
+  genderTitle: 'Genero',
   genderlessLabel: 'Sin género',
   weaknessesTitle: 'Debilidades',
 };

@@ -38,7 +38,6 @@ defineEmits<{
   justify-content: space-between;
   align-items: center;
   width: calc(100% - 46px);
-  max-width: 570px;
   margin: 8px 30px 16px 16px;
   padding: 0;
   box-sizing: border-box;

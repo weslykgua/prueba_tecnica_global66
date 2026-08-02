@@ -9,6 +9,7 @@ import PokeApiPokemon from '../model/PokeApiPokemon';
 import PokeApiSpecies from '../model/PokeApiSpecies';
 import PokeApiType from '../model/PokeApiType';
 import { extractIdFromUrl } from '@/pokemon/utils/formatters';
+import { PokemonType, toPokemonType } from '@/pokemon/type/PokemonType';
 
 export class PokemonApi {
   async getPokemonList(limit = DEFAULT_LIST_LIMIT): Promise<PokemonListItem[]> {
@@ -36,14 +37,38 @@ export class PokemonApi {
     return response.data;
   }
 
-  private async getPokemonTypeRemote(typeName: string): Promise<PokeApiType> {
-    const response = await pokemonClient.get<PokeApiType>(`/type/${typeName}`);
+  private async getPokemonTypeRemote(typeNameOrId: string): Promise<PokeApiType> {
+    const response = await pokemonClient.get<PokeApiType>(`/type/${typeNameOrId}`);
 
     return response.data;
   }
 
-  /** Fetches all types of a Pokémon and collects their double_damage_from entries (deduplicated). */
-  private async getWeaknessesForTypes(typeNames: string[]): Promise<string[]> {
+  async getPokemonsByTypes(types: PokemonType[]) {
+
+    console.log("types", types);
+    const pokemonList: PokemonListItem[] = [];
+
+    for (const type of types) {
+        console.log("type", type);
+      const t = await this.getPokemonTypeRemote(type);
+      console.log("type", t);
+
+      const pokemons = await Promise.all(
+        t.pokemon.map(async pokemon => {
+          const id = extractIdFromUrl(pokemon.pokemon.url);
+          const detail = await this.getPokemonDetailRemote(id)
+
+          return PokemonListItemMapper.fromRemote(pokemon.pokemon, detail);
+        })
+      )
+
+      pokemonList.push(...pokemons);
+    }
+
+    return pokemonList;
+  }
+
+  private async getWeaknessesForTypes(typeNames: PokemonType[]): Promise<string[]> {
     const results = await Promise.allSettled(
       typeNames.map(t => this.getPokemonTypeRemote(t)),
     );
@@ -73,7 +98,7 @@ export class PokemonApi {
     const pokemonDto = pokemonResult.value;
     const species = speciesResult.status === 'fulfilled' ? speciesResult.value : undefined;
 
-    const typeNames = pokemonDto.types.map(t => t.type.name);
+    const typeNames = pokemonDto.types.map(t => toPokemonType(t.type.name)!);
     const weaknesses = await this.getWeaknessesForTypes(typeNames).catch(() => []);
 
     return PokemonDetailMapper.fromRemote(pokemonDto, species, weaknesses);

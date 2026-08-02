@@ -1,11 +1,9 @@
-export interface PokeApiDamageRelations {
-  double_damage_from: { name: string; url: string }[];
-  half_damage_from: { name: string; url: string }[];
-  no_damage_from: { name: string; url: string }[];
-}
+import PokeApiDamageRelations from "./PokeApiDamageRelations";
+import PokeApiTypePokemon from "./PokeApiTypePokemon";
 
 export default interface PokeApiType {
   id: number;
   name: string;
   damage_relations: PokeApiDamageRelations;
+  pokemon: PokeApiTypePokemon[];
 }

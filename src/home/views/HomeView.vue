@@ -36,7 +36,7 @@
       <template v-else>
         <SearchResultsBar
           v-if="searchQuery.trim() !== '' || selectedTypes.length > 0"
-          :count="filteredPokemonList.length"
+          :count="paginatedPokemonList.length"
           @clear="clearFilters"
         />
 
@@ -60,7 +60,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-
 import emptyStateIllustration from '@/assets/empty_state_illustration_fish.svg';
 import { usePokemon } from '@/pokemon/composable/usePokemon';
 import SearchBar from '@/pokemon/component/SearchBar.vue';
@@ -84,7 +83,6 @@ const {
   isSearching,
   isLoading,
   error,
-  filteredPokemonList,
   paginatedPokemonList,
   selectedTypes,
   applyTypeFilters,

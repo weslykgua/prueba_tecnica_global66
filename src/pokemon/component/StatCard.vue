@@ -25,9 +25,7 @@ defineProps<{
 @use '@/assets/styles/colors' as *;
 
 .stat-card {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  min-width: 180px;
 }
 
 .stat-label-row {
@@ -46,8 +44,8 @@ defineProps<{
 .stat-label {
   font-family: $font-family;
   font-size: $font-size-sm;
-  font-weight: 400;
-  color: $text-secondary;
+  font-weight: 500;
+  color: $text-body;
 }
 
 .stat-value-box {
@@ -60,6 +58,7 @@ defineProps<{
   border: 1px solid $border-color;
   border-radius: 15px;
   box-sizing: border-box;
+  margin: 4px auto 0 auto;
 }
 
 .stat-value {

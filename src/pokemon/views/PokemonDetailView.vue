@@ -72,7 +72,7 @@
         </div>
 
         <div class="gender-section">
-          <h3 class="section-title">{{ PokemonDetailTexts.genderTitle }}</h3>
+          <h3 class="section-title">{{ PokemonDetailTexts.genderTitle.toUpperCase() }}</h3>
 
           <div v-if="pokemon.genderRate === -1" class="genderless-label">
             {{ PokemonDetailTexts.genderlessLabel }}
@@ -119,7 +119,7 @@ import arrowBackIcon from '@/assets/icons/actions/ic_arrow_back.svg';
 import weightIcon from '@/assets/icons/detail/ic_weight.svg';
 import heightIcon from '@/assets/icons/detail/ic_height.svg';
 import categoryIcon from '@/assets/icons/detail/ic_category.svg';
-import abilityIcon from '@/assets/icons/detail/ic_ability.svg';
+import abilityIcon from '@/assets/icons/detail/ic_hability.svg';
 import maleIcon from '@/assets/icons/detail/ic_male.svg';
 import femaleIcon from '@/assets/icons/detail/ic_female.svg';
 import {
@@ -396,7 +396,7 @@ onMounted(() => {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 12px;
+  margin-top: 24px;
 }
 
 .pokemon-description {
@@ -409,10 +409,13 @@ onMounted(() => {
 }
 
 .stats-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 16px;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 20px;
+  padding-top: 16px;
+  border-top: solid 1px #E0E0E0;
+  margin-top: 20px;
+  justify-content: space-around;
 }
 
 .gender-section {
@@ -422,8 +425,8 @@ onMounted(() => {
 .section-title {
   font-family: $font-family;
   font-size: $font-size-md;
-  font-weight: 600;
-  color: $text-primary;
+  font-weight: 500;
+  color: $text-body;
   text-align: center;
   margin: 0 0 12px 0;
 }
@@ -488,11 +491,11 @@ onMounted(() => {
 }
 
 .male-percent {
-  color: $gender-male;
+  color: $text-body;
 }
 
 .female-percent {
-  color: $gender-female;
+  color: $text-body;
 }
 
 .weaknesses-section {

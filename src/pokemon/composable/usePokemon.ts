@@ -2,13 +2,11 @@ import { ref, computed, watch, onMounted, onUnmounted, getCurrentInstance } from
 import { usePokemonStore } from '../local/store/pokemon.store';
 import { useFavoritesStore } from '../local/store/favorites.store';
 import { useDebounce } from '../../common/utils/useDebounce';
-import { ActiveTab } from '../type/ActiveTab';
 import PokemonDetail from '../model/PokemonDetail';
 import PokemonListItem from '../model/PokemonListItem';
 import { pokemonApi } from '../remote/api/pokemon.api';
-import { PokemonListItemMapper } from '../mapper/PokemonListMapper';
-
 import { PokemonType } from '../type/PokemonType';
+import { PokemonListItemMapper } from '../mapper/PokemonListMapper';
 
 export function usePokemon(api = pokemonApi) {
   const pokemonStore = usePokemonStore();
@@ -17,7 +15,6 @@ export function usePokemon(api = pokemonApi) {
   const searchQuery = ref('');
   const debouncedSearch = useDebounce(searchQuery, 250);
   const isSearching = ref(false);
-  const activeTab = ref<ActiveTab>('all');
   const isModalOpen = ref(false);
   const visibleCount = ref(30);
 
@@ -29,10 +26,6 @@ export function usePokemon(api = pokemonApi) {
 
   watch(debouncedSearch, () => {
     isSearching.value = false;
-    visibleCount.value = 30;
-  });
-
-  watch(activeTab, () => {
     visibleCount.value = 30;
   });
 
@@ -57,7 +50,7 @@ export function usePokemon(api = pokemonApi) {
   };
 
   const loadMore = () => {
-    if (visibleCount.value < filteredPokemonList.value.length) {
+    if (visibleCount.value < pokemonList.value.length) {
       visibleCount.value += 30;
     }
   };
@@ -137,32 +130,43 @@ export function usePokemon(api = pokemonApi) {
     );
   });
 
-  const filteredPokemonList = computed<PokemonListItem[]>(() => {
-    const baseList =
-      activeTab.value === 'favorites'
-        ? favoritesList.value
-        : PokemonListItemMapper.fromLocalArray(pokemonStore.pokemonList);
+  const filteredPokemonList = ref<PokemonListItem[] | undefined>();
 
-    const query = debouncedSearch.value.trim().toLowerCase();
+  const pokemonList = computed<PokemonListItem[]>(() => {
+    const list: PokemonListItem[] = []
 
-    return baseList.filter(pokemon => {
-      const matchesQuery =
-        !query || pokemon.name.toLowerCase().includes(query) || String(pokemon.id).includes(query);
+    if (filteredPokemonList.value != undefined) {
+      list.push(...filteredPokemonList.value);
 
-      const matchesType =
-        selectedTypes.value.length === 0 ||
-        (pokemon.types && pokemon.types.some(t => selectedTypes.value.includes(t)));
+    } else {
+      list.push(...PokemonListItemMapper.fromLocalArray(pokemonStore.pokemonList));
+    }
 
-      return matchesQuery && matchesType;
-    });
+    return filterByQuery(debouncedSearch.value, list)
   });
 
+  const filterByQuery = (
+    query: string,
+    pokemonList: PokemonListItem[]
+  ) => {
+    const queryParsed = query.trim().toLowerCase()
+
+    return pokemonList.filter(pokemon => {
+      const matchesQuery =
+        !queryParsed
+        || pokemon.name.toLowerCase().includes(queryParsed)
+        || String(pokemon.id).includes(queryParsed);
+
+      return matchesQuery;
+    });
+  }
+
   const totalPages = computed(() => {
-    return Math.ceil(filteredPokemonList.value.length / 30);
+    return Math.ceil(pokemonList.value.length / 30);
   });
 
   const paginatedPokemonList = computed<PokemonListItem[]>(() => {
-    return filteredPokemonList.value.slice(0, visibleCount.value);
+    return pokemonList.value.slice(0, visibleCount.value);
   });
 
   const isFavorite = (name: string): boolean => {
@@ -187,11 +191,20 @@ export function usePokemon(api = pokemonApi) {
     fetchPokemonList(undefined, true);
   };
 
+  const loadFilter = async () => {
+    pokemonStore.setLoading(true);
+
+    const pokemons: PokemonListItem[] = await pokemonApi.getPokemonsByTypes(selectedTypes.value)
+
+    filteredPokemonList.value = filterByQuery(debouncedSearch.value, pokemons)
+
+    pokemonStore.setLoading(false);
+  };
+
   return {
     searchQuery,
     debouncedSearch,
     isSearching,
-    activeTab,
     isModalOpen,
     currentPage: computed(() => Math.ceil(visibleCount.value / 30)),
     totalPages,
@@ -203,18 +216,19 @@ export function usePokemon(api = pokemonApi) {
     favoritesCount: computed(() => favoritesStore.favoritesCount),
     favoritesList,
     totalCount: computed(() => pokemonStore.pokemonList.length),
-    filteredPokemonList,
     paginatedPokemonList,
 
     selectedTypes,
     applyTypeFilters: (types: PokemonType[]) => {
       selectedTypes.value = types;
       visibleCount.value = 30;
+      loadFilter();
     },
     clearFilters: () => {
       searchQuery.value = '';
       selectedTypes.value = [];
       visibleCount.value = 30;
+      filteredPokemonList.value = undefined;
     },
 
     fetchPokemonList,
