@@ -1,6 +1,6 @@
 <template>
   <div class="view-header">
-    <button type="button" class="back-btn" @click="onBack" aria-label="Volver atrás">
+    <button type="button" class="back-btn" aria-label="Volver atrás" @click="onBack">
       <img :src="arrowBackIcon" alt="Volver atrás" class="back-icon" />
     </button>
 

@@ -36,8 +36,8 @@
         type="button"
         class="favorite-button"
         :class="{ active: isFavorite }"
-        @click.stop="$emit('toggle-favorite', pokemon.name)"
         :aria-label="CardTexts.favoriteAria(isFavorite)"
+        @click.stop="$emit('toggle-favorite', pokemon.name)"
       >
         <img
           :src="isFavorite ? heartFilledIcon : heartOutlineIcon"

@@ -53,9 +53,9 @@
           <span class="toast-text">{{ toast.message }}</span>
 
           <button
-            @click="$emit('dismiss', toast.id)"
             class="toast-close"
             aria-label="Cerrar notificación"
+            @click="$emit('dismiss', toast.id)"
           >
             <svg
               viewBox="0 0 24 24"

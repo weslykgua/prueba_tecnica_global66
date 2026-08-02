@@ -8,7 +8,7 @@
           aria-modal="true"
           aria-labelledby="filter-modal-title"
         >
-          <button class="close-btn" type="button" @click="$emit('close')" aria-label="Cerrar modal">
+          <button class="close-btn" type="button" aria-label="Cerrar modal" @click="$emit('close')">
             <img :src="closeIcon" alt="Cerrar" class="close-icon-img" />
           </button>
 

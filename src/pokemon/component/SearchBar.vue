@@ -5,17 +5,17 @@
       <input
         type="text"
         :value="modelValue"
-        @input="onInput"
         :placeholder="placeholder"
         class="search-input"
         aria-label="Buscar Pokémon por nombre o número"
+        @input="onInput"
       />
       <button
         v-if="modelValue"
-        @click="clear"
         class="clear-button"
         type="button"
         aria-label="Limpiar búsqueda"
+        @click="clear"
       >
         <img :src="clearIcon" alt="Limpiar" class="clear-icon-img" />
       </button>

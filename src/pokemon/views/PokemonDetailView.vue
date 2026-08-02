@@ -15,29 +15,29 @@
         ></div>
 
         <button
-          @click="goBack"
           class="header-action-btn back-btn"
-          :aria-label="PokemonDetailTexts.backButtonAria"
           type="button"
+          :aria-label="PokemonDetailTexts.backButtonAria"
+          @click="goBack"
         >
           <img :src="arrowBackIcon" :alt="PokemonDetailTexts.backButtonAria" class="header-btn-icon" />
         </button>
 
         <button
-          @click="onShare"
           class="header-action-btn share-btn-top"
-          aria-label="Compartir información del Pokémon"
           type="button"
+          aria-label="Compartir información del Pokémon"
+          @click="onShare"
         >
           <img :src="shareIcon" alt="Compartir" class="header-btn-icon" />
         </button>
 
         <button
-          @click="toggleFav"
           class="header-action-btn favorite-btn-top"
+          type="button"
           :class="{ active: isFav }"
           :aria-label="PokemonDetailTexts.favoriteButtonAria(pokemon.formattedName)"
-          type="button"
+          @click="toggleFav"
         >
           <img
             :src="isFav ? heartFilledIcon2 : heartOutlineIcon2"

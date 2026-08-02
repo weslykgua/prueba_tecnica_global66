@@ -3,9 +3,9 @@
     <div
       class="delete-action-bg"
       :class="{ visible: isSwiped || isDragging }"
-      @click.stop="onDeleteClick"
       role="button"
       :aria-label="CardTexts.removeFavoriteLabel"
+      @click.stop="onDeleteClick"
     >
       <div class="trash-icon-container">
         <img :src="trashIcon" :alt="CardTexts.removeFavoriteLabel" class="trash-icon" />

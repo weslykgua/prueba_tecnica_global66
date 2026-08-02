@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { useClipboard } from '../../common/utils/useClipboard';
 import { PokemonType } from '@/pokemon/type/PokemonType';
+import PokemonDetail from '@/pokemon/model/PokemonDetail';
 
 describe('useClipboard Composable', () => {
   const mockPokemon: PokemonDetail = {

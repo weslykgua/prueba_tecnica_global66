@@ -1,5 +1,5 @@
 import PokemonDetail from '../model/PokemonDetail';
-import { PokemonType, toPokemonType } from '../type/PokemonType';
+import { PokemonType } from '../type/PokemonType';
 import bugIcon from '@/assets/icons/types/bug.svg';
 import darkIcon from '@/assets/icons/types/dark.svg';
 import dragonIcon from '@/assets/icons/types/dragon.svg';
