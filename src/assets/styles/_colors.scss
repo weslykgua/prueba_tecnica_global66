@@ -1,49 +1,42 @@
-$primary-color: #1e88e5;
-$primary-hover: #1565c0;
-$primary-active: #0d47a1;
-$primary-accent: #173ea5;
-
-$secondary-color: #f2c94c;
-$secondary-hover: #e6b93f;
-
-$bg-color: #ffffff;
-$bg-light: #fafafa;
-$surface-color: #ffffff;
-$card-bg: #ffffff;
-$section-bg: #fffdf9;
+// Single Source of Truth for Unique Hex Palette
 $color-white: #ffffff;
-$btn-secondary-bg: #eeeeee;
-$btn-secondary-hover: #e0e0e0;
+$color-fafafa: #fafafa;
+$color-fffdf9: #fffdf9;
+$color-ececec: #ececec;
+$color-e0e0e0: #e0e0e0;
+$color-dddddd: #dddddd;
+$color-eeeeee: #eeeeee;
+$color-9e9e9e: #9e9e9e;
+$color-7a7a7a: #7a7a7a;
+$color-5e5e5e: #5e5e5e;
+$color-424242: #424242;
+$color-222222: #222222;
+$color-121212: #121212;
+$color-1f1f1f: #1f1f1f;
+$color-2a2a2a: #2a2a2a;
+$color-343434: #343434;
+$color-3e3e3e: #3e3e3e;
 
-$dark-bg: #1f1f1f;
-$dark-surface: #2a2a2a;
-$dark-card: #343434;
+$color-1e88e5: #1e88e5;
+$color-1565c0: #1565c0;
+$color-0d47a1: #0d47a1;
+$color-173ea5: #173ea5;
+$color-2551c3: #2551c3;
 
-$text-title: #121212;
-$text-primary: #222222;
-$text-body: #424242;
-$text-secondary: #5e5e5e;
-$text-muted: #7a7a7a;
-$text-subtle: #9e9e9e;
-$text-dark: #222222;
-$text-light: #ffffff;
+$color-f2c94c: #f2c94c;
+$color-e6b93f: #e6b93f;
 
-$border-color: #e0e0e0;
-$border-light: #ececec;
-$border-card: #e0e0e0;
-$border-hover: #dddddd;
-$border-dark: #3e3e3e;
+$color-d32f2f: #d32f2f;
+$color-cd3131: #cd3131;
+$color-ffebee: #ffebee;
+$color-e53935: #e53935;
+$color-f22539: #f22539;
 
-$detail-fav-active-bg: #ffebee;
-$detail-fav-active-border: #e53935;
-$detail-badge-fallback: #555555;
+$color-ff7596: #ff7596;
+$color-10b981: #10b981;
+$color-555555: #555555;
 
-$danger-color: #d32f2f;
-$danger-bg: #cd3131;
-$success-color: #10b981;
-$gender-male: #2551c3;
-$gender-female: #ff7596;
-
+// Pokémon Types Unique Hex Colors
 $type-normal: #a8a77a;
 $type-fire: #ee8130;
 $type-water: #6390f0;
@@ -65,4 +58,3 @@ $type-fairy: #d685ad;
 $type-stellar: #43a8a4;
 $type-unknown: #68a090;
 $type-shadow: #5a5266;
-$pokeball-top: #f22539;

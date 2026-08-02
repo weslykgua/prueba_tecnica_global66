@@ -33,9 +33,9 @@ const onBack = () => {
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
-@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/variables' as *;
 
 .view-header {
   position: relative;
@@ -77,7 +77,7 @@ const onBack = () => {
   justify-content: center;
   width: 32px;
   height: 32px;
-  border-radius: $radius-full;
+  border-radius: $size-full;
   transition: background-color $anim-duration $anim-ease;
 
   &:hover {
@@ -100,22 +100,22 @@ const onBack = () => {
 
 .view-title {
   font-family: $font-family;
-  font-weight: 600;
+  font-weight: $font-weight-600;
   font-style: normal;
-  font-size: $font-size-header;
+  font-size: $font-size-18;
   line-height: 24px;
   letter-spacing: 0px;
   text-align: center;
-  color: $text-title;
+  color: $color-121212;
   margin: 0;
 
   @media (min-width: $bp-tablet) {
-    font-size: $font-size-header-md;
+    font-size: $font-size-22;
     line-height: 28px;
   }
 
   @media (min-width: $bp-desktop) {
-    font-size: $font-size-lg;
+    font-size: $font-size-24;
     line-height: 32px;
   }
 }

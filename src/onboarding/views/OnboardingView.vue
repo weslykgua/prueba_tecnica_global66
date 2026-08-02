@@ -82,7 +82,7 @@ const finishOnboarding = () => {
   font-family: 'Poppins', sans-serif;
   width: 100%;
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: $color-white;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -38,7 +38,7 @@
   }
   &::-webkit-scrollbar-thumb {
     background: rgba(148, 163, 184, 0.4);
-    border-radius: $radius-full;
+    border-radius: $size-full;
     &:hover {
       background: rgba(148, 163, 184, 0.7);
     }

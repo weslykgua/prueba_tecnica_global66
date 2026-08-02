@@ -11,11 +11,13 @@ import pokeballUrl from '@/assets/pokeball.svg';
 </script>
 
 <style lang="scss" scoped>
+@use '@/assets/styles/colors' as *;
+
 .splash-screen {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background-color: #ffffff;
+  background-color: $color-white;
   display: flex;
   align-items: center;
   justify-content: center;

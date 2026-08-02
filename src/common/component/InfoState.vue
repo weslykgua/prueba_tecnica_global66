@@ -67,9 +67,9 @@ const handleButtonClick = () => {
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
-@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/variables' as *;
 
 .info-state {
   display: flex;
@@ -103,25 +103,25 @@ const handleButtonClick = () => {
 
 .info-title {
   font-family: $font-family;
-  font-weight: 600;
+  font-weight: $font-weight-600;
   font-style: normal;
-  font-size: $font-size-subtitle;
+  font-size: $font-size-20;
   line-height: 100%;
   letter-spacing: 0%;
   text-align: center;
-  color: $text-title;
+  color: $color-121212;
   margin: 0 16px 8px 16px;
 }
 
 .info-message {
   font-family: $font-family;
-  font-weight: 400;
+  font-weight: $font-weight-400;
   font-style: normal;
-  font-size: $font-size-md;
+  font-size: $font-size-14;
   line-height: 140%;
   letter-spacing: 0%;
   text-align: center;
-  color: $text-body;
+  color: $color-424242;
   max-width: 440px;
   margin: 0 16px 16px;
 }

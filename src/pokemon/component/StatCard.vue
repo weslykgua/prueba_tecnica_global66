@@ -19,10 +19,10 @@ defineProps<{
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/colors' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
-@use '@/assets/styles/colors' as *;
+@use '@/assets/styles/variables' as *;
 
 .stat-card {
   min-width: 180px;
@@ -43,9 +43,9 @@ defineProps<{
 
 .stat-label {
   font-family: $font-family;
-  font-size: $font-size-sm;
-  font-weight: 500;
-  color: $text-body;
+  font-size: $font-size-12;
+  font-weight: $font-weight-500;
+  color: $color-424242;
 }
 
 .stat-value-box {
@@ -55,7 +55,7 @@ defineProps<{
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid $border-color;
+  border: 1px solid $color-e0e0e0;
   border-radius: 15px;
   box-sizing: border-box;
   margin: 4px auto 0 auto;
@@ -63,8 +63,8 @@ defineProps<{
 
 .stat-value {
   font-family: $font-family;
-  font-size: $font-size-header;
-  font-weight: 500;
-  color: $text-title;
+  font-size: $font-size-18;
+  font-weight: $font-weight-500;
+  color: $color-121212;
 }
 </style>

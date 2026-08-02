@@ -153,7 +153,7 @@ const cancelFilters = () => {
 }
 
 .filter-modal {
-  background-color: $surface-color;
+  background-color: $color-white;
   width: 100%;
   max-width: 480px;
   height: 75vh;
@@ -182,12 +182,12 @@ const cancelFilters = () => {
 
 .filter-title {
   font-family: $font-family;
-  font-weight: 600;
-  font-size: $font-size-lg;
+  font-weight: $font-weight-600;
+  font-size: $font-size-24;
   line-height: 32px;
   letter-spacing: 0px;
   text-align: center;
-  color: $text-title;
+  color: $color-121212;
   margin: 0 0 20px 0;
 }
 
@@ -207,9 +207,9 @@ const cancelFilters = () => {
 
   .section-label {
     font-family: $font-family;
-    font-weight: 600;
-    font-size: $font-size-base;
-    color: $text-title;
+    font-weight: $font-weight-600;
+    font-size: $font-size-16;
+    color: $color-121212;
   }
 
   .toggle-btn {
@@ -247,15 +247,15 @@ const cancelFilters = () => {
   align-items: center;
   padding: 10px 0;
   cursor: pointer;
-  border-bottom: 1px solid $border-light;
+  border-bottom: 1px solid $color-ececec;
 
   .type-name {
     font-family: $font-family;
-    font-weight: 500;
-    font-size: $font-size-base;
+    font-weight: $font-weight-500;
+    font-size: $font-size-16;
     line-height: 24px;
     letter-spacing: 0px;
-    color: $text-body;
+    color: $color-424242;
   }
 
   .checkbox-wrapper {
@@ -275,31 +275,31 @@ const cancelFilters = () => {
   width: 100%;
 
   :deep(.app-button.apply-btn) {
-    background-color: $primary-color;
-    color: $text-light;
+    background-color: $color-1e88e5;
+    color: $color-white;
     width: 100%;
     max-width: 100%;
-    border-radius: $radius-button;
+    border-radius: $size-60px;
     padding: 14px;
-    font-size: $font-size-base;
-    font-weight: 500;
+    font-size: $font-size-16;
+    font-weight: $font-weight-500;
     margin: 0;
   }
 
   :deep(.app-button.cancel-btn) {
-    background-color: $btn-secondary-bg;
-    color: $text-body;
+    background-color: $color-eeeeee;
+    color: $color-424242;
     width: 100%;
     max-width: 100%;
-    border-radius: $radius-button;
+    border-radius: $size-60px;
     padding: 14px;
-    font-size: $font-size-base;
-    font-weight: 500;
+    font-size: $font-size-16;
+    font-weight: $font-weight-500;
     margin: 0;
     box-shadow: none;
 
     &:hover {
-      background-color: $btn-secondary-hover;
+      background-color: $color-e0e0e0;
     }
   }
 }

@@ -152,11 +152,9 @@ const onDeleteClick = () => {
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
-@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
-@use '../../assets/styles/fonts' as *;
-@use '../../assets/styles/sizes' as *;
+@use '@/assets/styles/variables' as *;
 
 .swipeable-card-wrapper {
   position: relative;
@@ -176,7 +174,7 @@ const onDeleteClick = () => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: $danger-bg;
+  background-color: $color-cd3131;
   border-radius: 16px;
   display: flex;
   align-items: center;

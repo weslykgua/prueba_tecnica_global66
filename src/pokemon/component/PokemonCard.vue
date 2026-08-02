@@ -109,11 +109,9 @@ const onImageError = () => {
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
-@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
-@use '../../assets/styles/fonts' as *;
-@use '../../assets/styles/sizes' as *;
+@use '@/assets/styles/variables' as *;
 
 .pokemon-card {
   display: flex;
@@ -122,7 +120,7 @@ const onImageError = () => {
   align-items: stretch;
   width: 100%;
   min-height: 102px;
-  border: 1px solid $border-color;
+  border: 1px solid $color-e0e0e0;
   border-radius: 16px;
   box-sizing: border-box;
   margin-bottom: 12px;
@@ -135,7 +133,7 @@ const onImageError = () => {
 
   &:hover {
     transform: translateY(-2px);
-    border-color: $primary-color;
+    border-color: $color-1e88e5;
   }
 }
 
@@ -153,20 +151,20 @@ const onImageError = () => {
 
 .pokemon-id {
   font-family: $font-family;
-  font-weight: 600;
-  font-size: $font-size-sm;
+  font-weight: $font-weight-600;
+  font-size: $font-size-12;
   line-height: 100%;
-  color: $text-body;
+  color: $color-424242;
   margin: 0 0 2px 0;
 }
 
 .pokemon-name {
   font-family: $font-family;
-  font-weight: 600;
+  font-weight: $font-weight-600;
   font-style: normal;
-  font-size: $font-size-title-sm;
+  font-size: $font-size-21;
   letter-spacing: 0%;
-  color: $text-title;
+  color: $color-121212;
   margin: 0 0 8px 0;
   text-align: left;
   display: block;

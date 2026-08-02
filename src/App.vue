@@ -23,8 +23,10 @@ const { activeToasts, removeToast } = useClipboard();
 </script>
 
 <style lang="scss">
+@use '@/assets/styles/colors' as *;
+
 .app-root {
-  background-color: #ffffff;
+  background-color: $color-white;
 }
 
 .page-fade-enter-active,

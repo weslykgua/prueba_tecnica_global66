@@ -64,9 +64,9 @@ defineEmits<{
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
-@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/mixins' as *;
 
 .toast-container {
@@ -87,22 +87,22 @@ defineEmits<{
   @include flex-between;
   gap: 0.75rem;
   padding: 0.8rem 1.1rem;
-  border-radius: $radius-md;
+  border-radius: $size-12px;
   box-shadow: $shadow-md;
-  color: white;
-  font-weight: 500;
-  font-size: $font-size-md;
-  background-color: $dark-bg;
-  border: 1px solid $border-dark;
+  color: $color-white;
+  font-weight: $font-weight-500;
+  font-size: $font-size-14;
+  background-color: $color-1f1f1f;
+  border: 1px solid $color-3e3e3e;
 
   &.success {
-    border-left: 4px solid $success-color;
+    border-left: 4px solid $color-10b981;
   }
   &.error {
-    border-left: 4px solid $danger-color;
+    border-left: 4px solid $color-d32f2f;
   }
   &.info {
-    border-left: 4px solid $primary-color;
+    border-left: 4px solid $color-1e88e5;
   }
 }
 
@@ -121,8 +121,8 @@ defineEmits<{
 .toast-close {
   background: none;
   border: none;
-  color: white;
-  font-size: $font-size-subtitle;
+  color: $color-white;
+  font-size: $font-size-20;
   line-height: 1;
   cursor: pointer;
   opacity: 0.7;

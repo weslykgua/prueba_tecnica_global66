@@ -64,9 +64,9 @@ const currentRoute = computed(() => route.path);
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
-@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/variables' as *;
 
 .app-tabbar {
   position: fixed;
@@ -80,8 +80,8 @@ const currentRoute = computed(() => route.path);
   padding: 16px;
   width: 100%;
   height: auto;
-  background: $bg-light;
-  border: 1px solid $border-color;
+  background: $color-fafafa;
+  border: 1px solid $color-e0e0e0;
   border-radius: 16px 16px 0px 0px !important;
   border-top-left-radius: 16px !important;
   border-top-right-radius: 16px !important;
@@ -121,7 +121,7 @@ const currentRoute = computed(() => route.path);
   order: 0;
   flex-grow: 0;
   text-decoration: none;
-  color: $text-body;
+  color: $color-424242;
 
   .nav-label {
     width: 62px;
@@ -129,12 +129,12 @@ const currentRoute = computed(() => route.path);
 
     font-family: $font-family;
     font-style: normal;
-    font-weight: 500;
-    font-size: $font-size-xs;
+    font-weight: $font-weight-500;
+    font-size: $font-size-10;
     line-height: 16px;
     text-align: center;
 
-    color: $text-body;
+    color: $color-424242;
 
     flex: none;
     order: 1;
@@ -174,8 +174,8 @@ const currentRoute = computed(() => route.path);
 
   &.active {
     .nav-label {
-      font-weight: 700;
-      color: $primary-active;
+      font-weight: $font-weight-700;
+      color: $color-0d47a1;
     }
 
     .nav-icon {

@@ -73,9 +73,9 @@ const emit = defineEmits<{
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
-@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/variables' as *;
 
 .onboarding-step {
   display: flex;
@@ -121,29 +121,29 @@ const emit = defineEmits<{
 }
 
 .step-title {
-  font-size: $font-size-xl;
-  font-weight: 500;
-  color: $text-title;
+  font-size: $font-size-32;
+  font-weight: $font-weight-500;
+  color: $color-121212;
   line-height: 1.4;
   margin-bottom: 10px;
 
   @media (max-width: $bp-mobile) {
-    font-size: $font-size-lg;
+    font-size: $font-size-24;
     margin-bottom: 0.85rem;
     padding: 0 1rem;
   }
 }
 
 .step-subtitle {
-  font-size: $font-size-btn;
-  font-weight: 400;
-  color: $text-body;
+  font-size: $font-size-19;
+  font-weight: $font-weight-400;
+  color: $color-424242;
   line-height: 1.3;
   margin-bottom: 1.75rem;
   max-width: 460px;
 
   @media (max-width: $bp-mobile) {
-    font-size: $font-size-base;
+    font-size: $font-size-16;
     margin-bottom: 1.5rem;
     padding: 0 1rem;
   }
@@ -159,7 +159,7 @@ const emit = defineEmits<{
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: $border-color;
+    background-color: $color-e0e0e0;
     border: none;
     padding: 0;
     cursor: pointer;
@@ -168,7 +168,7 @@ const emit = defineEmits<{
     &.active {
       width: 28px;
       border-radius: 12px;
-      background-color: $primary-accent;
+      background-color: $color-173ea5;
     }
   }
 }

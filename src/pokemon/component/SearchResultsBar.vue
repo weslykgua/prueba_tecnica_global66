@@ -29,9 +29,9 @@ defineEmits<{
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
-@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/variables' as *;
 
 .search-results-bar {
   display: flex;
@@ -55,10 +55,10 @@ defineEmits<{
 
 .search-results-count {
   font-family: $font-family;
-  font-weight: 500;
-  font-size: $font-size-md;
+  font-weight: $font-weight-500;
+  font-size: $font-size-14;
   line-height: 1.4;
-  color: $text-subtle;
+  color: $color-9e9e9e;
   display: inline-flex;
   gap: 4px;
   align-items: center;
@@ -69,8 +69,8 @@ defineEmits<{
   text-overflow: ellipsis;
 
   .count-highlight {
-    font-weight: 700;
-    color: $text-subtle;
+    font-weight: $font-weight-700;
+    color: $color-9e9e9e;
     white-space: nowrap;
   }
 }
@@ -81,10 +81,10 @@ defineEmits<{
   padding: 0;
   cursor: pointer;
   font-family: $font-family;
-  font-weight: 500;
-  font-size: $font-size-md;
+  font-weight: $font-weight-500;
+  font-size: $font-size-14;
   line-height: 1.4;
-  color: $primary-color;
+  color: $color-1e88e5;
   white-space: nowrap;
   flex-shrink: 0;
   margin-left: 4px;
@@ -94,7 +94,7 @@ defineEmits<{
   text-underline-offset: 0%;
 
   &:hover {
-    color: $primary-hover;
+    color: $color-1565c0;
   }
 }
 </style>

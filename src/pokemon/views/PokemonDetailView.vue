@@ -379,17 +379,17 @@ onMounted(() => {
 }
 
 .pokemon-title {
-  font-size: $font-size-xl;
-  font-weight: 500;
-  color: $text-primary;
+  font-size: $font-size-32;
+  font-weight: $font-weight-500;
+  color: $color-222222;
   margin: 0;
 }
 
 .pokemon-id-subtag {
   display: block;
-  font-size: $font-size-base;
-  font-weight: 500;
-  color: $text-secondary;
+  font-size: $font-size-16;
+  font-weight: $font-weight-500;
+  color: $color-5e5e5e;
 }
 
 .types-list {
@@ -402,9 +402,9 @@ onMounted(() => {
 .pokemon-description {
   margin-top: 24px;
   font-family: $font-family;
-  font-size: $font-size-md;
-  font-weight: 400;
-  color: $text-body;
+  font-size: $font-size-14;
+  font-weight: $font-weight-400;
+  color: $color-424242;
   line-height: 1.6;
 }
 
@@ -413,7 +413,7 @@ onMounted(() => {
   flex-flow: row wrap;
   gap: 20px;
   padding-top: 16px;
-  border-top: solid 1px #E0E0E0;
+  border-top: solid 1px $color-e0e0e0;
   margin-top: 20px;
   justify-content: space-around;
 }
@@ -424,25 +424,25 @@ onMounted(() => {
 
 .section-title {
   font-family: $font-family;
-  font-size: $font-size-md;
-  font-weight: 500;
-  color: $text-body;
+  font-size: $font-size-14;
+  font-weight: $font-weight-500;
+  color: $color-424242;
   text-align: center;
   margin: 0 0 12px 0;
 }
 
 .weaknesses-title {
   font-family: $font-family;
-  font-size: $font-size-md;
-  font-weight: 600;
-  color: $text-primary;
+  font-size: $font-size-14;
+  font-weight: $font-weight-600;
+  color: $color-222222;
   text-align: left;
 }
 
 .genderless-label {
   font-family: $font-family;
-  font-size: $font-size-md;
-  color: $text-muted;
+  font-size: $font-size-14;
+  color: $color-7a7a7a;
   text-align: center;
 }
 
@@ -455,15 +455,15 @@ onMounted(() => {
 .gender-bar-track {
   width: 100%;
   height: 8px;
-  background-color: $gender-female;
-  border-radius: $radius-full;
+  background-color: $color-ff7596;
+  border-radius: $size-full;
   overflow: hidden;
 }
 
 .gender-bar-fill {
   height: 100%;
-  background-color: $gender-male;
-  border-radius: $radius-full;
+  background-color: $color-2551c3;
+  border-radius: $size-full;
   transition: width 0.6s ease;
 }
 
@@ -485,17 +485,17 @@ onMounted(() => {
 
 .gender-percent {
   font-family: $font-family;
-  font-size: $font-size-percent;
-  font-weight: 600;
+  font-size: $font-size-13;
+  font-weight: $font-weight-600;
   white-space: nowrap;
 }
 
 .male-percent {
-  color: $text-body;
+  color: $color-424242;
 }
 
 .female-percent {
-  color: $text-body;
+  color: $color-424242;
 }
 
 .weaknesses-section {

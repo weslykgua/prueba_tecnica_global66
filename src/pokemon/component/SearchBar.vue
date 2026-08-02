@@ -67,9 +67,9 @@ const clear = () => {
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
-@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/variables' as *;
 
 .search-bar-container {
   display: flex;
@@ -87,8 +87,8 @@ const clear = () => {
   align-items: center;
   flex: 1;
   height: 48px;
-  background-color: $surface-color;
-  border: 1.5px solid $border-color;
+  background-color: $color-white;
+  border: 1.5px solid $color-e0e0e0;
   border-radius: 30px;
   padding: 0 16px;
   gap: 10px;
@@ -97,7 +97,7 @@ const clear = () => {
   transition: border-color 0.2s ease;
 
   &:focus-within {
-    border-color: $primary-color;
+    border-color: $color-1e88e5;
   }
 }
 
@@ -114,12 +114,12 @@ const clear = () => {
   outline: none;
   background: transparent;
   font-family: $font-family;
-  font-size: $font-size-md;
-  color: $text-subtle;
+  font-size: $font-size-14;
+  color: $color-9e9e9e;
   padding: 0;
 
   &::placeholder {
-    color: $text-subtle;
+    color: $color-9e9e9e;
   }
 }
 
@@ -152,14 +152,14 @@ const clear = () => {
   max-height: 48px;
   flex: 0 0 48px;
   border-radius: 50%;
-  background-color: $surface-color;
-  border: 1.5px solid $border-color;
+  background-color: $color-white;
+  border: 1.5px solid $color-e0e0e0;
   box-sizing: border-box;
   cursor: pointer;
   transition: border-color 0.2s ease;
 
   &:hover {
-    border-color: $primary-color;
+    border-color: $color-1e88e5;
   }
 
   .action-icon {
@@ -172,8 +172,8 @@ const clear = () => {
 .mini-spinner {
   width: 18px;
   height: 18px;
-  border: 2px solid $border-color;
-  border-top-color: $primary-color;
+  border: 2px solid $color-e0e0e0;
+  border-top-color: $color-1e88e5;
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
 }
