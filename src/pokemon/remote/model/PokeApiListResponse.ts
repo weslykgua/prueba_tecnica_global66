@@ -1,4 +1,4 @@
-import NamedApiResource from "./NamedApiResource";
+import NamedApiResource from './NamedApiResource';
 
 export default interface PokeApiListResponse {
   count: number;

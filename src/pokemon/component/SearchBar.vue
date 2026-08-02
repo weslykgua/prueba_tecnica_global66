@@ -1,42 +1,42 @@
 <template>
   <div class="search-bar-container">
     <div class="search-input-wrapper">
-      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="8"></circle>
-        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-      </svg>
+      <img :src="searchIcon" alt="Buscar" class="search-left-icon" />
       <input
         type="text"
         :value="modelValue"
         @input="onInput"
         :placeholder="placeholder"
         class="search-input"
-        aria-label="Buscar Pokémon por nombre"
+        aria-label="Buscar Pokémon por nombre o número"
       />
-
-      <!-- Search loading spinner indicator -->
-      <div v-if="isSearching" class="search-loading-spinner" title="Buscando...">
-        <div class="mini-spinner"></div>
-      </div>
-
-      <!-- Clear button -->
       <button
-        v-else-if="modelValue"
+        v-if="modelValue"
         @click="clear"
         class="clear-button"
         type="button"
         aria-label="Limpiar búsqueda"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
+        <img :src="clearIcon" alt="Limpiar" class="clear-icon-img" />
       </button>
     </div>
+
+    <button
+      class="search-action-button"
+      type="button"
+      aria-label="Buscar"
+      @click="$emit('open-filter')"
+    >
+      <div v-if="isSearching" class="mini-spinner"></div>
+      <img v-else :src="searchIcon" alt="Buscar" class="action-icon" />
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
+import searchIcon from '@/assets/ic_search.svg';
+import clearIcon from '@/assets/ic_clear.svg';
+
 withDefaults(
   defineProps<{
     modelValue: string;
@@ -44,13 +44,15 @@ withDefaults(
     isSearching?: boolean;
   }>(),
   {
-    placeholder: 'Buscar Pokémon...',
+    placeholder: 'Procurar Pókemon...',
     isSearching: false,
   }
 );
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void;
+  (e: 'search'): void;
+  (e: 'open-filter'): void;
 }>();
 
 const onInput = (event: Event) => {
@@ -64,98 +66,121 @@ const clear = () => {
 </script>
 
 <style lang="scss" scoped>
-@use '../../assets/styles/variables' as *;
-@use '../../assets/styles/mixins' as *;
+@use '@/assets/styles/colors' as *;
+@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/fonts' as *;
+@use '@/assets/styles/sizes' as *;
 
 .search-bar-container {
-  width: 100%;
-  max-width: 580px;
-  margin: 0 auto 2rem auto;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 11px;
+  width: calc(100% - 32px);
+  margin: 44px 16px 16px 16px;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .search-input-wrapper {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  height: 48px;
+  background-color: $surface-color;
+  border: 1.5px solid $border-color;
+  border-radius: 30px;
+  padding: 0 16px;
+  gap: 10px;
+  box-sizing: border-box;
   position: relative;
-  @include flex-center;
-  width: 100%;
-  border-radius: $radius-md;
-  border: 1px solid $border-color;
-  box-shadow: $shadow-sm;
-  transition: border-color $anim-duration $anim-ease, box-shadow $anim-duration $anim-ease;
-  background: $surface-color;
-
-  @media (prefers-color-scheme: dark) {
-    background: $dark-surface;
-    border-color: $border-dark;
-  }
+  transition: border-color 0.2s ease;
 
   &:focus-within {
     border-color: $primary-color;
-    box-shadow: $shadow-md;
   }
 }
 
-.search-icon {
-  position: absolute;
-  left: 1.05rem;
-  width: 17px;
-  height: 17px;
-  color: $text-muted;
-  pointer-events: none;
+.search-left-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  filter: invert(68%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(92%) contrast(88%);
 }
 
 .search-input {
   width: 100%;
-  padding: 0.8rem 2.75rem 0.8rem 2.85rem;
-  font-size: 0.925rem;
-  font-weight: 500;
   border: none;
-  border-radius: $radius-md;
-  background: transparent;
-  color: inherit;
   outline: none;
+  background: transparent;
+  font-family: $font-family;
+  font-size: $font-size-md;
+  color: $text-subtle;
+  padding: 0;
 
   &::placeholder {
-    color: $text-muted;
-  }
-}
-
-.search-loading-spinner {
-  position: absolute;
-  right: 1.05rem;
-  @include flex-center;
-
-  .mini-spinner {
-    width: 15px;
-    height: 15px;
-    border: 2px solid $border-color;
-    border-top-color: $primary-color;
-    border-radius: 50%;
-    animation: spin 0.6s linear infinite;
+    color: $text-subtle;
   }
 }
 
 .clear-button {
-  position: absolute;
-  right: 0.8rem;
-  @include flex-center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 24px;
   height: 24px;
-  border-radius: 50%;
-  color: $text-muted;
-  transition: color $anim-duration $anim-ease, background-color $anim-duration $anim-ease;
+  border: none;
+  background: transparent;
+  cursor: pointer;
 
-  svg {
+  .clear-icon-img {
     width: 14px;
     height: 14px;
-  }
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    color: $primary-color;
+    filter: invert(68%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(92%) contrast(88%);
   }
 }
 
+.search-action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  height: 48px;
+  min-height: 48px;
+  max-height: 48px;
+  flex: 0 0 48px;
+  border-radius: 50%;
+  background-color: $surface-color;
+  border: 1.5px solid $border-color;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: $primary-color;
+  }
+
+  .action-icon {
+    width: 20px;
+    height: 20px;
+    filter: invert(68%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(92%) contrast(88%);
+  }
+}
+
+.mini-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid $border-color;
+  border-top-color: $primary-color;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>

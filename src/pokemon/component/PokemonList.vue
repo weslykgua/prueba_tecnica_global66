@@ -6,54 +6,82 @@
     role="region"
     aria-label="Lista de Pokémon"
   >
-    <PokemonCard
-      v-for="pokemon in pokemonList"
-      :key="pokemon.id"
-      :pokemon="pokemon"
-      :is-favorite="isFavorite(pokemon.name)"
-      @select="$emit('select-pokemon', $event)"
-      @toggle-favorite="$emit('toggle-favorite', $event)"
-    />
+    <template v-if="enableSwipe">
+      <SwipeablePokemonCard
+        v-for="pokemon in pokemonList"
+        :key="pokemon.id"
+        :pokemon="pokemon"
+        :is-favorite="isFavorite(pokemon.name)"
+        @select-pokemon="onSelectPokemon"
+        @toggle-favorite="onToggleFavorite"
+      />
+    </template>
+    <template v-else>
+      <PokemonCard
+        v-for="pokemon in pokemonList"
+        :key="pokemon.id"
+        :pokemon="pokemon"
+        :is-favorite="isFavorite(pokemon.name)"
+        @select="onSelectPokemon"
+        @toggle-favorite="onToggleFavorite"
+      />
+    </template>
   </TransitionGroup>
 </template>
 
 <script setup lang="ts">
 import PokemonListItem from '../model/PokemonListItem.ts';
 import PokemonCard from './PokemonCard.vue';
+import SwipeablePokemonCard from './SwipeablePokemonCard.vue';
 
-defineProps<{
-  pokemonList: PokemonListItem[];
-  isFavorite: (name: string) => boolean;
-}>();
+withDefaults(
+  defineProps<{
+    pokemonList: PokemonListItem[];
+    isFavorite: (name: string) => boolean;
+    enableSwipe?: boolean;
+  }>(),
+  {
+    enableSwipe: false,
+  }
+);
 
-defineEmits<{
-  (e: 'select-pokemon', name: string): void;
+const emit = defineEmits<{
+  (e: 'select-pokemon', id: number): void;
   (e: 'toggle-favorite', name: string): void;
 }>();
+
+const onSelectPokemon = (id: number) => {
+  emit('select-pokemon', id);
+};
+
+const onToggleFavorite = (name: string) => {
+  emit('toggle-favorite', name);
+};
 </script>
 
 <style lang="scss" scoped>
-@use '../../assets/styles/variables' as *;
-@use '../../assets/styles/mixins' as *;
+@use '@/assets/styles/colors' as *;
+@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/fonts' as *;
+@use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/mixins' as *;
 
 .pokemon-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1.25rem;
-  width: 100%;
-  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: calc(100% - 32px);
+  margin: 0 16px;
+  box-sizing: border-box;
   position: relative;
-
-  @include respond-to('tablet') {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1.5rem;
-  }
 }
 
-/* Snappy 200ms cubic-bezier transition */
 .grid-fade-enter-active,
 .grid-fade-leave-active {
-  transition: opacity 200ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition:
+    opacity 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .grid-fade-enter-from {

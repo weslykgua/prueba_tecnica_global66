@@ -1,14 +1,29 @@
 <template>
   <div
     class="pokemon-card"
-    @click="$emit('select', pokemon.name)"
+    :style="{ backgroundColor: cardBgColor + '80' }"
+    @click="$emit('select', pokemon.id)"
     tabindex="0"
     role="button"
-    :aria-label="`Ver detalle de ${formattedName}`"
-    @keydown.enter="$emit('select', pokemon.name)"
+    :aria-label="CardTexts.viewDetailAria(formattedName)"
+    @keydown.enter="$emit('select', pokemon.id)"
   >
-    <div class="card-media">
-      <span class="pokemon-id">#{{ formattedId }}</span>
+    <div class="card-left-info">
+      <Typography variant="caption" color="body" weight="semibold" class="pokemon-id">
+        {{ formattedId }}
+      </Typography>
+      <Typography variant="h3" color="title" weight="semibold" class="pokemon-name">
+        {{ formattedName }}
+      </Typography>
+
+      <div class="types-container" v-if="displayTypes.length > 0">
+        <TypeBadge v-for="typeCategory in displayTypes" :key="typeCategory" :type="typeCategory" />
+      </div>
+    </div>
+
+    <div class="card-right-media" :style="{ backgroundColor: cardBgColor }">
+      <img :src="cardBgSvg" alt="Fondo tipo" class="card-bg-svg" />
+
       <img
         :src="currentImageSrc"
         :alt="formattedName"
@@ -16,27 +31,19 @@
         loading="lazy"
         class="pokemon-sprite"
       />
-    </div>
-
-    <div class="card-content">
-      <h3 class="pokemon-name">{{ formattedName }}</h3>
 
       <button
         type="button"
         class="favorite-button"
         :class="{ active: isFavorite }"
         @click.stop="$emit('toggle-favorite', pokemon.name)"
-        :aria-label="isFavorite ? `Quitar ${formattedName} de favoritos` : `Agregar ${formattedName} a favoritos`"
+        :aria-label="CardTexts.favoriteAria(isFavorite)"
       >
-        <svg
-          class="star-icon"
-          viewBox="0 0 24 24"
-          :fill="isFavorite ? '#F2C94C' : 'none'"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-        </svg>
+        <img
+          :src="isFavorite ? heartFilledIcon : heartOutlineIcon"
+          :alt="isFavorite ? 'Favorito' : 'No favorito'"
+          class="heart-icon"
+        />
       </button>
     </div>
   </div>
@@ -44,9 +51,20 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { capitalize } from '../utils/formatters';
-import { SPRITE_FALLBACK } from '../utils/pokemon.constants';
+import TypeBadge from '@/pokemon/component/TypeBadge.vue';
+import Typography from '@/common/component/Typography.vue';
+import CardTexts from '../text/card.texts';
+import heartFilledIcon from '@/assets/ic_heart_filled.svg';
+import heartOutlineIcon from '@/assets/ic_heart_outline.svg';
+import {
+  capitalize,
+  formatPokemonId,
+  getTypeBackgroundColor,
+  getTypeIcon,
+} from '../utils/formatters';
+
 import PokemonListItem from '../model/PokemonListItem';
+import { PokemonType, toPokemonType } from '../type/PokemonType';
 
 const props = defineProps<{
   pokemon: PokemonListItem;
@@ -54,20 +72,35 @@ const props = defineProps<{
 }>();
 
 defineEmits<{
-  (e: 'select', name: string): void;
+  (e: 'select', id: number): void;
   (e: 'toggle-favorite', name: string): void;
 }>();
 
 const imageError = ref(false);
 
 const currentImageSrc = computed(() => {
-  if (imageError.value) return SPRITE_FALLBACK;
   return props.pokemon.spriteUrl;
 });
 
 const formattedName = computed(() => capitalize(props.pokemon.name));
+const formattedId = computed(() => formatPokemonId(props.pokemon.id));
 
-const formattedId = computed(() => String(props.pokemon.id).padStart(3, '0'));
+const displayTypes = computed<PokemonType[]>(() => {
+  if (!props.pokemon.types || !Array.isArray(props.pokemon.types)) return [];
+  return props.pokemon.types
+    .map(t => toPokemonType(t))
+    .filter((cat): cat is PokemonType => cat !== undefined);
+});
+
+const mainCategory = computed<PokemonType>(() => props.pokemon.principalType);
+
+const cardBgColor = computed(() => {
+  return getTypeBackgroundColor(mainCategory.value);
+});
+
+const cardBgSvg = computed(() => {
+  return getTypeIcon(mainCategory.value);
+});
 
 const onImageError = () => {
   imageError.value = true;
@@ -75,130 +108,171 @@ const onImageError = () => {
 </script>
 
 <style lang="scss" scoped>
-@use '../../assets/styles/variables' as *;
-@use '../../assets/styles/mixins' as *;
+@use '@/assets/styles/colors' as *;
+@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/fonts' as *;
+@use '@/assets/styles/sizes' as *;
+@use '../../assets/styles/fonts' as *;
+@use '../../assets/styles/sizes' as *;
 
 .pokemon-card {
-  background-color: $card-bg;
-  border: 1px solid $border-color;
-  border-radius: $radius-card;
-  box-shadow: $shadow-sm;
-  padding: 1.15rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 100%;
+  min-height: 102px;
+  border: 1px solid $border-color;
+  border-radius: 16px;
+  box-sizing: border-box;
+  margin-bottom: 12px;
   position: relative;
   cursor: pointer;
-  will-change: transform;
-  transform: translateZ(0);
-  transition: transform $anim-duration $anim-ease, border-color $anim-duration $anim-ease, box-shadow $anim-duration $anim-ease;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: $dark-card;
-    border-color: $border-dark;
-  }
+  overflow: hidden;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
 
   &:hover {
-    transform: translateY(-2px) translateZ(0);
-    border-color: rgba(216, 59, 59, 0.35);
-    box-shadow: $shadow-md;
-
-    .pokemon-sprite {
-      transform: scale(1.05);
-    }
-  }
-
-  &:focus-visible {
-    outline: 2px solid $primary-color;
+    transform: translateY(-2px);
+    border-color: $primary-color;
   }
 }
 
-.card-media {
-  position: relative;
-  width: 100%;
-  height: 110px;
-  @include flex-center;
-  background: #FFFDF9;
-  border-radius: $radius-md;
-  margin-bottom: 0.85rem;
-  border: 1px solid $border-color;
-
-  @media (prefers-color-scheme: dark) {
-    background: rgba(255, 255, 255, 0.03);
-    border-color: rgba(255, 255, 255, 0.06);
-  }
+.card-left-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 12px 0 12px 16px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .pokemon-id {
-  position: absolute;
-  top: 0.45rem;
-  left: 0.5rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: $text-muted;
-}
-
-.pokemon-sprite {
-  width: 82px;
-  height: 82px;
-  object-fit: contain;
-  transition: transform $anim-duration $anim-ease;
-}
-
-.card-content {
-  width: 100%;
-  @include flex-between;
-  gap: 0.5rem;
+  font-family: $font-family;
+  font-weight: 600;
+  font-size: $font-size-sm;
+  line-height: 100%;
+  color: $text-body;
+  margin: 0 0 2px 0;
 }
 
 .pokemon-name {
-  font-size: 1rem;
-  font-weight: 700;
-  color: $text-primary;
+  font-family: $font-family;
+  font-weight: 600;
+  font-style: normal;
+  font-size: $font-size-title-sm;
+  letter-spacing: 0%;
+  color: $text-title;
+  margin: 0 0 8px 0;
+  text-align: left;
+  display: block;
+  width: 100%;
+  max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
 
-  @media (prefers-color-scheme: dark) {
-    color: #FFFEFC;
+.types-container {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  width: 100%;
+  max-width: 100%;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
   }
 }
 
+.card-right-media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 126px;
+  min-width: 126px;
+  max-width: 126px;
+  height: auto;
+  align-self: stretch;
+  border-radius: 16px;
+  overflow: hidden;
+  box-sizing: border-box;
+  flex: 0 0 126px;
+  padding: 4px auto;
+}
+
+.card-bg-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 94px;
+  height: 94px;
+  object-fit: contain;
+  z-index: 0;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.1) 100%);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+}
+
+.pokemon-sprite {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 94px;
+  height: auto;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+}
+
 .favorite-button {
-  @include flex-center;
+  position: absolute;
+  top: 9px;
+  right: 9px;
   width: 32px;
   height: 32px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.03);
-  border: 1px solid $border-color;
-  transition: all $anim-duration $anim-ease;
-  color: $text-muted;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  z-index: 5;
 
-  @media (prefers-color-scheme: dark) {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: $border-dark;
+  .heart-icon {
+    width: 32px;
+    height: 32px;
+    display: block;
+  }
+}
+
+@media (max-width: 380px) {
+  .pokemon-card {
+    gap: 12px;
   }
 
-  .star-icon {
-    width: 17px;
-    height: 17px;
-    transition: transform $anim-duration $anim-ease;
+  .pokemon-name {
+    margin-bottom: 4px;
   }
 
-  &:hover {
-    background: rgba(242, 201, 76, 0.15);
-    border-color: $secondary-color;
-    color: $secondary-hover;
-
-    .star-icon {
-      transform: scale(1.08);
-    }
-  }
-
-  &.active {
-    background: rgba(242, 201, 76, 0.18);
-    border-color: $secondary-color;
-    color: $secondary-color;
+  .types-container {
+    flex-wrap: wrap;
+    overflow: visible;
   }
 }
 </style>

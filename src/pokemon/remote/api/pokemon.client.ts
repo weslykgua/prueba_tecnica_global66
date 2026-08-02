@@ -13,7 +13,7 @@ pokemonClient.interceptors.response.use(
   response => response,
   (error: AxiosError) => {
     let errorMessage = 'Ha ocurrido un error inesperado al conectar con el servidor.';
-    
+
     if (error.code === 'ECONNABORTED') {
       errorMessage = 'El tiempo de espera de la solicitud ha caducado. Reintenta por favor.';
     } else if (error.response) {

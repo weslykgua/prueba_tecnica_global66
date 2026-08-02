@@ -1,17 +1,13 @@
-import { ref, computed, watch, onMounted, getCurrentInstance } from 'vue';
+import { ref, computed, watch, onMounted, onUnmounted, getCurrentInstance } from 'vue';
 import { usePokemonStore } from '../local/store/pokemon.store';
 import { useFavoritesStore } from '../local/store/favorites.store';
 import { useDebounce } from '../../common/utils/useDebounce';
-import { ITEMS_PER_PAGE } from '../utils/pokemon.constants';
-import { ActiveTab } from '../type/ActiveTab';
 import PokemonDetail from '../model/PokemonDetail';
 import PokemonListItem from '../model/PokemonListItem';
 import { pokemonApi } from '../remote/api/pokemon.api';
+import { PokemonType } from '../type/PokemonType';
 import { PokemonListItemMapper } from '../mapper/PokemonListMapper';
 
-/**
- * Main orchestrator composable handling remote API calls, search feedback, pagination, and Pinia stores.
- */
 export function usePokemon(api = pokemonApi) {
   const pokemonStore = usePokemonStore();
   const favoritesStore = useFavoritesStore();
@@ -19,11 +15,10 @@ export function usePokemon(api = pokemonApi) {
   const searchQuery = ref('');
   const debouncedSearch = useDebounce(searchQuery, 250);
   const isSearching = ref(false);
-  const activeTab = ref<ActiveTab>('all');
   const isModalOpen = ref(false);
-  const currentPage = ref(1);
+  const visibleCount = ref(30);
 
-  watch(searchQuery, (newVal) => {
+  watch(searchQuery, newVal => {
     if (newVal.trim() !== debouncedSearch.value.trim()) {
       isSearching.value = true;
     }
@@ -31,19 +26,11 @@ export function usePokemon(api = pokemonApi) {
 
   watch(debouncedSearch, () => {
     isSearching.value = false;
-    currentPage.value = 1;
-  });
-
-  watch(activeTab, () => {
-    currentPage.value = 1;
+    visibleCount.value = 30;
   });
 
   const fetchPokemonList = async (limit?: number, force = false): Promise<void> => {
-    if (
-      pokemonStore.isInitialized
-      && !force
-      && pokemonStore.pokemonList.length > 0
-    ) {
+    if (pokemonStore.isInitialized && !force && pokemonStore.pokemonList.length > 0) {
       return;
     }
 
@@ -52,39 +39,42 @@ export function usePokemon(api = pokemonApi) {
 
     try {
       const list = await api.getPokemonList(limit);
-
       pokemonStore.setPokemonList(list);
     } catch (err: unknown) {
-      const errorMessage = err instanceof Error
-        ? err.message
-        : 'Ha ocurrido un error inesperado al obtener la lista de Pokémon.';
-
-      pokemonStore.setError(errorMessage);
+      pokemonStore.setError(
+        'No pudimos cargar la información en este momento. Verifica tu conexión o intenta nuevamente más tarde.'
+      );
     } finally {
       pokemonStore.setLoading(false);
     }
   };
 
-  const fetchPokemonDetail = async (name: string): Promise<PokemonDetail | undefined> => {
-    pokemonStore.setDetailLoading(true);
-    pokemonStore.setError(undefined);
+  const loadMore = () => {
+    if (visibleCount.value < pokemonList.value.length) {
+      visibleCount.value += 30;
+    }
+  };
 
-    try {
-      const detail = await api.getPokemonDetail(name);
+  const handleScroll = (event?: Event) => {
+    let scrollBottom = 0;
+    if (event?.target && event.target !== document && event.target !== window) {
+      const target = event.target as HTMLElement;
+      scrollBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
+    } else {
+      const scrollTop =
+        window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      const documentHeight = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight
+      );
+      scrollBottom = documentHeight - (scrollTop + windowHeight);
+    }
 
-      pokemonStore.setSelectedPokemon(detail);
-
-      return detail;
-    } catch (err: unknown) {
-      const errorMessage = err instanceof Error
-        ? err.message
-        : 'Ha ocurrido un error al cargar el detalle del Pokémon.';
-
-      pokemonStore.setError(errorMessage);
-
-      return undefined;
-    } finally {
-      pokemonStore.setDetailLoading(false);
+    if (scrollBottom < 600) {
+      loadMore();
     }
   };
 
@@ -93,45 +83,91 @@ export function usePokemon(api = pokemonApi) {
       if (!pokemonStore.isInitialized) {
         fetchPokemonList();
       }
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      document.addEventListener('scroll', handleScroll, { passive: true });
+      const dashboardContainer = document.querySelector('.dashboard-content');
+      if (dashboardContainer) {
+        dashboardContainer.addEventListener('scroll', handleScroll, { passive: true });
+      }
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('scroll', handleScroll);
+      const dashboardContainer = document.querySelector('.dashboard-content');
+      if (dashboardContainer) {
+        dashboardContainer.removeEventListener('scroll', handleScroll);
+      }
     });
   }
 
-  const favoritesList = computed<PokemonListItem[]>(() => {
-    return pokemonStore.pokemonList.filter(item => favoritesStore.favoriteNames.has(item.name.toLowerCase()));
-  });
+  const fetchPokemonDetail = async (id: number): Promise<PokemonDetail | undefined> => {
+    pokemonStore.setDetailLoading(true);
+    pokemonStore.setError(undefined);
 
-  const filteredPokemonList = computed<PokemonListItem[]>(() => {
-    const baseList = activeTab.value === 'favorites'
-      ? favoritesList.value
-      : PokemonListItemMapper.fromLocalArray(pokemonStore.pokemonList);
+    try {
+      const detail = await api.getPokemonDetail(id);
+      pokemonStore.setSelectedPokemon(detail);
+      return detail;
+    } catch (err: unknown) {
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : 'Ha ocurrido un error al cargar el detalle del Pokémon.';
 
-    const query = debouncedSearch.value.trim().toLowerCase();
-
-    if (!query) {
-      return baseList;
+      pokemonStore.setError(errorMessage);
+      return undefined;
+    } finally {
+      pokemonStore.setDetailLoading(false);
     }
+  };
 
-    return baseList.filter(pokemon =>
-      pokemon.name.toLowerCase().includes(query) ||
-      String(pokemon.id).includes(query)
+  const selectedTypes = ref<PokemonType[]>([]);
+
+  const favoritesList = computed<PokemonListItem[]>(() => {
+    return pokemonStore.pokemonList.filter(item =>
+      favoritesStore.favoriteNames.has(item.name.toLowerCase())
     );
   });
 
+  const filteredPokemonList = ref<PokemonListItem[] | undefined>();
+
+  const pokemonList = computed<PokemonListItem[]>(() => {
+    const list: PokemonListItem[] = []
+
+    if (filteredPokemonList.value != undefined) {
+      list.push(...filteredPokemonList.value);
+
+    } else {
+      list.push(...PokemonListItemMapper.fromLocalArray(pokemonStore.pokemonList));
+    }
+
+    return filterByQuery(debouncedSearch.value, list)
+  });
+
+  const filterByQuery = (
+    query: string,
+    pokemonList: PokemonListItem[]
+  ) => {
+    const queryParsed = query.trim().toLowerCase()
+
+    return pokemonList.filter(pokemon => {
+      const matchesQuery =
+        !queryParsed
+        || pokemon.name.toLowerCase().includes(queryParsed)
+        || String(pokemon.id).includes(queryParsed);
+
+      return matchesQuery;
+    });
+  }
+
   const totalPages = computed(() => {
-    return Math.ceil(filteredPokemonList.value.length / ITEMS_PER_PAGE);
+    return Math.ceil(pokemonList.value.length / 30);
   });
 
   const paginatedPokemonList = computed<PokemonListItem[]>(() => {
-    const start = (currentPage.value - 1) * ITEMS_PER_PAGE;
-    return filteredPokemonList.value.slice(start, start + ITEMS_PER_PAGE);
+    return pokemonList.value.slice(0, visibleCount.value);
   });
-
-  const changePage = (page: number) => {
-    if (page >= 1 && page <= totalPages.value) {
-      currentPage.value = page;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
 
   const isFavorite = (name: string): boolean => {
     return favoritesStore.isFavorite(name);
@@ -141,9 +177,9 @@ export function usePokemon(api = pokemonApi) {
     favoritesStore.toggleFavorite(name);
   };
 
-  const openDetailModal = async (name: string) => {
+  const openDetailModal = async (id: number) => {
     isModalOpen.value = true;
-    await fetchPokemonDetail(name);
+    await fetchPokemonDetail(id);
   };
 
   const closeDetailModal = () => {
@@ -155,13 +191,22 @@ export function usePokemon(api = pokemonApi) {
     fetchPokemonList(undefined, true);
   };
 
+  const loadFilter = async () => {
+    pokemonStore.setLoading(true);
+
+    const pokemons: PokemonListItem[] = await pokemonApi.getPokemonsByTypes(selectedTypes.value)
+
+    filteredPokemonList.value = filterByQuery(debouncedSearch.value, pokemons)
+
+    pokemonStore.setLoading(false);
+  };
+
   return {
     searchQuery,
     debouncedSearch,
     isSearching,
-    activeTab,
     isModalOpen,
-    currentPage,
+    currentPage: computed(() => Math.ceil(visibleCount.value / 30)),
     totalPages,
 
     isLoading: computed(() => pokemonStore.isLoading),
@@ -171,12 +216,24 @@ export function usePokemon(api = pokemonApi) {
     favoritesCount: computed(() => favoritesStore.favoritesCount),
     favoritesList,
     totalCount: computed(() => pokemonStore.pokemonList.length),
-    filteredPokemonList,
     paginatedPokemonList,
+
+    selectedTypes,
+    applyTypeFilters: (types: PokemonType[]) => {
+      selectedTypes.value = types;
+      visibleCount.value = 30;
+      loadFilter();
+    },
+    clearFilters: () => {
+      searchQuery.value = '';
+      selectedTypes.value = [];
+      visibleCount.value = 30;
+      filteredPokemonList.value = undefined;
+    },
 
     fetchPokemonList,
     fetchPokemonDetail,
-    changePage,
+    loadMore,
     isFavorite,
     toggleFavorite,
     openDetailModal,

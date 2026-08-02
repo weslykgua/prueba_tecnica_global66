@@ -1,8 +1,5 @@
 const FAVORITES_STORAGE_KEY = 'global66_pokemon_favorites';
 
-/**
- * Safe local storage wrapper for optional state persistence.
- */
 export const storageService = {
   getFavorites(): string[] {
     try {

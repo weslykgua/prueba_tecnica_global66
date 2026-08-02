@@ -13,9 +13,14 @@ export const usePokemonStore = defineStore('pokemonStore', {
     isDetailLoading: false,
     error: undefined,
     isInitialized: false,
+    simulatedErrorTriggered: false,
   }),
 
   actions: {
+    triggerSimulatedError() {
+      this.simulatedErrorTriggered = true;
+    },
+
     setPokemonList(list: PokemonListItem[]) {
       this.pokemonList = PokemonListItemMapper.toLocalArray(list);
       this.isInitialized = true;

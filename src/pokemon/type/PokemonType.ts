@@ -1,0 +1,29 @@
+export enum PokemonType {
+  NORMAL = 'normal',
+  FIGHTING = 'fighting',
+  FLYING = 'flying',
+  POISON = 'poison',
+  GROUND = 'ground',
+  ROCK = 'rock',
+  BUG = 'bug',
+  GHOST = 'ghost',
+  STEEL = 'steel',
+  FIRE = 'fire',
+  WATER = 'water',
+  GRASS = 'grass',
+  ELECTRIC = 'electric',
+  PSYCHIC = 'psychic',
+  ICE = 'ice',
+  DRAGON = 'dragon',
+  DARK = 'dark',
+  FAIRY = 'fairy',
+  STELLAR = 'stellar',
+  UNKNOWN = 'unknown',
+  SHADOW = 'shadow',
+}
+
+export const toPokemonType = (typeKey: string): PokemonType | undefined => {
+  const lower = typeKey.toLowerCase();
+
+  return Object.values(PokemonType).find(cat => cat.toLowerCase() === lower);
+};
