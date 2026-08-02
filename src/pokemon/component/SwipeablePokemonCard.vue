@@ -54,8 +54,9 @@ const isDeleting = ref(false);
 const isDragging = ref(false);
 
 const REVEAL_WIDTH = -80;
-const SWIPE_THRESHOLD = -35;
-const MAX_SWIPE_LIMIT = -110;
+const SHORT_SWIPE_THRESHOLD = -35;
+const FULL_SWIPE_THRESHOLD = -170;
+const MAX_SWIPE_LIMIT = -400;
 
 let startX = 0;
 let initialTranslateX = 0;
@@ -92,7 +93,9 @@ const onTouchEnd = () => {
   if (!isDragging.value) return;
   isDragging.value = false;
 
-  if (translateX.value < SWIPE_THRESHOLD) {
+  if (translateX.value <= FULL_SWIPE_THRESHOLD) {
+    onDeleteClick();
+  } else if (translateX.value <= SHORT_SWIPE_THRESHOLD) {
     translateX.value = REVEAL_WIDTH;
     isSwiped.value = true;
   } else {
@@ -132,7 +135,9 @@ const onMouseDown = (e: MouseEvent) => {
     window.removeEventListener('mousemove', onMouseMove);
     window.removeEventListener('mouseup', onMouseUp);
 
-    if (translateX.value < SWIPE_THRESHOLD) {
+    if (translateX.value <= FULL_SWIPE_THRESHOLD) {
+      onDeleteClick();
+    } else if (translateX.value <= SHORT_SWIPE_THRESHOLD) {
       translateX.value = REVEAL_WIDTH;
       isSwiped.value = true;
     } else {
@@ -160,7 +165,7 @@ const onCardSelect = (id: number) => {
 const onDeleteClick = () => {
   if (isDeleting.value) return;
   isDeleting.value = true;
-  translateX.value = -500;
+  translateX.value = -600;
 
   setTimeout(() => {
     emit('toggle-favorite', props.pokemon.name);
