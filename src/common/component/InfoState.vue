@@ -77,13 +77,13 @@ const handleButtonClick = () => {
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 100%;
-  height: 100%;
+  width: $size-100-percent;
+  height: $size-100-percent;
   flex: 1;
-  min-height: 100%;
-  max-width: 540px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+  min-height: $size-100-percent;
+  max-width: $size-540px;
+  margin: $size-0px $size-auto;
+  padding: $size-32px $size-16px;
   box-sizing: border-box;
   font-family: $font-family;
 }
@@ -92,12 +92,12 @@ const handleButtonClick = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 16px 16px 20px;
+  margin: $size-16px $size-16px $size-20px;
 }
 
 .info-img {
-  width: 169px;
-  height: 209px;
+  width: $size-169px;
+  height: $size-209px;
   object-fit: contain;
 }
 
@@ -106,11 +106,11 @@ const handleButtonClick = () => {
   font-weight: $font-weight-600;
   font-style: normal;
   font-size: $font-size-20;
-  line-height: 100%;
+  line-height: $size-100-percent;
   letter-spacing: 0%;
   text-align: center;
   color: $color-121212;
-  margin: 0 16px 8px 16px;
+  margin: $size-0px $size-16px $size-8px $size-16px;
 }
 
 .info-message {
@@ -122,15 +122,15 @@ const handleButtonClick = () => {
   letter-spacing: 0%;
   text-align: center;
   color: $color-424242;
-  max-width: 440px;
-  margin: 0 16px 16px;
+  max-width: $size-440px;
+  margin: $size-0px $size-16px $size-16px;
 }
 
 .info-btn {
-  margin: 16px 16px;
+  margin: $size-16px $size-16px;
 
   @media (min-width: $bp-tablet) {
-    margin: 24px auto 40px auto;
+    margin: $size-24px $size-auto $size-40px $size-auto;
   }
 }
 </style>

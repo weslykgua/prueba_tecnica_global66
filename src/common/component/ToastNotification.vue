@@ -96,15 +96,15 @@ defineEmits<{
 
 .toast-container {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: $size-24px;
+  right: $size-24px;
   z-index: 99999;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 10px;
-  max-width: 380px;
-  width: calc(100% - 48px);
+  gap: $size-10px;
+  max-width: $size-380px;
+  width: calc(#{$size-100-percent} - #{$size-48px});
   pointer-events: none;
 }
 
@@ -113,9 +113,9 @@ defineEmits<{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 14px 18px;
-  border-radius: 16px;
+  gap: $size-12px;
+  padding: $size-14px $size-18px;
+  border-radius: $size-16px;
   box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.18),
     0 2px 8px rgba(0, 0, 0, 0.12);
@@ -125,10 +125,10 @@ defineEmits<{
   font-size: $font-size-14;
   line-height: 1.35;
   background-color: $color-121212;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: $size-1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  width: 100%;
+  width: $size-100-percent;
   box-sizing: border-box;
 
   &.custom-bg {
@@ -154,8 +154,8 @@ defineEmits<{
   flex-shrink: 0;
 
   svg {
-    width: 20px;
-    height: 20px;
+    width: $size-20px;
+    height: $size-20px;
     filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
   }
 }
@@ -172,11 +172,11 @@ defineEmits<{
   background: rgba(255, 255, 255, 0.2);
   border: none;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
+  width: $size-24px;
+  height: $size-24px;
   color: $color-white;
   cursor: pointer;
-  padding: 0;
+  padding: $size-0px;
   flex-shrink: 0;
   transition:
     transform 0.2s ease,
@@ -188,8 +188,8 @@ defineEmits<{
   }
 
   svg {
-    width: 14px;
-    height: 14px;
+    width: $size-14px;
+    height: $size-14px;
   }
 }
 

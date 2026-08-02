@@ -32,8 +32,8 @@ defineProps<{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: $size-100-percent;
+  height: $size-100-percent;
   flex: 1;
 }
 
@@ -45,8 +45,8 @@ defineProps<{
 }
 
 .pokeball {
-  width: 160px;
-  height: 160px;
+  width: $size-160px;
+  height: $size-160px;
   border-radius: 50%;
   border: 3.5px solid $color-222222;
   position: relative;
@@ -56,28 +56,28 @@ defineProps<{
 
   .pokeball-top {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
+    top: $size-0px;
+    left: $size-0px;
+    width: $size-100-percent;
+    height: $size-50-percent;
     background-color: $color-f22539;
   }
 
   .pokeball-bottom {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
+    bottom: $size-0px;
+    left: $size-0px;
+    width: $size-100-percent;
+    height: $size-50-percent;
     background-color: $color-white;
   }
 
   .pokeball-band {
     position: absolute;
     top: 50%;
-    left: 0;
-    width: 100%;
-    height: 12px;
+    left: $size-0px;
+    width: $size-100-percent;
+    height: $size-12px;
     background-color: $color-222222;
     transform: translateY(-50%);
     z-index: 2;
@@ -87,10 +87,10 @@ defineProps<{
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 44px;
-    height: 44px;
+    width: $size-44px;
+    height: $size-44px;
     background-color: $color-white;
-    border: 5px solid $color-222222;
+    border: $size-5px solid $color-222222;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
@@ -99,10 +99,10 @@ defineProps<{
     justify-content: center;
 
     .pokeball-center-dot {
-      width: 7px;
-      height: 7px;
+      width: $size-7px;
+      height: $size-7px;
       background-color: $color-ececec;
-      border: 1px solid $color-7a7a7a;
+      border: $size-1px solid $color-7a7a7a;
       border-radius: 50%;
     }
   }

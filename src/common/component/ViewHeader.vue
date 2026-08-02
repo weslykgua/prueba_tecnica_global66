@@ -42,41 +42,41 @@ const onBack = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 570px;
-  height: 36px;
-  margin: 36px auto 24px auto;
-  padding: 0 16px;
-  gap: 4px;
+  width: $size-100-percent;
+  max-width: $size-570px;
+  height: $size-36px;
+  margin: $size-36px $size-auto $size-24px $size-auto;
+  padding: $size-0px $size-16px;
+  gap: $size-4px;
   box-sizing: border-box;
 
   @media (min-width: $bp-tablet) {
-    max-width: 820px;
-    margin: 40px auto 28px auto;
-    padding: 0 24px;
+    max-width: $size-820px;
+    margin: $size-40px $size-auto $size-28px $size-auto;
+    padding: $size-0px $size-24px;
   }
 
   @media (min-width: $bp-desktop) {
-    max-width: 1100px;
-    margin: 48px auto 32px auto;
-    padding: 0 32px;
+    max-width: $size-1100px;
+    margin: $size-48px $size-auto $size-32px $size-auto;
+    padding: $size-0px $size-32px;
   }
 }
 
 .back-btn {
   position: absolute;
-  left: 16px;
+  left: $size-16px;
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
-  padding: 0;
+  padding: $size-0px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: $size-32px;
+  height: $size-32px;
   border-radius: $size-full;
   transition: background-color $anim-duration $anim-ease;
 
@@ -85,17 +85,17 @@ const onBack = () => {
   }
 
   @media (min-width: $bp-tablet) {
-    left: 24px;
+    left: $size-24px;
   }
 
   @media (min-width: $bp-desktop) {
-    left: 32px;
+    left: $size-32px;
   }
 }
 
 .back-icon {
-  width: 24px;
-  height: 24px;
+  width: $size-24px;
+  height: $size-24px;
 }
 
 .view-title {

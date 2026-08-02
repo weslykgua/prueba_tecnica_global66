@@ -25,19 +25,19 @@ defineProps<{
 @use '@/assets/styles/variables' as *;
 
 .stat-card {
-  min-width: 180px;
+  min-width: $size-180px;
 }
 
 .stat-label-row {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding-left: 2px;
+  gap: $size-6px;
+  padding-left: $size-2px;
 }
 
 .stat-icon {
-  width: 16px;
-  height: 16px;
+  width: $size-16px;
+  height: $size-16px;
   flex-shrink: 0;
 }
 
@@ -49,16 +49,16 @@ defineProps<{
 }
 
 .stat-value-box {
-  width: 154px;
-  height: 43px;
-  max-width: 100%;
+  width: $size-154px;
+  height: $size-43px;
+  max-width: $size-100-percent;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid $color-e0e0e0;
-  border-radius: 15px;
+  border: $size-1px solid $color-e0e0e0;
+  border-radius: $size-15px;
   box-sizing: border-box;
-  margin: 4px auto 0 auto;
+  margin: $size-4px $size-auto $size-0px $size-auto;
 }
 
 .stat-value {

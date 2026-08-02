@@ -268,9 +268,9 @@ onMounted(() => {
 
 
 .pokemon-detail-page {
-  width: 100%;
+  width: $size-100-percent;
   max-width: none !important;
-  height: 100%;
+  height: $size-100-percent;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -282,13 +282,13 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
   flex: 1;
-  min-height: 300px;
+  min-height: $size-300px;
 }
 
 .detail-container {
-  width: 100%;
+  width: $size-100-percent;
   max-width: none !important;
-  margin: 0 auto;
+  margin: $size-0px $size-auto;
   background-color: white;
   overflow: hidden;
 }
@@ -302,23 +302,23 @@ onMounted(() => {
   overflow: hidden;
   box-sizing: border-box;
 
-  @media (min-width: 425px) {
+  @media (min-width: $size-425px) {
     background-color: var(--banner-bg-color);
   }
 }
 
 .banner-type-circle {
   position: absolute;
-  top: -227px;
+  top: -#{$size-227px};
   left: 50%;
   transform: translateX(-50%);
-  width: 498px;
-  height: 498px;
+  width: $size-498px;
+  height: $size-498px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
 
-  @media (min-width: 425px) {
+  @media (min-width: $size-425px) {
     display: none;
   }
 }
@@ -328,9 +328,9 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 20px;
-  width: 38px;
-  height: 38px;
+  top: $size-20px;
+  width: $size-38px;
+  height: $size-38px;
   cursor: pointer;
   transition: transform 0.2s ease;
   z-index: 10;
@@ -340,7 +340,7 @@ onMounted(() => {
   }
 
   &.back-btn {
-    left: 16px;
+    left: $size-16px;
 
     .header-btn-icon {
       filter: brightness(0) invert(1);
@@ -348,7 +348,7 @@ onMounted(() => {
   }
 
   &.share-btn-top {
-    right: 64px;
+    right: $size-64px;
 
     .header-btn-icon {
       filter: brightness(0) invert(1);
@@ -356,12 +356,12 @@ onMounted(() => {
   }
 
   &.favorite-btn-top {
-    right: 16px;
+    right: $size-16px;
   }
 
   .header-btn-icon {
-    width: 28px;
-    height: 28px;
+    width: $size-28px;
+    height: $size-28px;
     display: block;
     object-fit: contain;
   }
@@ -369,12 +369,12 @@ onMounted(() => {
 
 .banner-type-bg-icon {
   position: absolute;
-  top: 0;
+  top: $size-0px;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 40px;
-  width: 204px;
-  height: 204px;
+  margin-top: $size-40px;
+  width: $size-204px;
+  height: $size-204px;
   object-fit: contain;
   pointer-events: none;
   z-index: 1;
@@ -387,7 +387,7 @@ onMounted(() => {
 }
 
 .sprite-wrapper {
-  margin-top: 140px;
+  margin-top: $size-140px;
   position: relative;
   z-index: 2;
   display: flex;
@@ -396,20 +396,20 @@ onMounted(() => {
 }
 
 .detail-sprite {
-  width: 180px;
-  height: auto;
+  width: $size-180px;
+  height: $size-auto;
   object-fit: contain;
 }
 
 .detail-body {
-  padding: 0 16px 32px 16px;
+  padding: $size-0px $size-16px $size-32px $size-16px;
 }
 
 .pokemon-title {
   font-size: $font-size-32;
   font-weight: $font-weight-500;
   color: $color-222222;
-  margin: 0;
+  margin: $size-0px;
 }
 
 .pokemon-id-subtag {
@@ -422,12 +422,12 @@ onMounted(() => {
 .types-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 24px;
+  gap: $size-16px;
+  margin-top: $size-24px;
 }
 
 .pokemon-description {
-  margin-top: 24px;
+  margin-top: $size-24px;
   font-family: $font-family;
   font-size: $font-size-14;
   font-weight: $font-weight-400;
@@ -438,15 +438,15 @@ onMounted(() => {
 .stats-grid {
   display: flex;
   flex-flow: row wrap;
-  gap: 20px;
-  padding-top: 16px;
-  border-top: solid 1px $color-e0e0e0;
-  margin-top: 20px;
+  gap: $size-20px;
+  padding-top: $size-16px;
+  border-top: solid $size-1px $color-e0e0e0;
+  margin-top: $size-20px;
   justify-content: space-around;
 }
 
 .gender-section {
-  margin-top: 24px;
+  margin-top: $size-24px;
 }
 
 .section-title {
@@ -455,7 +455,7 @@ onMounted(() => {
   font-weight: $font-weight-500;
   color: $color-424242;
   text-align: center;
-  margin: 0 0 12px 0;
+  margin: $size-0px $size-0px $size-12px $size-0px;
 }
 
 .weaknesses-title {
@@ -476,19 +476,19 @@ onMounted(() => {
 .gender-column {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: $size-8px;
 }
 
 .gender-bar-track {
-  width: 100%;
-  height: 8px;
+  width: $size-100-percent;
+  height: $size-8px;
   background-color: $color-ff7596;
   border-radius: $size-full;
   overflow: hidden;
 }
 
 .gender-bar-fill {
-  height: 100%;
+  height: $size-100-percent;
   background-color: $color-2551c3;
   border-radius: $size-full;
   transition: width 0.6s ease;
@@ -502,12 +502,12 @@ onMounted(() => {
 .gender-end {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: $size-4px;
 }
 
 .gender-icon {
-  width: 16px;
-  height: 16px;
+  width: $size-16px;
+  height: $size-16px;
 }
 
 .gender-percent {
@@ -526,6 +526,6 @@ onMounted(() => {
 }
 
 .weaknesses-section {
-  margin-top: 24px;
+  margin-top: $size-24px;
 }
 </style>

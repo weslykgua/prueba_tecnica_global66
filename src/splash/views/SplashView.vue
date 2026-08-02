@@ -12,10 +12,11 @@ import pokeballUrl from '@/assets/icons/common/pokeball.svg';
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
+@use '@/assets/styles/sizes' as *;
 
 .splash-screen {
   position: fixed;
-  inset: 0;
+  inset: $size-0px;
   z-index: 9999;
   background-color: $color-white;
   display: flex;
@@ -29,8 +30,8 @@ import pokeballUrl from '@/assets/icons/common/pokeball.svg';
   justify-content: center;
 
   .pokeball-svg-img {
-    width: 155px;
-    height: 155px;
+    width: $size-155px;
+    height: $size-155px;
     user-select: none;
   }
 }

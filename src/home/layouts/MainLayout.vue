@@ -11,21 +11,23 @@
 <script setup lang="ts"></script>
 
 <style lang="scss" scoped>
+@use '@/assets/styles/sizes' as *;
+
 .container {
-  padding: 0px;
-  max-width: 100%;
-  width: 100%;
+  padding: $size-0px;
+  max-width: $size-100-percent;
+  width: $size-100-percent;
 }
 
 .main-layout {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: $size-100-vh;
   position: relative;
 }
 
 .main-content {
   flex: 1;
-  padding: 0;
+  padding: $size-0px;
 }
 </style>

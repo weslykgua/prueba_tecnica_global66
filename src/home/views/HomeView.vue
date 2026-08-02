@@ -94,24 +94,26 @@ const {
 </script>
 
 <style lang="scss" scoped>
+@use '@/assets/styles/sizes' as *;
+
 .home-view {
-  width: 100%;
-  height: 100%;
+  width: $size-100-percent;
+  height: $size-100-percent;
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 100%;
-  max-width: 800px;
-  margin: 0 auto;
+  min-height: $size-100-percent;
+  max-width: $size-800px;
+  margin: $size-0px $size-auto;
 }
 
 .loader-container {
-  width: 100%;
-  height: 100%;
+  width: $size-100-percent;
+  height: $size-100-percent;
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100%;
+  min-height: $size-100-percent;
 }
 </style>

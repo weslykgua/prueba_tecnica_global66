@@ -51,15 +51,15 @@ const {
 @use '@/assets/styles/sizes' as *;
 
 .favorites-view {
-  width: 100%;
-  height: 100%;
+  width: $size-100-percent;
+  height: $size-100-percent;
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  min-height: 100%;
-  max-width: 800px;
-  margin: 0 auto;
+  min-height: $size-100-percent;
+  max-width: $size-800px;
+  margin: $size-0px $size-auto;
 }
 </style>

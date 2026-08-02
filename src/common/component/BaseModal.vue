@@ -116,27 +116,27 @@ onUnmounted(() => {
 
 .base-modal-backdrop {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  top: $size-0px;
+  left: $size-0px;
+  width: $size-100-vw;
+  height: $size-100-vh;
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: flex-end;
   z-index: 1000;
 
-  @media (min-width: 600px) {
+  @media (min-width: $size-600px) {
     align-items: center;
   }
 }
 
 .base-modal-container {
   background-color: $color-white;
-  width: 100%;
-  max-height: 85vh;
-  border-radius: 24px 24px 0 0;
-  padding: 20px 24px 24px 24px;
+  width: $size-100-percent;
+  max-height: $size-75-vh;
+  border-radius: $size-24px $size-24px $size-0px $size-0px;
+  padding: $size-20px $size-24px $size-24px $size-24px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -144,23 +144,23 @@ onUnmounted(() => {
   position: relative;
   box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.15);
 
-  @media (min-width: 600px) {
-    border-radius: 24px;
+  @media (min-width: $size-600px) {
+    border-radius: $size-24px;
   }
 }
 
 .close-btn {
   background: none;
   border: none;
-  padding: 0;
-  margin-bottom: 14px;
+  padding: $size-0px;
+  margin-bottom: $size-14px;
   cursor: pointer;
   align-self: flex-start;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: $size-24px;
+  height: $size-24px;
   transition: opacity 0.2s ease;
 
   &:hover {
@@ -169,8 +169,8 @@ onUnmounted(() => {
 }
 
 .base-modal-header {
-  width: 100%;
-  margin-bottom: 16px;
+  width: $size-100-percent;
+  margin-bottom: $size-16px;
 }
 
 .base-modal-title {
@@ -180,7 +180,7 @@ onUnmounted(() => {
   line-height: 32px;
   text-align: center;
   color: $color-121212;
-  margin: 0;
+  margin: $size-0px;
 }
 
 .base-modal-body {
@@ -191,8 +191,8 @@ onUnmounted(() => {
 }
 
 .base-modal-footer {
-  margin-top: 16px;
-  width: 100%;
+  margin-top: $size-16px;
+  width: $size-100-percent;
 }
 
 .base-modal-fade-enter-active,
@@ -211,7 +211,7 @@ onUnmounted(() => {
   .base-modal-container {
     transform: translateY(100%);
 
-    @media (min-width: 600px) {
+    @media (min-width: $size-600px) {
       transform: scale(0.95);
     }
   }

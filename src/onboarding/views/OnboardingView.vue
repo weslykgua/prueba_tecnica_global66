@@ -80,8 +80,8 @@ const finishOnboarding = () => {
 
 .onboarding-page {
   font-family: 'Poppins', sans-serif;
-  width: 100%;
-  min-height: 100vh;
+  width: $size-100-percent;
+  min-height: $size-100-vh;
   background-color: $color-white;
   display: flex;
   flex-direction: column;
@@ -92,7 +92,7 @@ const finishOnboarding = () => {
 
   @media (min-width: $bp-tablet) {
     justify-content: center;
-    padding: 2rem 1.5rem;
+    padding: $size-32px $size-24px;
     box-sizing: border-box;
   }
 }
@@ -102,16 +102,16 @@ const finishOnboarding = () => {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 540px;
-  width: 100%;
+  max-width: $size-540px;
+  width: $size-100-percent;
   flex-grow: 1;
   justify-content: space-between;
-  margin: 0 auto;
+  margin: $size-0px $size-auto;
 
   @media (min-width: $bp-tablet) {
     flex-grow: 0;
     justify-content: center;
-    margin: auto 0;
+    margin: $size-auto $size-0px;
   }
 }
 

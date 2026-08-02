@@ -37,19 +37,19 @@ defineEmits<{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: calc(100% - 46px);
-  margin: 8px 30px 16px 16px;
-  padding: 0;
+  width: calc(#{$size-100-percent} - #{$size-46px});
+  margin: $size-8px $size-30px $size-16px $size-16px;
+  padding: $size-0px;
   box-sizing: border-box;
-  gap: 4px;
+  gap: $size-4px;
   white-space: nowrap;
 
   @media (min-width: $bp-tablet) {
-    max-width: 820px;
+    max-width: $size-820px;
   }
 
   @media (min-width: $bp-desktop) {
-    max-width: 1100px;
+    max-width: $size-1100px;
   }
 }
 
@@ -60,11 +60,11 @@ defineEmits<{
   line-height: 1.4;
   color: $color-9e9e9e;
   display: inline-flex;
-  gap: 4px;
+  gap: $size-4px;
   align-items: center;
   white-space: nowrap;
   flex-shrink: 1;
-  min-width: 0;
+  min-width: $size-0px;
   overflow: hidden;
   text-overflow: ellipsis;
 
@@ -78,7 +78,7 @@ defineEmits<{
 .clear-filter-btn {
   background: none;
   border: none;
-  padding: 0;
+  padding: $size-0px;
   cursor: pointer;
   font-family: $font-family;
   font-weight: $font-weight-500;
@@ -87,7 +87,7 @@ defineEmits<{
   color: $color-1e88e5;
   white-space: nowrap;
   flex-shrink: 0;
-  margin-left: 4px;
+  margin-left: $size-4px;
   text-decoration: underline;
   text-decoration-style: solid;
   text-decoration-thickness: auto;

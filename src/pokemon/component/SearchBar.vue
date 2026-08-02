@@ -75,10 +75,10 @@ const clear = () => {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  gap: 11px;
-  width: calc(100% - 32px);
-  margin: 44px 16px 16px 16px;
-  padding: 0;
+  gap: $size-11px;
+  width: calc(#{$size-100-percent} - #{$size-32px});
+  margin: $size-44px $size-16px $size-16px $size-16px;
+  padding: $size-0px;
   box-sizing: border-box;
 }
 
@@ -86,12 +86,12 @@ const clear = () => {
   display: flex;
   align-items: center;
   flex: 1;
-  height: 48px;
+  height: $size-48px;
   background-color: $color-white;
   border: 1.5px solid $color-e0e0e0;
-  border-radius: 30px;
-  padding: 0 16px;
-  gap: 10px;
+  border-radius: $size-30px;
+  padding: $size-0px $size-16px;
+  gap: $size-10px;
   box-sizing: border-box;
   position: relative;
   transition: border-color 0.2s ease;
@@ -102,21 +102,21 @@ const clear = () => {
 }
 
 .search-left-icon {
-  width: 20px;
-  height: 20px;
+  width: $size-20px;
+  height: $size-20px;
   flex-shrink: 0;
   filter: invert(68%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(92%) contrast(88%);
 }
 
 .search-input {
-  width: 100%;
+  width: $size-100-percent;
   border: none;
   outline: none;
   background: transparent;
   font-family: $font-family;
   font-size: $font-size-14;
   color: $color-9e9e9e;
-  padding: 0;
+  padding: $size-0px;
 
   &::placeholder {
     color: $color-9e9e9e;
@@ -127,15 +127,15 @@ const clear = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: $size-24px;
+  height: $size-24px;
   border: none;
   background: transparent;
   cursor: pointer;
 
   .clear-icon-img {
-    width: 14px;
-    height: 14px;
+    width: $size-14px;
+    height: $size-14px;
     filter: invert(68%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(92%) contrast(88%);
   }
 }
@@ -144,13 +144,13 @@ const clear = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  min-width: 48px;
-  max-width: 48px;
-  height: 48px;
-  min-height: 48px;
-  max-height: 48px;
-  flex: 0 0 48px;
+  width: $size-48px;
+  min-width: $size-48px;
+  max-width: $size-48px;
+  height: $size-48px;
+  min-height: $size-48px;
+  max-height: $size-48px;
+  flex: 0 0 $size-48px;
   border-radius: 50%;
   background-color: $color-white;
   border: 1.5px solid $color-e0e0e0;
@@ -163,16 +163,16 @@ const clear = () => {
   }
 
   .action-icon {
-    width: 20px;
-    height: 20px;
+    width: $size-20px;
+    height: $size-20px;
     filter: invert(68%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(92%) contrast(88%);
   }
 }
 
 .mini-spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid $color-e0e0e0;
+  width: $size-18px;
+  height: $size-18px;
+  border: $size-2px solid $color-e0e0e0;
   border-top-color: $color-1e88e5;
   border-radius: 50%;
   animation: spin 0.6s linear infinite;

@@ -109,22 +109,22 @@ const onImageError = () => {
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
+@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
-@use '@/assets/styles/variables' as *;
 
 .pokemon-card {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: stretch;
-  width: 100%;
-  min-height: 102px;
+  width: $size-100-percent;
+  min-height: $size-102px;
   background-color: $color-white;
-  border: 1px solid $color-e0e0e0;
-  border-radius: 16px;
+  border: $size-1px solid $color-e0e0e0;
+  border-radius: $size-16px;
   box-sizing: border-box;
-  margin-bottom: 12px;
+  margin-bottom: $size-12px;
   position: relative;
   cursor: pointer;
   overflow: hidden;
@@ -144,8 +144,8 @@ const onImageError = () => {
   justify-content: space-between;
   align-items: flex-start;
   flex: 1 1 auto;
-  min-width: 0;
-  padding: 12px 0 12px 16px;
+  min-width: $size-0px;
+  padding: $size-12px $size-0px $size-12px $size-16px;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -154,9 +154,9 @@ const onImageError = () => {
   font-family: $font-family;
   font-weight: $font-weight-600;
   font-size: $font-size-12;
-  line-height: 100%;
+  line-height: $size-100-percent;
   color: $color-424242;
-  margin: 0 0 2px 0;
+  margin: $size-0px $size-0px $size-2px $size-0px;
 }
 
 .pokemon-name {
@@ -166,11 +166,11 @@ const onImageError = () => {
   font-size: $font-size-21;
   letter-spacing: 0%;
   color: $color-121212;
-  margin: 0 0 8px 0;
+  margin: $size-0px $size-0px $size-8px $size-0px;
   text-align: left;
   display: block;
-  width: 100%;
-  max-width: 100%;
+  width: $size-100-percent;
+  max-width: $size-100-percent;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -179,9 +179,9 @@ const onImageError = () => {
 .types-container {
   display: flex;
   flex-direction: row;
-  gap: 6px;
-  width: 100%;
-  max-width: 100%;
+  gap: $size-6px;
+  width: $size-100-percent;
+  max-width: $size-100-percent;
   flex-wrap: nowrap;
   overflow-x: auto;
   scrollbar-width: none;
@@ -189,8 +189,8 @@ const onImageError = () => {
 
   &::-webkit-scrollbar {
     display: none;
-    width: 0;
-    height: 0;
+    width: $size-0px;
+    height: $size-0px;
   }
 }
 
@@ -199,16 +199,16 @@ const onImageError = () => {
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 126px;
-  min-width: 126px;
-  max-width: 126px;
-  height: auto;
+  width: $size-126px;
+  min-width: $size-126px;
+  max-width: $size-126px;
+  height: $size-auto;
   align-self: stretch;
-  border-radius: 16px;
+  border-radius: $size-16px;
   overflow: hidden;
   box-sizing: border-box;
-  flex: 0 0 126px;
-  padding: 4px auto;
+  flex: 0 0 $size-126px;
+  padding: $size-4px $size-auto;
 }
 
 .card-bg-svg {
@@ -216,8 +216,8 @@ const onImageError = () => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 94px;
-  height: 94px;
+  width: $size-94px;
+  height: $size-94px;
   object-fit: contain;
   z-index: 0;
   pointer-events: none;
@@ -234,8 +234,8 @@ const onImageError = () => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 94px;
-  height: auto;
+  width: $size-94px;
+  height: $size-auto;
   object-fit: contain;
   z-index: 1;
   pointer-events: none;
@@ -243,30 +243,30 @@ const onImageError = () => {
 
 .favorite-button {
   position: absolute;
-  top: 9px;
-  right: 9px;
-  width: 32px;
-  height: 32px;
+  top: $size-9px;
+  right: $size-9px;
+  width: $size-32px;
+  height: $size-32px;
   border: none;
   background: transparent;
-  padding: 0;
+  padding: $size-0px;
   cursor: pointer;
   z-index: 5;
 
   .heart-icon {
-    width: 32px;
-    height: 32px;
+    width: $size-32px;
+    height: $size-32px;
     display: block;
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: $size-380px) {
   .pokemon-card {
-    gap: 12px;
+    gap: $size-12px;
   }
 
   .pokemon-name {
-    margin-bottom: 4px;
+    margin-bottom: $size-4px;
   }
 
   .types-container {

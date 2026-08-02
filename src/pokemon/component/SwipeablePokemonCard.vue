@@ -181,36 +181,36 @@ const onDeleteClick = () => {
 
 .swipeable-card-wrapper {
   position: relative;
-  width: 100%;
-  border-radius: 16px;
+  width: $size-100-percent;
+  border-radius: $size-16px;
   overflow: hidden;
   box-sizing: border-box;
-  margin-bottom: 12px;
+  margin-bottom: $size-12px;
   background-color: transparent;
   transition: max-height 0.25s ease, margin-bottom 0.25s ease, opacity 0.25s ease;
-  max-height: 120px;
+  max-height: $size-120px;
 
   &.deleting-wrapper {
-    max-height: 0 !important;
-    margin-bottom: 0 !important;
+    max-height: $size-0px !important;
+    margin-bottom: $size-0px !important;
     opacity: 0 !important;
   }
 }
 
 :deep(.pokemon-card) {
-  margin-bottom: 0 !important;
+  margin-bottom: $size-0px !important;
 }
 
 .delete-action-bg {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: $size-0px;
+  right: $size-0px;
+  bottom: $size-0px;
+  left: $size-0px;
+  width: $size-100-percent;
+  height: $size-100-percent;
   background-color: $color-cd3131;
-  border-radius: 16px;
+  border-radius: $size-16px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -227,16 +227,16 @@ const onDeleteClick = () => {
   }
 
   .trash-icon-container {
-    width: 80px;
-    height: 100%;
+    width: $size-80px;
+    height: $size-100-percent;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .trash-icon {
-    width: 32px;
-    height: 32px;
+    width: $size-32px;
+    height: $size-32px;
     transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     transform: scale(0.9);
   }
@@ -249,9 +249,9 @@ const onDeleteClick = () => {
 .swipeable-card-content {
   position: relative;
   z-index: 2;
-  width: 100%;
-  height: 100%;
-  border-radius: 16px;
+  width: $size-100-percent;
+  height: $size-100-percent;
+  border-radius: $size-16px;
   background-color: $color-white;
   touch-action: pan-y;
   user-select: none;
@@ -262,7 +262,7 @@ const onDeleteClick = () => {
 
   &.deleting {
     opacity: 0;
-    transform: translateX(-100%) !important;
+    transform: translateX(-#{$size-100-percent}) !important;
     transition:
       transform 0.22s cubic-bezier(0.4, 0, 0.2, 1),
       opacity 0.22s ease-out !important;

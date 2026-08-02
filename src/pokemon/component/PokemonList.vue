@@ -70,9 +70,9 @@ const onToggleFavorite = (name: string) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
-  width: calc(100% - 32px);
-  margin: 0 16px;
+  gap: $size-0px;
+  width: calc(#{$size-100-percent} - #{$size-32px});
+  margin: $size-0px $size-16px;
   box-sizing: border-box;
   position: relative;
 }

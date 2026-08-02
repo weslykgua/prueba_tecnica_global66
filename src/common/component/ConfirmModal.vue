@@ -61,7 +61,7 @@ defineEmits<{
 @use '@/assets/styles/sizes' as *;
 
 .confirm-modal-body {
-  padding: 8px 0;
+  padding: $size-8px $size-0px;
   text-align: center;
 }
 
@@ -71,23 +71,23 @@ defineEmits<{
   font-size: $font-size-16;
   line-height: 24px;
   color: $color-424242;
-  margin: 0;
+  margin: $size-0px;
 }
 
 .confirm-actions {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  width: 100%;
+  gap: $size-12px;
+  width: $size-100-percent;
 
   :deep(.app-button.confirm-btn) {
-    width: 100%;
-    max-width: 100%;
+    width: $size-100-percent;
+    max-width: $size-100-percent;
     border-radius: $size-60px;
-    padding: 14px;
+    padding: $size-14px;
     font-size: $font-size-16;
     font-weight: $font-weight-500;
-    margin: 0;
+    margin: $size-0px;
 
     &.primary {
       background-color: $color-1e88e5;
@@ -108,13 +108,13 @@ defineEmits<{
   :deep(.app-button.cancel-btn) {
     background-color: $color-eeeeee;
     color: $color-424242;
-    width: 100%;
-    max-width: 100%;
+    width: $size-100-percent;
+    max-width: $size-100-percent;
     border-radius: $size-60px;
-    padding: 14px;
+    padding: $size-14px;
     font-size: $font-size-16;
     font-weight: $font-weight-500;
-    margin: 0;
+    margin: $size-0px;
     box-shadow: none;
 
     &:hover {

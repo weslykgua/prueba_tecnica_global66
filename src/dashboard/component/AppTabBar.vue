@@ -70,21 +70,21 @@ const currentRoute = computed(() => route.path);
 
 .app-tabbar {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: $size-0px;
+  left: $size-0px;
+  right: $size-0px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
-  width: 100%;
-  height: auto;
+  padding: $size-16px;
+  width: $size-100-percent;
+  height: $size-auto;
   background: $color-fafafa;
-  border: 1px solid $color-e0e0e0;
-  border-radius: 16px 16px 0px 0px !important;
-  border-top-left-radius: 16px !important;
-  border-top-right-radius: 16px !important;
+  border: $size-1px solid $color-e0e0e0;
+  border-radius: $size-16px $size-16px $size-0px $size-0px !important;
+  border-top-left-radius: $size-16px !important;
+  border-top-right-radius: $size-16px !important;
   overflow: hidden;
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(3px);
@@ -98,12 +98,12 @@ const currentRoute = computed(() => route.path);
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  max-width: 570px;
-  margin: 0 auto;
+  width: $size-100-percent;
+  max-width: $size-570px;
+  margin: $size-0px $size-auto;
 
   @media (min-width: $bp-tablet) {
-    max-width: 800px;
+    max-width: $size-800px;
   }
 }
 
@@ -111,12 +111,12 @@ const currentRoute = computed(() => route.path);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0px;
-  gap: 4px;
+  padding: $size-0px;
+  gap: $size-4px;
 
-  margin: 0 auto;
-  width: 62px;
-  height: 44px;
+  margin: $size-0px $size-auto;
+  width: $size-62px;
+  height: $size-44px;
   flex: none;
   order: 0;
   flex-grow: 0;
@@ -124,8 +124,8 @@ const currentRoute = computed(() => route.path);
   color: $color-424242;
 
   .nav-label {
-    width: 62px;
-    height: 13px;
+    width: $size-62px;
+    height: $size-13px;
 
     font-family: $font-family;
     font-style: normal;
@@ -146,12 +146,12 @@ const currentRoute = computed(() => route.path);
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 4px;
+    padding: $size-4px;
 
-    width: 62px;
-    height: 24px;
+    width: $size-62px;
+    height: $size-24px;
 
-    border-radius: 16px;
+    border-radius: $size-16px;
 
     flex: none;
     order: 0;
@@ -160,8 +160,8 @@ const currentRoute = computed(() => route.path);
   }
 
   .nav-icon {
-    width: 24px;
-    height: 24px;
+    width: $size-24px;
+    height: $size-24px;
     flex: none;
     order: 0;
     flex-grow: 0;
