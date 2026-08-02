@@ -24,6 +24,15 @@
         </button>
 
         <button
+          @click="onShare"
+          class="header-action-btn share-btn-top"
+          aria-label="Compartir información del Pokémon"
+          type="button"
+        >
+          <img :src="shareIcon" alt="Compartir" class="header-btn-icon" />
+        </button>
+
+        <button
           @click="toggleFav"
           class="header-action-btn favorite-btn-top"
           :class="{ active: isFav }"
@@ -113,6 +122,7 @@ import { useRoute, useRouter } from 'vue-router';
 import PokeballLoader from '@/pokemon/component/PokeballLoader.vue';
 import TypeBadge from '@/pokemon/component/TypeBadge.vue';
 import StatCard from '@/pokemon/component/StatCard.vue';
+import shareIcon from '@/assets/icons/actions/ic_share.svg';
 import heartFilledIcon2 from '@/assets/ic_heart_filled2.svg';
 import heartOutlineIcon2 from '@/assets/ic_heart_outline2.svg';
 import arrowBackIcon from '@/assets/icons/actions/ic_arrow_back.svg';
@@ -131,12 +141,21 @@ import {
 import PokemonDetail from '@/pokemon/model/PokemonDetail';
 import { PokemonType, toPokemonType } from '@/pokemon/type/PokemonType';
 import { usePokemon } from '@/pokemon/composable/usePokemon';
+import { useClipboard } from '@/common/utils/useClipboard';
 import { pokemonApi } from '@/pokemon/remote/api/pokemon.api';
 import PokemonDetailTexts from '../text/detail.texts';
 
 const route = useRoute();
 const router = useRouter();
 const { isFavorite, toggleFavorite } = usePokemon();
+const { sharePokemon } = useClipboard();
+
+const onShare = () => {
+  if (pokemon.value) {
+    const bannerColor = getTypeBackgroundColor(mainType.value);
+    sharePokemon(pokemon.value, bannerColor);
+  }
+};
 
 const pokemon = ref<PokemonDetail | undefined>(undefined);
 const isLoading = ref(true);
@@ -328,6 +347,14 @@ onMounted(() => {
     }
   }
 
+  &.share-btn-top {
+    right: 64px;
+
+    .header-btn-icon {
+      filter: brightness(0) invert(1);
+    }
+  }
+
   &.favorite-btn-top {
     right: 16px;
   }
@@ -395,7 +422,7 @@ onMounted(() => {
 .types-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 16px;
   margin-top: 24px;
 }
 

@@ -1,5 +1,5 @@
 import PokemonDetail from '../model/PokemonDetail';
-import { PokemonType } from '../type/PokemonType';
+import { PokemonType, toPokemonType } from '../type/PokemonType';
 import bugIcon from '@/assets/icons/types/bug.svg';
 import darkIcon from '@/assets/icons/types/dark.svg';
 import dragonIcon from '@/assets/icons/types/dragon.svg';
@@ -42,11 +42,16 @@ export function formatHeight(heightInDecimeters: number): string {
 }
 
 export function buildPokemonShareText(pokemon: PokemonDetail): string {
-  const name = pokemon.formattedName;
+  if (!pokemon) return '';
+  const name = pokemon.formattedName || capitalize(pokemon.name);
   const weight = pokemon.weightKg;
   const height = pokemon.heightM;
-  const types = pokemon.types.map(capitalize).join(', ');
-  const abilities = pokemon.abilities.map(capitalize).join(', ');
+  const types = Array.isArray(pokemon.types)
+    ? pokemon.types.map(t => capitalize(String(t))).join(', ')
+    : '';
+  const abilities = Array.isArray(pokemon.abilities)
+    ? pokemon.abilities.map(a => capitalize(String(a))).join(', ')
+    : '';
 
   return `${name}, ${weight}, ${height}, ${types}, ${abilities}`;
 }
