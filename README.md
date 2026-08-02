@@ -8,12 +8,12 @@ Una aplicación web de grado de producción desarrollada en **Vue 3**, **TypeScr
 
 - **Pokébola animada 100% CSS (`PokeballLoader.vue`)**: Pantalla de carga animada mediante animaciones CSS puras (sin librerías externas).
 - **Buscador en Tiempo Real con Carga Activa**: Filtrado por nombre e ID con indicador de carga sincrónico (`isSearching`), evitando sensaciones de pantalla congelada.
-- **Catálogo Completo & Paginación Dinámica (`Pagination.vue`)**: Carga del catálogo completo (1025 Pokémon) distribuido en páginas numéricas configurables (30 ítems/pág) con desplazamiento suave (_smooth scroll_).
+- **Catálogo Completo & Scroll infinito**: Carga del catálogo completo (1025 Pokémon) distribuido en páginas numéricas configurables (30 ítems/pág) con desplazamiento suave (_smooth scroll_).
 - **Navegación Instantánea con `<KeepAlive>`**: Cambio entre las pestañas "Todos" y "Favoritos" en **0ms** manteniendo el estado en memoria.
 - **Gestión de Favoritos en Pinia Store**: Reactividad automática almacenando únicamente identificadores/nombres en un `Set<string>` para garantizar cero duplicidad de información.
-- **Modal de Detalle (`PokemonDetailModal.vue`)**: Consumo de `GET /pokemon/{name}` mostrando imagen oficial, peso, altura, tipos y habilidades.
+- **Pantalla de Detalle**: Consumo de `GET /pokemon/{name}` mostrando imagen oficial, peso, altura, tipos y habilidades.
 - **Acción Compartir**: Copia al portapapeles exactamente en el formato requerido: `Nombre, Peso, Altura, Tipos, Habilidades` (Ej: `Pikachu, 60, 4, Electric, Static`) con notificación flotante Toast.
-- **Diseño Moderno & Responsive**: Estéticas minimalistas, animaciones a 60fps con aceleración por hardware GPU y accesibilidad ARIA.
+- **Diseño Responsive**: Estéticas adaptables y animaciones a 60fps con aceleración por hardware GPU.
 
 ---
 
@@ -30,74 +30,6 @@ Una aplicación web de grado de producción desarrollada en **Vue 3**, **TypeScr
 | **Sass / SCSS**             | Estilos modernos utilizando variables, mixins y keyframes.                               |
 | **Vitest & Vue Test Utils** | Framework de pruebas unitarias para Stores, Composables y Componentes.                   |
 | **ESLint & Prettier**       | Estándar de código y formateador automático.                                             |
-
----
-
-## 📐 Arquitectura del Proyecto (Módulo Pokémon Autocontenido)
-
-El proyecto organiza todo lo relacionado al dominio en un módulo 100% autocontenido dentro de `src/pokemon/`, manteniendo globales únicamente la navegación, el layout base, los estilos y las utilidades generales:
-
-```
-src/
-├── assets/                    # Estilos globales SCSS y recursos
-│
-├── layouts/                   # Layouts globales de la aplicación (MainLayout.vue)
-│
-├── router/                    # Configuración de Vue Router
-│
-├── utils/                     # Utilidades globales (storage.ts)
-│
-├── __tests__/                 # Suite de Pruebas Unitarias con Vitest
-│
-└── pokemon/                   # 📦 Módulo Pokémon (100% Autocontenido)
-    ├── components/            # Componentes visuales del módulo
-    │   ├── PokemonCard.vue
-    │   ├── PokemonList.vue
-    │   ├── PokemonDetailModal.vue
-    │   ├── SearchBar.vue
-    │   ├── Pagination.vue
-    │   ├── PokeballLoader.vue
-    │   ├── EmptyState.vue
-    │   ├── ErrorState.vue
-    │   ├── ModalDialog.vue
-    │   └── ToastNotification.vue
-    │
-    ├── views/                 # Vistas del dominio Pokémon
-    │   ├── HomeView.vue
-    │   └── FavoritesView.vue
-    │
-    ├── composables/           # Lógica reutilizable del dominio
-    │   ├── usePokemon.ts      # Orquestador del catálogo y filtros
-    │   ├── useFavorites.ts    # Gestión de favoritos
-    │   └── useClipboard.ts    # Copiar datos y notificaciones Toast
-    │
-    ├── stores/                # Estado reactivo con Pinia
-    │   ├── pokemon.store.ts   # Estado de la lista y detalles
-    │   └── favorites.store.ts # Estado local de favoritos (Set<string>)
-    │
-    ├── remote/                # Consumo de la PokeAPI
-    │   ├── axios.ts           # Cliente Axios con timeouts e interceptores
-    │   ├── pokemon.api.ts     # Servicio de endpoints PokeAPI
-    │   └── pokemon.mapper.ts  # Mapeador DTOs -> Entidades
-    │
-    ├── types/                 # Interfaces y tipos de TypeScript
-    │   ├── pokemon.ts         # Modelos del dominio Pokémon
-    │   └── api.ts             # Interfaces JSON PokeAPI
-    │
-    ├── constants/             # Constantes del módulo (pokemon.constants.ts)
-    │
-    └── utils/                 # Utilidades de formateo del módulo (formatters.ts)
-```
-
----
-
-## 🧠 Decisiones Técnicas & Justificación
-
-### 1. Módulo 100% Autocontenido (`src/pokemon/`)
-
-- **Independencia Total**: Componentes, Vistas, Composables, Stores, API Remota y Tipos residen juntos dentro de `src/pokemon/`.
-- **Cohesión Máxima**: Evita la dispersión de archivos y carpetas arbitrarias (`common/`, `views/`) cuando el dominio principal es Pokémon.
-- **Escalabilidad Futura**: Agregar un nuevo módulo (ej. `src/berries/`) solo requerirá crear una nueva carpeta paralela autocontenida sin alterar la estructura existente.
 
 ---
 
