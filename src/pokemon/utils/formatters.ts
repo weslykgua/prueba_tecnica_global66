@@ -33,13 +33,7 @@ export function formatPokemonId(id: number | string): string {
   return `Nº${String(numericId).padStart(3, '0')}`;
 }
 
-export function formatWeight(weightInHectograms: number): string {
-  return `${(weightInHectograms / 10).toFixed(1)} kg`;
-}
 
-export function formatHeight(heightInDecimeters: number): string {
-  return `${(heightInDecimeters / 10).toFixed(1)} m`;
-}
 
 export function buildPokemonShareText(pokemon: PokemonDetail): string {
   if (!pokemon) return '';
