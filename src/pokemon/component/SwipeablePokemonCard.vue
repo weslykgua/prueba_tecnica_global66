@@ -1,18 +1,20 @@
 <template>
-  <div class="swipeable-card-wrapper">
+  <div class="swipeable-card-wrapper" :class="{ 'deleting-wrapper': isDeleting }">
     <div
       class="delete-action-bg"
-      :class="{ visible: isSwiped }"
+      :class="{ visible: isSwiped || isDragging }"
       @click.stop="onDeleteClick"
       role="button"
       :aria-label="CardTexts.removeFavoriteLabel"
     >
-      <img :src="trashIcon" :alt="CardTexts.removeFavoriteLabel" class="trash-icon" />
+      <div class="trash-icon-container">
+        <img :src="trashIcon" :alt="CardTexts.removeFavoriteLabel" class="trash-icon" />
+      </div>
     </div>
 
     <div
       class="swipeable-card-content"
-      :class="{ deleting: isDeleting }"
+      :class="{ deleting: isDeleting, transitioning: !isDragging }"
       :style="{ transform: `translateX(${translateX}px)` }"
       @touchstart="onTouchStart"
       @touchmove="onTouchMove"
@@ -49,43 +51,50 @@ const emit = defineEmits<{
 const translateX = ref(0);
 const isSwiped = ref(false);
 const isDeleting = ref(false);
-const SWIPE_THRESHOLD = -40;
+const isDragging = ref(false);
+
+const REVEAL_WIDTH = -80;
+const SWIPE_THRESHOLD = -35;
+const MAX_SWIPE_LIMIT = -110;
 
 let startX = 0;
-let currentX = 0;
-let isDragging = false;
-let hasDragged = false;
+let initialTranslateX = 0;
+let hasMovedFar = false;
 
 const onTouchStart = (e: TouchEvent) => {
+  if (isDeleting.value) return;
   startX = e.touches[0].clientX;
-  currentX = startX;
-  isDragging = true;
-  hasDragged = false;
+  initialTranslateX = translateX.value;
+  isDragging.value = true;
+  hasMovedFar = false;
 };
 
 const onTouchMove = (e: TouchEvent) => {
-  if (!isDragging) return;
-  currentX = e.touches[0].clientX;
+  if (!isDragging.value) return;
+  const currentX = e.touches[0].clientX;
   const diff = currentX - startX;
 
   if (Math.abs(diff) > 5) {
-    hasDragged = true;
+    hasMovedFar = true;
   }
 
-  if (diff < 0) {
-    translateX.value = Math.max(diff, -500);
-    isSwiped.value = true;
-  } else if (isSwiped.value && diff >= 0) {
-    translateX.value = 0;
-    isSwiped.value = false;
+  let nextX = initialTranslateX + diff;
+  if (nextX > 0) {
+    nextX = 0;
+  } else if (nextX < MAX_SWIPE_LIMIT) {
+    nextX = MAX_SWIPE_LIMIT;
   }
+
+  translateX.value = nextX;
 };
 
 const onTouchEnd = () => {
-  if (!isDragging) return;
-  isDragging = false;
-  if (translateX.value <= SWIPE_THRESHOLD) {
-    onDeleteClick();
+  if (!isDragging.value) return;
+  isDragging.value = false;
+
+  if (translateX.value < SWIPE_THRESHOLD) {
+    translateX.value = REVEAL_WIDTH;
+    isSwiped.value = true;
   } else {
     translateX.value = 0;
     isSwiped.value = false;
@@ -93,36 +102,39 @@ const onTouchEnd = () => {
 };
 
 const onMouseDown = (e: MouseEvent) => {
+  if (isDeleting.value) return;
   startX = e.clientX;
-  currentX = startX;
-  isDragging = true;
-  hasDragged = false;
+  initialTranslateX = translateX.value;
+  isDragging.value = true;
+  hasMovedFar = false;
 
   const onMouseMove = (moveEvent: MouseEvent) => {
-    if (!isDragging) return;
-    currentX = moveEvent.clientX;
+    if (!isDragging.value) return;
+    const currentX = moveEvent.clientX;
     const diff = currentX - startX;
 
     if (Math.abs(diff) > 5) {
-      hasDragged = true;
+      hasMovedFar = true;
     }
 
-    if (diff < 0) {
-      translateX.value = Math.max(diff, -500);
-      isSwiped.value = true;
-    } else if (isSwiped.value && diff >= 0) {
-      translateX.value = 0;
-      isSwiped.value = false;
+    let nextX = initialTranslateX + diff;
+    if (nextX > 0) {
+      nextX = 0;
+    } else if (nextX < MAX_SWIPE_LIMIT) {
+      nextX = MAX_SWIPE_LIMIT;
     }
+
+    translateX.value = nextX;
   };
 
   const onMouseUp = () => {
-    isDragging = false;
+    isDragging.value = false;
     window.removeEventListener('mousemove', onMouseMove);
     window.removeEventListener('mouseup', onMouseUp);
 
-    if (translateX.value <= SWIPE_THRESHOLD) {
-      onDeleteClick();
+    if (translateX.value < SWIPE_THRESHOLD) {
+      translateX.value = REVEAL_WIDTH;
+      isSwiped.value = true;
     } else {
       translateX.value = 0;
       isSwiped.value = false;
@@ -134,7 +146,13 @@ const onMouseDown = (e: MouseEvent) => {
 };
 
 const onCardSelect = (id: number) => {
-  if (!hasDragged) {
+  if (isSwiped.value) {
+    translateX.value = 0;
+    isSwiped.value = false;
+    return;
+  }
+
+  if (!hasMovedFar) {
     emit('select-pokemon', id);
   }
 };
@@ -142,11 +160,11 @@ const onCardSelect = (id: number) => {
 const onDeleteClick = () => {
   if (isDeleting.value) return;
   isDeleting.value = true;
-  translateX.value = -1000;
+  translateX.value = -500;
 
   setTimeout(() => {
     emit('toggle-favorite', props.pokemon.name);
-  }, 250);
+  }, 220);
 };
 </script>
 
@@ -164,6 +182,18 @@ const onDeleteClick = () => {
   box-sizing: border-box;
   margin-bottom: 12px;
   background-color: transparent;
+  transition: max-height 0.25s ease, margin-bottom 0.25s ease, opacity 0.25s ease;
+  max-height: 120px;
+
+  &.deleting-wrapper {
+    max-height: 0 !important;
+    margin-bottom: 0 !important;
+    opacity: 0 !important;
+  }
+}
+
+:deep(.pokemon-card) {
+  margin-bottom: 0 !important;
 }
 
 .delete-action-bg {
@@ -179,7 +209,6 @@ const onDeleteClick = () => {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 28px;
   cursor: pointer;
   z-index: 1;
   opacity: 0;
@@ -192,9 +221,17 @@ const onDeleteClick = () => {
     pointer-events: auto;
   }
 
+  .trash-icon-container {
+    width: 80px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .trash-icon {
-    width: 38px;
-    height: 38px;
+    width: 32px;
+    height: 32px;
     transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     transform: scale(0.9);
   }
@@ -210,16 +247,20 @@ const onDeleteClick = () => {
   width: 100%;
   height: 100%;
   border-radius: 16px;
-  transition: transform 0.22s cubic-bezier(0.25, 1, 0.5, 1);
+  background-color: $color-white;
   touch-action: pan-y;
   user-select: none;
+
+  &.transitioning {
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  }
 
   &.deleting {
     opacity: 0;
     transform: translateX(-100%) !important;
     transition:
-      transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-      opacity 0.25s ease-out !important;
+      transform 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.22s ease-out !important;
   }
 }
 </style>

@@ -120,6 +120,7 @@ const onImageError = () => {
   align-items: stretch;
   width: 100%;
   min-height: 102px;
+  background-color: $color-white;
   border: 1px solid $color-e0e0e0;
   border-radius: 16px;
   box-sizing: border-box;
