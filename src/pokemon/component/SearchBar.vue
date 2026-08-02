@@ -34,8 +34,8 @@
 </template>
 
 <script setup lang="ts">
-import searchIcon from '@/assets/ic_search.svg';
-import clearIcon from '@/assets/ic_clear.svg';
+import searchIcon from '@/assets/icons/actions/ic_search.svg';
+import clearIcon from '@/assets/icons/actions/ic_clear.svg';
 
 withDefaults(
   defineProps<{

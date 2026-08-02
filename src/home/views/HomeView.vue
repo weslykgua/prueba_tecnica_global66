@@ -60,7 +60,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import emptyStateIllustration from '@/assets/empty_state_illustration_fish.svg';
+import emptyStateIllustration from '@/assets/images/illustrations/empty_state_illustration_fish.svg';
 import { usePokemon } from '@/pokemon/composable/usePokemon';
 import SearchBar from '@/pokemon/component/SearchBar.vue';
 import PokeballLoader from '@/pokemon/component/PokeballLoader.vue';

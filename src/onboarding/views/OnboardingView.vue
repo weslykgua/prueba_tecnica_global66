@@ -20,8 +20,8 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import OnboardingStepCard, { type OnboardingStepItem } from '../component/OnboardingStepCard.vue';
-import step1Url from '@/assets/image_1_11.svg';
-import step2Url from '@/assets/image_2.svg';
+import step1Url from '@/assets/images/illustrations/image_1_11.svg';
+import step2Url from '@/assets/images/illustrations/image_2.svg';
 import OnboardingTexts from '../text/onboarding.texts';
 
 import { useOnboardingStore } from '../store/onboarding.store';

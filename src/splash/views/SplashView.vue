@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import pokeballUrl from '@/assets/pokeball.svg';
+import pokeballUrl from '@/assets/icons/common/pokeball.svg';
 </script>
 
 <style lang="scss" scoped>

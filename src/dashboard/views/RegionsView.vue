@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import InfoState from '@/common/component/InfoState.vue';
-import emptyStateIllustration from '@/assets/empty_state_illustration.svg';
+import emptyStateIllustration from '@/assets/images/illustrations/empty_state_illustration.svg';
 import RegionsTexts from '../text/regions.texts';
 </script>
 

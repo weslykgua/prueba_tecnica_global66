@@ -18,10 +18,10 @@
 </template>
 
 <script lang="ts">
-import pokedexIcon from '@/assets/ic_pokedex.svg';
-import regionsIcon from '@/assets/ic_regions.svg';
-import favoritesIcon from '@/assets/ic_favorites.svg';
-import profileIcon from '@/assets/ic_profile.svg';
+import pokedexIcon from '@/assets/icons/navigation/ic_pokedex.svg';
+import regionsIcon from '@/assets/icons/navigation/ic_regions.svg';
+import favoritesIcon from '@/assets/icons/navigation/ic_favorites.svg';
+import profileIcon from '@/assets/icons/navigation/ic_profile.svg';
 import TabBarTexts from '../text/tabbar.texts';
 
 export interface NavItem {

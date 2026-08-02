@@ -25,7 +25,7 @@
 import InfoState from '@/common/component/InfoState.vue';
 import { useRouter } from 'vue-router';
 import ViewHeader from '@/common/component/ViewHeader.vue';
-import emptyStateIllustration from '@/assets/empty_state_illustration_fish.svg';
+import emptyStateIllustration from '@/assets/images/illustrations/empty_state_illustration_fish.svg';
 import PokemonList from '@/pokemon/component/PokemonList.vue';
 import { usePokemon } from '@/pokemon/composable/usePokemon';
 import FavoritesTexts from '../text/favorites.texts';

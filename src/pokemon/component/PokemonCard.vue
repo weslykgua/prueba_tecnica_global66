@@ -1,11 +1,11 @@
 <template>
   <div
     class="pokemon-card"
-    :style="{ backgroundColor: cardBgColor + '80' }"
-    @click="$emit('select', pokemon.id)"
     tabindex="0"
     role="button"
+    :style="{ backgroundColor: cardBgColor + '80' }"
     :aria-label="CardTexts.viewDetailAria(formattedName)"
+    @click="$emit('select', pokemon.id)"
     @keydown.enter="$emit('select', pokemon.id)"
   >
     <div class="card-left-info">
@@ -16,7 +16,7 @@
         {{ formattedName }}
       </Typography>
 
-      <div class="types-container" v-if="displayTypes.length > 0">
+      <div v-if="displayTypes.length > 0" class="types-container">
         <TypeBadge v-for="typeCategory in displayTypes" :key="typeCategory" :type="typeCategory" />
       </div>
     </div>
@@ -27,9 +27,9 @@
       <img
         :src="currentImageSrc"
         :alt="formattedName"
-        @error="onImageError"
         loading="lazy"
         class="pokemon-sprite"
+        @error="onImageError"
       />
 
       <button
@@ -54,8 +54,8 @@ import { ref, computed } from 'vue';
 import TypeBadge from '@/pokemon/component/TypeBadge.vue';
 import Typography from '@/common/component/Typography.vue';
 import CardTexts from '../text/card.texts';
-import heartFilledIcon from '@/assets/ic_heart_filled.svg';
-import heartOutlineIcon from '@/assets/ic_heart_outline.svg';
+import heartFilledIcon from '@/assets/icons/favorites/ic_heart_filled.svg';
+import heartOutlineIcon from '@/assets/icons/favorites/ic_heart_outline.svg';
 import {
   capitalize,
   formatPokemonId,
