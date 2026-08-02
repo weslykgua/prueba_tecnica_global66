@@ -1,5 +1,5 @@
-import PokemonDetailLocal from "./PokemonDetailLocal";
-import PokemonListItemLocal from "./PokemonListItemLocal";
+import PokemonDetailLocal from './PokemonDetailLocal';
+import PokemonListItemLocal from './PokemonListItemLocal';
 
 export default interface PokemonStoreState {
   pokemonList: PokemonListItemLocal[];

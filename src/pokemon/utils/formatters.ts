@@ -18,13 +18,19 @@ import psychicIcon from '@/assets/icons/types/psychic.svg';
 import rockIcon from '@/assets/icons/types/rock.svg';
 import steelIcon from '@/assets/icons/types/steel.svg';
 import waterIcon from '@/assets/icons/types/water.svg';
-import shadowIcon from '@/assets/icons/types/shadow.svg'
-import stellarIcon from '@/assets/icons/types/stellar.svg'
-import unknownIcon from '@/assets/icons/types/unknown.svg'
+import shadowIcon from '@/assets/icons/types/shadow.svg';
+import stellarIcon from '@/assets/icons/types/stellar.svg';
+import unknownIcon from '@/assets/icons/types/unknown.svg';
 
 export function capitalize(str: string): string {
   if (!str) return '';
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function formatPokemonId(id: number | string): string {
+  const numericId = typeof id === 'string' ? parseInt(id, 10) : id;
+  if (isNaN(numericId) || numericId <= 0) return 'Nº000';
+  return `Nº${String(numericId).padStart(3, '0')}`;
 }
 
 export function formatWeight(weightInHectograms: number): string {
@@ -101,7 +107,7 @@ export function getTypeBackgroundColor(type: PokemonType): string {
     case PokemonType.FLYING:
       return '#A98FF3';
     case PokemonType.POISON:
-      return '#9C27B0';
+      return '#A33EA2';
     case PokemonType.GROUND:
       return '#E2BF65';
     case PokemonType.ROCK:
@@ -113,11 +119,11 @@ export function getTypeBackgroundColor(type: PokemonType): string {
     case PokemonType.STEEL:
       return '#B7B7CE';
     case PokemonType.FIRE:
-      return '#FF9800';
+      return '#EE8130';
     case PokemonType.WATER:
       return '#6390F0';
     case PokemonType.GRASS:
-      return '#8BC34A';
+      return '#7AC74C';
     case PokemonType.ELECTRIC:
       return '#F7D02C';
     case PokemonType.PSYCHIC:
@@ -187,7 +193,6 @@ export function getTypeIcon(type: PokemonType): string {
 }
 
 export function extractIdFromUrl(url: string): number {
-
   const segments = url.split('/').filter(Boolean);
   const idStr = segments[segments.length - 1];
 

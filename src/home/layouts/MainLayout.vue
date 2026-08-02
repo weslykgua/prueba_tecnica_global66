@@ -8,12 +8,13 @@
   </div>
 </template>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 .container {
   padding: 0px;
+  max-width: 100%;
+  width: 100%;
 }
 
 .main-layout {

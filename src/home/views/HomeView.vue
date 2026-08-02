@@ -1,96 +1,98 @@
 <template>
   <div class="home-view">
-    <SearchBar
-      v-if="!isLoading && !error && (paginatedPokemonList.length > 0 || isSearching)"
-      v-model="searchQuery"
-      :is-searching="isSearching"
-      placeholder="Procurar Pókemon..."
-    />
-
     <div v-if="isLoading && paginatedPokemonList.length === 0" class="loader-container">
       <PokeballLoader />
     </div>
 
-    <div v-else-if="isSearching" class="loader-container">
-      <PokeballLoader />
-    </div>
-
-    <ErrorState
+    <InfoState
       v-else-if="error && paginatedPokemonList.length === 0"
-      :image="errorIllustration"
-      title="Algo salió mal..."
+      :image="emptyStateIllustration"
+      :title="HomeTexts.errorTitle"
       :subtitle="error"
-      text-button="Reintentar"
+      :text-button="HomeTexts.retryButton"
       :action="retryFetch"
     />
 
-    <EmptyState
-      v-else-if="paginatedPokemonList.length === 0 && !isLoading"
-      title="No se encontraron Pokémon"
-      :description="`No encontramos ningún Pokémon que coincida con '${searchQuery}'.`"
-      action-label="Limpiar búsqueda"
-      @action="searchQuery = ''"
-    />
-
     <template v-else>
-      <PokemonList
-        :pokemon-list="paginatedPokemonList"
-        :is-favorite="isFavorite"
-        @select-pokemon="openDetailModal"
-        @toggle-favorite="toggleFavorite"
+      <SearchBar
+        v-model="searchQuery"
+        :is-searching="isSearching"
+        :placeholder="HomeTexts.searchPlaceholder"
+        @open-filter="isFilterModalOpen = true"
       />
 
-      <Pagination
-        :current-page="currentPage"
-        :total-pages="totalPages"
-        @change-page="changePage"
+      <div v-if="isSearching" class="loader-container">
+        <PokeballLoader />
+      </div>
+
+      <InfoState
+        v-else-if="paginatedPokemonList.length === 0"
+        :title="HomeTexts.emptyTitle"
+        :description="HomeTexts.emptyDescription"
+        :action-label="HomeTexts.clearSearchButton"
+        @action="clearFilters"
       />
+
+      <template v-else>
+        <SearchResultsBar
+          v-if="searchQuery.trim() !== '' || selectedTypes.length > 0"
+          :count="filteredPokemonList.length"
+          @clear="clearFilters"
+        />
+
+        <PokemonList
+          :pokemon-list="paginatedPokemonList"
+          :is-favorite="isFavorite"
+          @select-pokemon="onSelectPokemon"
+          @toggle-favorite="toggleFavorite"
+        />
+      </template>
     </template>
 
-    <PokemonDetailModal
-      :is-open="isModalOpen"
-      :pokemon="selectedPokemon"
-      :is-loading="isDetailLoading"
-      :is-favorite="selectedPokemon ? isFavorite(selectedPokemon.name) : false"
-      @close="closeDetailModal"
-      @share="sharePokemon"
-      @toggle-favorite="toggleFavorite"
+    <FilterModal
+      :is-open="isFilterModalOpen"
+      :selected-types="selectedTypes"
+      @close="isFilterModalOpen = false"
+      @apply="applyTypeFilters"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import errorIllustration from '@/assets/error_illustration.svg';
+import { ref } from 'vue';
+
+import emptyStateIllustration from '@/assets/empty_state_illustration_fish.svg';
 import { usePokemon } from '@/pokemon/composable/usePokemon';
-import { useClipboard } from '@/common/utils/useClipboard';
 import SearchBar from '@/pokemon/component/SearchBar.vue';
 import PokeballLoader from '@/pokemon/component/PokeballLoader.vue';
-import EmptyState from '@/pokemon/component/EmptyState.vue';
 import PokemonList from '@/pokemon/component/PokemonList.vue';
-import PokemonDetailModal from '@/pokemon/component/PokemonDetailModal.vue';
-import ErrorState from '@/common/component/ErrorState.vue';
-import Pagination from '@/common/component/Pagination.vue';
+import { useRouter } from 'vue-router';
+import FilterModal from '@/pokemon/component/FilterModal.vue';
+import InfoState from '@/common/component/InfoState.vue';
+import SearchResultsBar from '@/pokemon/component/SearchResultsBar.vue';
+import HomeTexts from '../text/home.texts';
+
+const router = useRouter();
+const isFilterModalOpen = ref(false);
+
+const onSelectPokemon = (id: number) => {
+  router.push(`/pokemon/${id}`);
+};
 
 const {
   searchQuery,
   isSearching,
   isLoading,
-  isDetailLoading,
   error,
+  filteredPokemonList,
   paginatedPokemonList,
-  currentPage,
-  totalPages,
-  changePage,
-  selectedPokemon,
-  isModalOpen,
+  selectedTypes,
+  applyTypeFilters,
+  clearFilters,
   isFavorite,
   toggleFavorite,
-  openDetailModal,
-  closeDetailModal,
   retryFetch,
 } = usePokemon();
-
-const { sharePokemon } = useClipboard();
 </script>
 
 <style lang="scss" scoped>
@@ -101,6 +103,8 @@ const { sharePokemon } = useClipboard();
   display: flex;
   flex-direction: column;
   min-height: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .loader-container {

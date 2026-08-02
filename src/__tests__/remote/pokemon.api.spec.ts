@@ -1,11 +1,20 @@
 import { PokemonApi } from '@/pokemon/remote/api/pokemon.api';
+import { PokemonType } from '@/pokemon/type/PokemonType';
 import { describe, it, expect, vi } from 'vitest';
 
 describe('PokemonApi Service', () => {
   it('getPokemonList should fetch list cleanly', async () => {
     const api = new PokemonApi();
-    const mockList = [{ id: 25, name: 'pikachu', url: 'https://pokeapi.co/api/v2/pokemon/25/', spriteUrl: 'https://raw.githubusercontent.com/.../25.png' }];
-    
+    const mockList = [
+      {
+        id: 25,
+        name: 'pikachu',
+        spriteUrl: 'https://raw.githubusercontent.com/.../25.png',
+        principalType: PokemonType.ELECTRIC,
+        types: [PokemonType.ELECTRIC],
+      },
+    ];
+
     vi.spyOn(api, 'getPokemonList').mockResolvedValue(mockList);
     const result = await api.getPokemonList(10);
 
@@ -32,5 +41,4 @@ describe('PokemonApi Service', () => {
     expect(api.getPokemonDetail).toHaveBeenCalledWith(25);
     expect(result).toEqual(mockDetail);
   });
-
 });

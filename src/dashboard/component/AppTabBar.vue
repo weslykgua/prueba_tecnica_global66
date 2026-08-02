@@ -1,5 +1,5 @@
 <template>
-  <nav class="app-tabbar" aria-label="Navegación inferior">
+  <nav class="app-tabbar" :aria-label="TabBarTexts.ariaNavLabel">
     <div class="tabbar-container">
       <router-link
         v-for="item in NAV_ITEMS"
@@ -22,6 +22,7 @@ import pokedexIcon from '@/assets/ic_pokedex.svg';
 import regionsIcon from '@/assets/ic_regions.svg';
 import favoritesIcon from '@/assets/ic_favorites.svg';
 import profileIcon from '@/assets/ic_profile.svg';
+import TabBarTexts from '../text/tabbar.texts';
 
 export interface NavItem {
   label: string;
@@ -31,22 +32,22 @@ export interface NavItem {
 
 export const NAV_ITEMS: NavItem[] = [
   {
-    label: 'Pokédex',
+    label: TabBarTexts.navPokedex,
     path: '/pokedex',
     icon: pokedexIcon,
   },
   {
-    label: 'Regiones',
+    label: TabBarTexts.navRegions,
     path: '/regions',
     icon: regionsIcon,
   },
   {
-    label: 'Favoritos',
+    label: TabBarTexts.navFavorites,
     path: '/favorites',
     icon: favoritesIcon,
   },
   {
-    label: 'Perfil',
+    label: TabBarTexts.navProfile,
     path: '/profile',
     icon: profileIcon,
   },
@@ -62,7 +63,10 @@ const currentRoute = computed(() => route.path);
 </script>
 
 <style lang="scss" scoped>
-@use '../../assets/styles/variables' as *;
+@use '@/assets/styles/colors' as *;
+@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/fonts' as *;
+@use '@/assets/styles/sizes' as *;
 
 .app-tabbar {
   position: fixed;
@@ -95,6 +99,12 @@ const currentRoute = computed(() => route.path);
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  max-width: 570px;
+  margin: 0 auto;
+
+  @media (min-width: $bp-tablet) {
+    max-width: 800px;
+  }
 }
 
 .nav-item {
@@ -120,7 +130,7 @@ const currentRoute = computed(() => route.path);
     font-family: $font-family;
     font-style: normal;
     font-weight: 500;
-    font-size: 10px;
+    font-size: $font-size-xs;
     line-height: 16px;
     text-align: center;
 
@@ -159,6 +169,7 @@ const currentRoute = computed(() => route.path);
     align-items: center;
     justify-content: center;
     object-fit: contain;
+    filter: invert(24%) sepia(0%) saturate(0%) hue-rotate(193deg) brightness(96%) contrast(88%);
   }
 
   &.active {
@@ -168,7 +179,8 @@ const currentRoute = computed(() => route.path);
     }
 
     .nav-icon {
-      filter: invert(19%) sepia(87%) saturate(2462%) hue-rotate(204deg) brightness(94%) contrast(97%);
+      filter: invert(19%) sepia(87%) saturate(2462%) hue-rotate(204deg) brightness(94%)
+        contrast(97%);
     }
   }
 }

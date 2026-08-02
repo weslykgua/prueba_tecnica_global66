@@ -15,7 +15,7 @@ import pokeballUrl from '@/assets/pokeball.svg';
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;

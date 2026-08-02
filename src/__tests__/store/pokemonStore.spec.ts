@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
 import { usePokemonStore } from '../../pokemon/local/store/pokemon.store';
+import { PokemonType } from '@/pokemon/type/PokemonType';
 
 describe('usePokemonStore', () => {
   beforeEach(() => {
@@ -19,8 +20,20 @@ describe('usePokemonStore', () => {
   it('should update state via setPokemonList action', () => {
     const store = usePokemonStore();
     const mockList = [
-      { id: 1, name: 'bulbasaur', url: '', spriteUrl: '' },
-      { id: 2, name: 'ivysaur', url: '', spriteUrl: '' },
+      {
+        id: 1,
+        name: 'bulbasaur',
+        spriteUrl: '',
+        principalType: PokemonType.GRASS,
+        types: [PokemonType.GRASS],
+      },
+      {
+        id: 2,
+        name: 'ivysaur',
+        spriteUrl: '',
+        principalType: PokemonType.GRASS,
+        types: [PokemonType.GRASS],
+      },
     ];
 
     store.setPokemonList(mockList);

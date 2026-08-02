@@ -5,30 +5,19 @@
     @click="$emit('select', pokemon.id)"
     tabindex="0"
     role="button"
-    :aria-label="`Ver detalle de ${formattedName}`"
+    :aria-label="CardTexts.viewDetailAria(formattedName)"
     @keydown.enter="$emit('select', pokemon.id)"
   >
     <div class="card-left-info">
-      <div class="card-header">
-        <h3 class="pokemon-name">{{ formattedName }}</h3>
-        <span class="pokemon-id">#{{ formattedId }}</span>
-      </div>
+      <Typography variant="caption" color="body" weight="semibold" class="pokemon-id">
+        {{ formattedId }}
+      </Typography>
+      <Typography variant="h3" color="title" weight="semibold" class="pokemon-name">
+        {{ formattedName }}
+      </Typography>
 
       <div class="types-container" v-if="displayTypes.length > 0">
-        <div
-          v-for="typeCategory in displayTypes"
-          :key="typeCategory"
-          class="type-pill"
-          :style="{ backgroundColor: getTypeBackgroundColor(typeCategory) }"
-        >
-          <img
-            v-if="getTypeIcon(typeCategory)"
-            :src="getTypeIcon(typeCategory)"
-            :alt="typeCategory"
-            class="type-icon-img"
-          />
-          <span>{{ formatTypeName(typeCategory) }}</span>
-        </div>
+        <TypeBadge v-for="typeCategory in displayTypes" :key="typeCategory" :type="typeCategory" />
       </div>
     </div>
 
@@ -48,11 +37,7 @@
         class="favorite-button"
         :class="{ active: isFavorite }"
         @click.stop="$emit('toggle-favorite', pokemon.name)"
-        :aria-label="
-          isFavorite
-            ? `Quitar ${formattedName} de favoritos`
-            : `Agregar ${formattedName} a favoritos`
-        "
+        :aria-label="CardTexts.favoriteAria(isFavorite)"
       >
         <img
           :src="isFavorite ? heartFilledIcon : heartOutlineIcon"
@@ -66,9 +51,17 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import TypeBadge from '@/pokemon/component/TypeBadge.vue';
+import Typography from '@/common/component/Typography.vue';
+import CardTexts from '../text/card.texts';
 import heartFilledIcon from '@/assets/ic_heart_filled.svg';
 import heartOutlineIcon from '@/assets/ic_heart_outline.svg';
-import { capitalize, formatTypeName, getTypeIcon, getTypeBackgroundColor } from '../utils/formatters';
+import {
+  capitalize,
+  formatPokemonId,
+  getTypeBackgroundColor,
+  getTypeIcon,
+} from '../utils/formatters';
 
 import PokemonListItem from '../model/PokemonListItem';
 import { PokemonType, toPokemonType } from '../type/PokemonType';
@@ -90,7 +83,7 @@ const currentImageSrc = computed(() => {
 });
 
 const formattedName = computed(() => capitalize(props.pokemon.name));
-const formattedId = computed(() => String(props.pokemon.id).padStart(3, '0'));
+const formattedId = computed(() => formatPokemonId(props.pokemon.id));
 
 const displayTypes = computed<PokemonType[]>(() => {
   if (!props.pokemon.types || !Array.isArray(props.pokemon.types)) return [];
@@ -115,18 +108,24 @@ const onImageError = () => {
 </script>
 
 <style lang="scss" scoped>
-@use '../../assets/styles/variables' as *;
+@use '@/assets/styles/colors' as *;
+@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/fonts' as *;
+@use '@/assets/styles/sizes' as *;
+@use '../../assets/styles/fonts' as *;
+@use '../../assets/styles/sizes' as *;
 
 .pokemon-card {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
   width: 100%;
-  height: auto;
+  min-height: 102px;
   border: 1px solid $border-color;
   border-radius: 16px;
   box-sizing: border-box;
+  margin-bottom: 12px;
   position: relative;
   cursor: pointer;
   overflow: hidden;
@@ -144,36 +143,38 @@ const onImageError = () => {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
-  flex: 1;
+  align-items: flex-start;
+  flex: 1 1 auto;
   min-width: 0;
-  padding: 12.1px 8px 12.1px 16px;
-}
-
-.card-header {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.pokemon-name {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-style: normal;
-  font-size: 21px;
-  letter-spacing: 0%;
-  color: #222222;
-  margin: 0;
-  white-space: nowrap;
+  padding: 12px 0 12px 16px;
+  box-sizing: border-box;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .pokemon-id {
-  font-family: 'Poppins', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  color: #424242;
+  font-family: $font-family;
+  font-weight: 600;
+  font-size: $font-size-sm;
+  line-height: 100%;
+  color: $text-body;
+  margin: 0 0 2px 0;
+}
+
+.pokemon-name {
+  font-family: $font-family;
+  font-weight: 600;
+  font-style: normal;
+  font-size: $font-size-title-sm;
+  letter-spacing: 0%;
+  color: $text-title;
+  margin: 0 0 8px 0;
+  text-align: left;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .types-container {
@@ -181,26 +182,16 @@ const onImageError = () => {
   flex-direction: row;
   gap: 6px;
   width: 100%;
-}
+  max-width: 100%;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
-.type-pill {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  height: 25.8px;
-  padding: 0 8px;
-  border-radius: 20px;
-  font-family: 'Poppins', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  color: #ffffff;
-  white-space: nowrap;
-  box-sizing: border-box;
-
-  .type-icon-img {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
   }
 }
 
@@ -210,12 +201,15 @@ const onImageError = () => {
   align-items: center;
   position: relative;
   width: 126px;
-  height: 102px;
+  min-width: 126px;
+  max-width: 126px;
+  height: auto;
+  align-self: stretch;
   border-radius: 16px;
   overflow: hidden;
   box-sizing: border-box;
-  flex-shrink: 0;
-  flex-grow: 0;
+  flex: 0 0 126px;
+  padding: 4px auto;
 }
 
 .card-bg-svg {
@@ -228,6 +222,12 @@ const onImageError = () => {
   object-fit: contain;
   z-index: 0;
   pointer-events: none;
+  mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.1) 100%);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
 }
 
 .pokemon-sprite {
@@ -236,7 +236,7 @@ const onImageError = () => {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 94px;
-  height: 94px;
+  height: auto;
   object-fit: contain;
   z-index: 1;
   pointer-events: none;
@@ -258,6 +258,21 @@ const onImageError = () => {
     width: 32px;
     height: 32px;
     display: block;
+  }
+}
+
+@media (max-width: 380px) {
+  .pokemon-card {
+    gap: 12px;
+  }
+
+  .pokemon-name {
+    margin-bottom: 4px;
+  }
+
+  .types-container {
+    flex-wrap: wrap;
+    overflow: visible;
   }
 }
 </style>

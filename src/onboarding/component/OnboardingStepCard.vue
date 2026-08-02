@@ -1,24 +1,30 @@
 <template>
   <div class="onboarding-step">
     <div class="image-container">
-      <img :src="stepData.imageSrc" :alt="stepData.imageAlt || 'Onboarding illustration'" class="step-illustration" />
+      <img
+        :src="stepData.imageSrc"
+        :alt="stepData.imageAlt || OnboardingTexts.ariaIllustrationAlt"
+        class="step-illustration"
+      />
     </div>
 
     <div class="bottom-content">
-      <h1 class="step-title">{{ stepData.title }}</h1>
+      <Typography variant="h1" align="center" class="step-title">
+        {{ stepData.title }}
+      </Typography>
 
-      <p class="step-subtitle">
+      <Typography variant="subtitle" align="center" class="step-subtitle">
         {{ stepData.subtitle }}
-      </p>
+      </Typography>
 
-      <div class="step-indicators" aria-label="Progreso del onboarding">
+      <div class="step-indicators" :aria-label="OnboardingTexts.ariaProgressLabel">
         <button
           v-for="step in totalSteps"
           :key="step"
           type="button"
           class="indicator-dot"
           :class="{ active: step === currentStep }"
-          :aria-label="`Paso ${step}`"
+          :aria-label="OnboardingTexts.ariaStepLabel(step)"
           @click="emit('step-change', step)"
         ></button>
       </div>
@@ -36,6 +42,8 @@
 
 <script setup lang="ts">
 import Button from '@/common/component/Button.vue';
+import Typography from '@/common/component/Typography.vue';
+import OnboardingTexts from '../text/onboarding.texts';
 
 export interface OnboardingStepItem {
   id?: number;
@@ -64,7 +72,10 @@ const emit = defineEmits<{
 </script>
 
 <style lang="scss" scoped>
-@use '../../assets/styles/variables' as *;
+@use '@/assets/styles/colors' as *;
+@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/fonts' as *;
+@use '@/assets/styles/sizes' as *;
 
 .onboarding-step {
   display: flex;
@@ -80,6 +91,11 @@ const emit = defineEmits<{
   align-items: center;
   width: 100%;
   margin-top: auto;
+
+  @media (min-width: $bp-tablet) {
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
 
   .step-illustration {
     width: 100%;
@@ -105,21 +121,21 @@ const emit = defineEmits<{
 }
 
 .step-title {
-  font-size: 2rem;
+  font-size: $font-size-xl;
   font-weight: 500;
   color: $text-title;
   line-height: 1.4;
   margin-bottom: 10px;
 
   @media (max-width: $bp-mobile) {
-    font-size: 1.6rem;
+    font-size: $font-size-lg;
     margin-bottom: 0.85rem;
     padding: 0 1rem;
   }
 }
 
 .step-subtitle {
-  font-size: 1.05rem;
+  font-size: $font-size-btn;
   font-weight: 400;
   color: $text-body;
   line-height: 1.3;
@@ -127,7 +143,7 @@ const emit = defineEmits<{
   max-width: 460px;
 
   @media (max-width: $bp-mobile) {
-    font-size: 0.95rem;
+    font-size: $font-size-base;
     margin-bottom: 1.5rem;
     padding: 0 1rem;
   }
@@ -137,8 +153,7 @@ const emit = defineEmits<{
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  gap: 8px;
 
   .indicator-dot {
     width: 10px;
@@ -159,6 +174,6 @@ const emit = defineEmits<{
 }
 
 .onboarding-btn {
-  margin: 24px auto 40px;
+  margin: 24px auto 60px auto;
 }
 </style>

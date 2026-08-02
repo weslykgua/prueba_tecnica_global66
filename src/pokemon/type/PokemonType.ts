@@ -25,8 +25,5 @@ export enum PokemonType {
 export const toPokemonType = (typeKey: string): PokemonType | undefined => {
   const lower = typeKey.toLowerCase();
 
-  return Object.values(PokemonType).find(cat => 
-    cat.toLowerCase() === lower
-  );
+  return Object.values(PokemonType).find(cat => cat.toLowerCase() === lower);
 };
-

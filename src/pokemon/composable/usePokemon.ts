@@ -8,6 +8,8 @@ import PokemonListItem from '../model/PokemonListItem';
 import { pokemonApi } from '../remote/api/pokemon.api';
 import { PokemonListItemMapper } from '../mapper/PokemonListMapper';
 
+import { PokemonType } from '../type/PokemonType';
+
 export function usePokemon(api = pokemonApi) {
   const pokemonStore = usePokemonStore();
   const favoritesStore = useFavoritesStore();
@@ -19,7 +21,7 @@ export function usePokemon(api = pokemonApi) {
   const isModalOpen = ref(false);
   const visibleCount = ref(30);
 
-  watch(searchQuery, (newVal) => {
+  watch(searchQuery, newVal => {
     if (newVal.trim() !== debouncedSearch.value.trim()) {
       isSearching.value = true;
     }
@@ -35,11 +37,7 @@ export function usePokemon(api = pokemonApi) {
   });
 
   const fetchPokemonList = async (limit?: number, force = false): Promise<void> => {
-    if (
-      pokemonStore.isInitialized
-      && !force
-      && pokemonStore.pokemonList.length > 0
-    ) {
+    if (pokemonStore.isInitialized && !force && pokemonStore.pokemonList.length > 0) {
       return;
     }
 
@@ -50,11 +48,9 @@ export function usePokemon(api = pokemonApi) {
       const list = await api.getPokemonList(limit);
       pokemonStore.setPokemonList(list);
     } catch (err: unknown) {
-      const errorMessage = err instanceof Error
-        ? err.message
-        : 'Ha ocurrido un error inesperado al obtener la lista de Pokémon.';
-
-      pokemonStore.setError(errorMessage);
+      pokemonStore.setError(
+        'No pudimos cargar la información en este momento. Verifica tu conexión o intenta nuevamente más tarde.'
+      );
     } finally {
       pokemonStore.setLoading(false);
     }
@@ -67,9 +63,24 @@ export function usePokemon(api = pokemonApi) {
   };
 
   const handleScroll = (event?: Event) => {
-    const target = (event?.target as HTMLElement) || document.documentElement;
-    const scrollBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
-    if (scrollBottom < 400) {
+    let scrollBottom = 0;
+    if (event?.target && event.target !== document && event.target !== window) {
+      const target = event.target as HTMLElement;
+      scrollBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
+    } else {
+      const scrollTop =
+        window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      const documentHeight = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight
+      );
+      scrollBottom = documentHeight - (scrollTop + windowHeight);
+    }
+
+    if (scrollBottom < 600) {
       loadMore();
     }
   };
@@ -80,6 +91,7 @@ export function usePokemon(api = pokemonApi) {
         fetchPokemonList();
       }
       window.addEventListener('scroll', handleScroll, { passive: true });
+      document.addEventListener('scroll', handleScroll, { passive: true });
       const dashboardContainer = document.querySelector('.dashboard-content');
       if (dashboardContainer) {
         dashboardContainer.addEventListener('scroll', handleScroll, { passive: true });
@@ -88,6 +100,7 @@ export function usePokemon(api = pokemonApi) {
 
     onUnmounted(() => {
       window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('scroll', handleScroll);
       const dashboardContainer = document.querySelector('.dashboard-content');
       if (dashboardContainer) {
         dashboardContainer.removeEventListener('scroll', handleScroll);
@@ -104,9 +117,10 @@ export function usePokemon(api = pokemonApi) {
       pokemonStore.setSelectedPokemon(detail);
       return detail;
     } catch (err: unknown) {
-      const errorMessage = err instanceof Error
-        ? err.message
-        : 'Ha ocurrido un error al cargar el detalle del Pokémon.';
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : 'Ha ocurrido un error al cargar el detalle del Pokémon.';
 
       pokemonStore.setError(errorMessage);
       return undefined;
@@ -115,25 +129,32 @@ export function usePokemon(api = pokemonApi) {
     }
   };
 
+  const selectedTypes = ref<PokemonType[]>([]);
+
   const favoritesList = computed<PokemonListItem[]>(() => {
-    return pokemonStore.pokemonList.filter(item => favoritesStore.favoriteNames.has(item.name.toLowerCase()));
+    return pokemonStore.pokemonList.filter(item =>
+      favoritesStore.favoriteNames.has(item.name.toLowerCase())
+    );
   });
 
   const filteredPokemonList = computed<PokemonListItem[]>(() => {
-    const baseList = activeTab.value === 'favorites'
-      ? favoritesList.value
-      : PokemonListItemMapper.fromLocalArray(pokemonStore.pokemonList);
+    const baseList =
+      activeTab.value === 'favorites'
+        ? favoritesList.value
+        : PokemonListItemMapper.fromLocalArray(pokemonStore.pokemonList);
 
     const query = debouncedSearch.value.trim().toLowerCase();
 
-    if (!query) {
-      return baseList;
-    }
+    return baseList.filter(pokemon => {
+      const matchesQuery =
+        !query || pokemon.name.toLowerCase().includes(query) || String(pokemon.id).includes(query);
 
-    return baseList.filter(pokemon =>
-      pokemon.name.toLowerCase().includes(query) ||
-      String(pokemon.id).includes(query)
-    );
+      const matchesType =
+        selectedTypes.value.length === 0 ||
+        (pokemon.types && pokemon.types.some(t => selectedTypes.value.includes(t)));
+
+      return matchesQuery && matchesType;
+    });
   });
 
   const totalPages = computed(() => {
@@ -156,7 +177,6 @@ export function usePokemon(api = pokemonApi) {
     isModalOpen.value = true;
     await fetchPokemonDetail(id);
   };
-
 
   const closeDetailModal = () => {
     isModalOpen.value = false;
@@ -185,6 +205,17 @@ export function usePokemon(api = pokemonApi) {
     totalCount: computed(() => pokemonStore.pokemonList.length),
     filteredPokemonList,
     paginatedPokemonList,
+
+    selectedTypes,
+    applyTypeFilters: (types: PokemonType[]) => {
+      selectedTypes.value = types;
+      visibleCount.value = 30;
+    },
+    clearFilters: () => {
+      searchQuery.value = '';
+      selectedTypes.value = [];
+      visibleCount.value = 30;
+    },
 
     fetchPokemonList,
     fetchPokemonDetail,

@@ -20,9 +20,12 @@ defineProps<{
 </script>
 
 <style lang="scss" scoped>
-@use '../../assets/styles/variables' as *;
-@use '../../assets/styles/mixins' as *;
-@use '../../assets/styles/animations' as *;
+@use '@/assets/styles/colors' as *;
+@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/fonts' as *;
+@use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/mixins' as *;
+@use '@/assets/styles/animations' as *;
 
 .pokeball-loader {
   display: flex;
@@ -98,8 +101,8 @@ defineProps<{
     .pokeball-center-dot {
       width: 7px;
       height: 7px;
-      background-color: #ECECEC;
-      border: 1px solid #7A7A7A;
+      background-color: #ececec;
+      border: 1px solid #7a7a7a;
       border-radius: 50%;
     }
   }

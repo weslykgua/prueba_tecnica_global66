@@ -58,19 +58,16 @@ onUnmounted(() => {
 .dashboard-layout {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
   width: 100%;
-  overflow: hidden;
 }
 
 .dashboard-content {
   flex: 1;
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
   box-sizing: border-box;
 
   :deep(> *) {
@@ -78,7 +75,6 @@ onUnmounted(() => {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
   }
 
   :deep(.home-view) {
@@ -86,7 +82,6 @@ onUnmounted(() => {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
   }
 }
 
@@ -96,7 +91,9 @@ onUnmounted(() => {
 
 .page-fade-enter-active,
 .page-fade-leave-active {
-  transition: opacity 150ms ease, transform 150ms ease;
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease;
 }
 
 .page-fade-enter-from,

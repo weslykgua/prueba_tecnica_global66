@@ -6,42 +6,71 @@
     role="region"
     aria-label="Lista de Pokémon"
   >
-    <PokemonCard
-      v-for="pokemon in pokemonList"
-      :key="pokemon.id"
-      :pokemon="pokemon"
-      :is-favorite="isFavorite(pokemon.name)"
-      @select="$emit('select-pokemon', $event)"
-      @toggle-favorite="$emit('toggle-favorite', $event)"
-    />
+    <template v-if="enableSwipe">
+      <SwipeablePokemonCard
+        v-for="pokemon in pokemonList"
+        :key="pokemon.id"
+        :pokemon="pokemon"
+        :is-favorite="isFavorite(pokemon.name)"
+        @select-pokemon="onSelectPokemon"
+        @toggle-favorite="onToggleFavorite"
+      />
+    </template>
+    <template v-else>
+      <PokemonCard
+        v-for="pokemon in pokemonList"
+        :key="pokemon.id"
+        :pokemon="pokemon"
+        :is-favorite="isFavorite(pokemon.name)"
+        @select="onSelectPokemon"
+        @toggle-favorite="onToggleFavorite"
+      />
+    </template>
   </TransitionGroup>
 </template>
 
 <script setup lang="ts">
 import PokemonListItem from '../model/PokemonListItem.ts';
 import PokemonCard from './PokemonCard.vue';
+import SwipeablePokemonCard from './SwipeablePokemonCard.vue';
 
-defineProps<{
-  pokemonList: PokemonListItem[];
-  isFavorite: (name: string) => boolean;
-}>();
+withDefaults(
+  defineProps<{
+    pokemonList: PokemonListItem[];
+    isFavorite: (name: string) => boolean;
+    enableSwipe?: boolean;
+  }>(),
+  {
+    enableSwipe: false,
+  }
+);
 
-defineEmits<{
+const emit = defineEmits<{
   (e: 'select-pokemon', id: number): void;
   (e: 'toggle-favorite', name: string): void;
 }>();
 
+const onSelectPokemon = (id: number) => {
+  emit('select-pokemon', id);
+};
+
+const onToggleFavorite = (name: string) => {
+  emit('toggle-favorite', name);
+};
 </script>
 
 <style lang="scss" scoped>
-@use '../../assets/styles/variables' as *;
-@use '../../assets/styles/mixins' as *;
+@use '@/assets/styles/colors' as *;
+@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/fonts' as *;
+@use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/mixins' as *;
 
 .pokemon-grid {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 0;
   width: calc(100% - 32px);
   margin: 0 16px;
   box-sizing: border-box;

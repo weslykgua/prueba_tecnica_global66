@@ -1,9 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 
-/**
- * Pure Local Pinia Store for Favorites using a Set<string> of Pokemon names for O(1) lookups.
- */
 export const useFavoritesStore = defineStore('favoritesStore', () => {
   const favoriteNames = ref<Set<string>>(new Set());
 

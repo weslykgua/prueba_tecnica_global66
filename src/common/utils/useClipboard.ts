@@ -6,16 +6,10 @@ import PokemonDetail from '../../pokemon/model/PokemonDetail';
 const activeToasts = ref<ToastMessage[]>([]);
 let toastTimer: ReturnType<typeof setTimeout> | undefined = undefined;
 
-/**
- * Handles copying Pokémon details to clipboard using modern Clipboard API with rate-limited toast feedback.
- */
 export function useClipboard() {
   const isCopying = ref(false);
 
-  function addToast(
-    message: string,
-    type: 'success' | 'info' | 'error' = 'success'
-  ) {
+  function addToast(message: string, type: 'success' | 'info' | 'error' = 'success') {
     if (toastTimer) {
       clearTimeout(toastTimer);
     }
@@ -48,12 +42,12 @@ export function useClipboard() {
       }
 
       addToast(`¡Información de ${pokemon.formattedName} copiada al portapapeles!`, 'success');
-      
+
       return true;
     } catch (err) {
       console.error('Failed to copy to clipboard', err);
       addToast('No se pudo copiar la información. Reintenta.', 'error');
-      
+
       return false;
     } finally {
       isCopying.value = false;

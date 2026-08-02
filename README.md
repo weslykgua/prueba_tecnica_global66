@@ -8,7 +8,7 @@ Una aplicación web de grado de producción desarrollada en **Vue 3**, **TypeScr
 
 - **Pokébola animada 100% CSS (`PokeballLoader.vue`)**: Pantalla de carga animada mediante animaciones CSS puras (sin librerías externas).
 - **Buscador en Tiempo Real con Carga Activa**: Filtrado por nombre e ID con indicador de carga sincrónico (`isSearching`), evitando sensaciones de pantalla congelada.
-- **Catálogo Completo & Paginación Dinámica (`Pagination.vue`)**: Carga del catálogo completo (1025 Pokémon) distribuido en páginas numéricas configurables (30 ítems/pág) con desplazamiento suave (*smooth scroll*).
+- **Catálogo Completo & Paginación Dinámica (`Pagination.vue`)**: Carga del catálogo completo (1025 Pokémon) distribuido en páginas numéricas configurables (30 ítems/pág) con desplazamiento suave (_smooth scroll_).
 - **Navegación Instantánea con `<KeepAlive>`**: Cambio entre las pestañas "Todos" y "Favoritos" en **0ms** manteniendo el estado en memoria.
 - **Gestión de Favoritos en Pinia Store**: Reactividad automática almacenando únicamente identificadores/nombres en un `Set<string>` para garantizar cero duplicidad de información.
 - **Modal de Detalle (`PokemonDetailModal.vue`)**: Consumo de `GET /pokemon/{name}` mostrando imagen oficial, peso, altura, tipos y habilidades.
@@ -19,17 +19,17 @@ Una aplicación web de grado de producción desarrollada en **Vue 3**, **TypeScr
 
 ## 🛠️ Stack Tecnológico
 
-| Tecnología | Rol en el Proyecto |
-| :--- | :--- |
-| **Vue 3** | Framework progresivo con Composition API y sintaxis `<script setup lang="ts">`. |
-| **TypeScript** | Tipado estricto (Modo `strict`, 0 `any`) para prevención de errores en compilación. |
-| **Vite** | Build tool ultrarrápido y servidor de desarrollo con HMR instantáneo. |
-| **Pinia** | Gestión de estado local centralizada (`pokemon.store.ts` y `favorites.store.ts`). |
-| **Vue Router** | Enrutamiento cliente para navegar entre la Pokedex principal y Favoritos. |
-| **Axios** | Cliente HTTP con tiempo de espera (10s) e interceptores para manejo amigable de errores. |
-| **Sass / SCSS** | Estilos modernos utilizando variables, mixins y keyframes. |
-| **Vitest & Vue Test Utils** | Framework de pruebas unitarias para Stores, Composables y Componentes. |
-| **ESLint & Prettier** | Estándar de código y formateador automático. |
+| Tecnología                  | Rol en el Proyecto                                                                       |
+| :-------------------------- | :--------------------------------------------------------------------------------------- |
+| **Vue 3**                   | Framework progresivo con Composition API y sintaxis `<script setup lang="ts">`.          |
+| **TypeScript**              | Tipado estricto (Modo `strict`, 0 `any`) para prevención de errores en compilación.      |
+| **Vite**                    | Build tool ultrarrápido y servidor de desarrollo con HMR instantáneo.                    |
+| **Pinia**                   | Gestión de estado local centralizada (`pokemon.store.ts` y `favorites.store.ts`).        |
+| **Vue Router**              | Enrutamiento cliente para navegar entre la Pokedex principal y Favoritos.                |
+| **Axios**                   | Cliente HTTP con tiempo de espera (10s) e interceptores para manejo amigable de errores. |
+| **Sass / SCSS**             | Estilos modernos utilizando variables, mixins y keyframes.                               |
+| **Vitest & Vue Test Utils** | Framework de pruebas unitarias para Stores, Composables y Componentes.                   |
+| **ESLint & Prettier**       | Estándar de código y formateador automático.                                             |
 
 ---
 
@@ -94,6 +94,7 @@ src/
 ## 🧠 Decisiones Técnicas & Justificación
 
 ### 1. Módulo 100% Autocontenido (`src/pokemon/`)
+
 - **Independencia Total**: Componentes, Vistas, Composables, Stores, API Remota y Tipos residen juntos dentro de `src/pokemon/`.
 - **Cohesión Máxima**: Evita la dispersión de archivos y carpetas arbitrarias (`common/`, `views/`) cuando el dominio principal es Pokémon.
 - **Escalabilidad Futura**: Agregar un nuevo módulo (ej. `src/berries/`) solo requerirá crear una nueva carpeta paralela autocontenida sin alterar la estructura existente.
@@ -103,6 +104,7 @@ src/
 ## ⚡ Guía de Instalación y Ejecución
 
 ### Requisitos Previos
+
 - Node.js versión **18.x** o superior.
 - npm versión **9.x** o superior.
 

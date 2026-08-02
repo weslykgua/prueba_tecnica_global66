@@ -1,6 +1,6 @@
-import PokeApiAbilitySlot from "./PokeApiAbilitySlot";
-import PokeApiSprites from "./PokeApiSprites";
-import PokeApiTypeSlot from "./PokeApiTypeSlot";
+import PokeApiAbilitySlot from './PokeApiAbilitySlot';
+import PokeApiSprites from './PokeApiSprites';
+import PokeApiTypeSlot from './PokeApiTypeSlot';
 
 export default interface PokeApiPokemon {
   id: number;

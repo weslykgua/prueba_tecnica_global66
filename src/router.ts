@@ -3,6 +3,7 @@ import ProfileView from '@/dashboard/views/ProfileView.vue';
 import RegionsView from '@/dashboard/views/RegionsView.vue';
 import FavoritesView from '@/home/views/FavoritesView.vue';
 import HomeView from '@/home/views/HomeView.vue';
+import PokemonDetailView from '@/pokemon/views/PokemonDetailView.vue';
 import OnboardingView from '@/onboarding/views/OnboardingView.vue';
 import { useOnboardingStore } from '@/onboarding/store/onboarding.store';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
@@ -32,6 +33,12 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Home',
         component: HomeView,
         meta: { title: 'Pokédex Global66 | Lista' },
+      },
+      {
+        path: '/pokemon/:id',
+        name: 'PokemonDetail',
+        component: PokemonDetailView,
+        meta: { title: 'Pokédex Global66 | Detalle Pokémon' },
       },
       {
         path: '/regions',
@@ -70,14 +77,19 @@ const router = createRouter({
 router.beforeEach((to, _from, next) => {
   const onboardingStore = useOnboardingStore();
 
-  if (!onboardingStore.hasCompletedOnboarding && to.path !== '/' && to.path !== '/onboarding' && to.path !== '/welcome') {
+  if (
+    !onboardingStore.hasCompletedOnboarding &&
+    to.path !== '/' &&
+    to.path !== '/onboarding' &&
+    to.path !== '/welcome'
+  ) {
     next('/');
   } else {
     next();
   }
 });
 
-router.afterEach((to) => {
+router.afterEach(to => {
   if (to.meta.title) {
     document.title = to.meta.title as string;
   }

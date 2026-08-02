@@ -1,6 +1,9 @@
 @use './variables' as *;
 @use './mixins' as *;
 @use './animations' as *;
+@use './sizes' as *;
+@use './colors' as *;
+@use './fonts' as *;
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
@@ -9,6 +12,11 @@
   --primary-hover: #{$primary-hover};
   --primary-active: #{$primary-active};
   --primary-accent: #{$primary-accent};
+  --danger-color: #{$danger-color};
+  --danger-bg: #{$danger-bg};
+  --success-color: #{$success-color};
+  --gender-male: #{$gender-male};
+  --gender-female: #{$gender-female};
   --text-title: #{$text-title};
   --text-primary: #{$text-primary};
   --text-body: #{$text-body};
@@ -21,13 +29,16 @@
   --font-family: #{$font-family};
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html, body {
+html,
+body {
   font-family: $font-family;
   background-color: $bg-color;
   color: $text-primary;

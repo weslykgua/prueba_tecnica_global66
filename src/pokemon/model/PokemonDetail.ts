@@ -7,4 +7,9 @@ export default interface PokemonDetail {
   spriteUrl: string;
   types: string[];
   abilities: string[];
+  description?: string;
+  category?: string;
+  genderRate?: number;
+  weaknesses?: string[];
 }
+

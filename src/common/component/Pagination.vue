@@ -1,21 +1,23 @@
 <template>
-  <nav v-if="totalPages > 1" class="pagination-container" aria-label="Navegación de páginas">
-    <!-- Previous Button -->
+  <nav
+    v-if="totalPages > 1"
+    class="pagination-container"
+    :aria-label="PaginationTexts.navAriaLabel"
+  >
     <button
       class="page-btn prev-next"
       :disabled="currentPage === 1"
       @click="changePage(currentPage - 1)"
-      aria-label="Página anterior"
+      :aria-label="PaginationTexts.prevPageAria"
       type="button"
     >
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <polyline points="15 18 9 12 15 6"></polyline>
       </svg>
-      
-      <span class="btn-text">Anterior</span>
+
+      <span class="btn-text">{{ PaginationTexts.prevButtonLabel }}</span>
     </button>
 
-    <!-- Page Numbers List -->
     <div class="page-numbers">
       <button
         v-for="page in visiblePages"
@@ -29,16 +31,15 @@
       </button>
     </div>
 
-    <!-- Next Button -->
     <button
       class="page-btn prev-next"
       :disabled="currentPage === totalPages"
       @click="changePage(currentPage + 1)"
-      aria-label="Siguiente página"
+      :aria-label="PaginationTexts.nextPageAria"
       type="button"
     >
-      <span class="btn-text">Siguiente</span>
-      
+      <span class="btn-text">{{ PaginationTexts.nextButtonLabel }}</span>
+
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <polyline points="9 18 15 12 9 6"></polyline>
       </svg>
@@ -48,6 +49,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import PaginationTexts from '../text/pagination.texts';
 
 const props = defineProps<{
   currentPage: number;
@@ -84,8 +86,11 @@ const visiblePages = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@use '../../assets/styles/variables' as *;
-@use '../../assets/styles/mixins' as *;
+@use '@/assets/styles/colors' as *;
+@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/fonts' as *;
+@use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/mixins' as *;
 
 .pagination-container {
   @include flex-center;
@@ -105,7 +110,7 @@ const visiblePages = computed(() => {
   padding: 0.5rem 0.85rem;
   border-radius: $radius-md;
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: $font-size-md;
   color: $text-secondary;
   background: $surface-color;
   border: 1px solid $border-color;

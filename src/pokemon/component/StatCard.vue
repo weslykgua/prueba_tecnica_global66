@@ -1,0 +1,71 @@
+<template>
+  <div class="stat-card">
+    <div class="stat-label-row">
+      <img :src="icon" :alt="label" class="stat-icon" />
+      <span class="stat-label">{{ label }}</span>
+    </div>
+    <div class="stat-value-box">
+      <span class="stat-value">{{ value }}</span>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+defineProps<{
+  icon: string;
+  label: string;
+  value: string;
+}>();
+</script>
+
+<style lang="scss" scoped>
+@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/fonts' as *;
+@use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/colors' as *;
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-label-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: 2px;
+}
+
+.stat-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.stat-label {
+  font-family: $font-family;
+  font-size: $font-size-sm;
+  font-weight: 400;
+  color: $text-secondary;
+}
+
+.stat-value-box {
+  width: 154px;
+  height: 43px;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $border-color;
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+
+.stat-value {
+  font-family: $font-family;
+  font-size: $font-size-header;
+  font-weight: 500;
+  color: $text-title;
+}
+</style>

@@ -25,7 +25,7 @@
       class="search-action-button"
       type="button"
       aria-label="Buscar"
-      @click="$emit('search')"
+      @click="$emit('open-filter')"
     >
       <div v-if="isSearching" class="mini-spinner"></div>
       <img v-else :src="searchIcon" alt="Buscar" class="action-icon" />
@@ -52,6 +52,7 @@ withDefaults(
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void;
   (e: 'search'): void;
+  (e: 'open-filter'): void;
 }>();
 
 const onInput = (event: Event) => {
@@ -65,7 +66,10 @@ const clear = () => {
 </script>
 
 <style lang="scss" scoped>
-@use '../../assets/styles/variables' as *;
+@use '@/assets/styles/colors' as *;
+@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/fonts' as *;
+@use '@/assets/styles/sizes' as *;
 
 .search-bar-container {
   display: flex;
@@ -73,7 +77,6 @@ const clear = () => {
   align-items: stretch;
   gap: 11px;
   width: calc(100% - 32px);
-  max-width: 580px;
   margin: 44px 16px 16px 16px;
   padding: 0;
   box-sizing: border-box;
@@ -83,10 +86,11 @@ const clear = () => {
   display: flex;
   align-items: center;
   flex: 1;
+  height: 48px;
   background-color: $surface-color;
   border: 1.5px solid $border-color;
   border-radius: 30px;
-  padding: 13px 16px;
+  padding: 0 16px;
   gap: 10px;
   box-sizing: border-box;
   position: relative;
@@ -110,7 +114,7 @@ const clear = () => {
   outline: none;
   background: transparent;
   font-family: $font-family;
-  font-size: 14px;
+  font-size: $font-size-md;
   color: $text-subtle;
   padding: 0;
 
@@ -140,8 +144,13 @@ const clear = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  align-self: stretch;
-  aspect-ratio: 1 / 1;
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  height: 48px;
+  min-height: 48px;
+  max-height: 48px;
+  flex: 0 0 48px;
   border-radius: 50%;
   background-color: $surface-color;
   border: 1.5px solid $border-color;

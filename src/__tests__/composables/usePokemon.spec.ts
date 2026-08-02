@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
 import { usePokemon } from '../../pokemon/composable/usePokemon';
 import { PokemonApi } from '@/pokemon/remote/api/pokemon.api';
+import { PokemonType } from '@/pokemon/type/PokemonType';
 
 describe('usePokemon Composable', () => {
   let mockApi: PokemonApi;
@@ -13,13 +14,25 @@ describe('usePokemon Composable', () => {
     mockApi = {
       getPokemonList: vi.fn(),
       getPokemonDetail: vi.fn(),
-    };
+    } as unknown as PokemonApi;
   });
 
   it('should fetch pokemon list via api service and update store', async () => {
     const mockList = [
-      { id: 1, name: 'bulbasaur', url: '', spriteUrl: '' },
-      { id: 25, name: 'pikachu', url: '', spriteUrl: '' },
+      {
+        id: 1,
+        name: 'bulbasaur',
+        spriteUrl: '',
+        principalType: PokemonType.GRASS,
+        types: [PokemonType.GRASS],
+      },
+      {
+        id: 25,
+        name: 'pikachu',
+        spriteUrl: '',
+        principalType: PokemonType.ELECTRIC,
+        types: [PokemonType.ELECTRIC],
+      },
     ];
     vi.mocked(mockApi.getPokemonList).mockResolvedValue(mockList);
 
@@ -39,17 +52,32 @@ describe('usePokemon Composable', () => {
     await fetchPokemonList();
 
     expect(filteredPokemonList.value).toEqual([]);
-    expect(error.value).toBe('API error');
+    expect(error.value).toBe(
+      'No pudimos cargar la información en este momento. Verifica tu conexión o intenta nuevamente más tarde.'
+    );
   });
 
   it('should toggle favorites and compute favoritesList correctly', async () => {
     const mockList = [
-      { id: 1, name: 'bulbasaur', url: '', spriteUrl: '' },
-      { id: 25, name: 'pikachu', url: '', spriteUrl: '' },
+      {
+        id: 1,
+        name: 'bulbasaur',
+        spriteUrl: '',
+        principalType: PokemonType.GRASS,
+        types: [PokemonType.GRASS],
+      },
+      {
+        id: 25,
+        name: 'pikachu',
+        spriteUrl: '',
+        principalType: PokemonType.ELECTRIC,
+        types: [PokemonType.ELECTRIC],
+      },
     ];
     vi.mocked(mockApi.getPokemonList).mockResolvedValue(mockList);
 
-    const { fetchPokemonList, toggleFavorite, isFavorite, favoritesList, favoritesCount } = usePokemon(mockApi);
+    const { fetchPokemonList, toggleFavorite, isFavorite, favoritesList, favoritesCount } =
+      usePokemon(mockApi);
     await fetchPokemonList();
 
     toggleFavorite('pikachu');

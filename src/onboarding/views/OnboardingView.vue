@@ -22,6 +22,7 @@ import { useRouter } from 'vue-router';
 import OnboardingStepCard, { type OnboardingStepItem } from '../component/OnboardingStepCard.vue';
 import step1Url from '@/assets/image_1_11.svg';
 import step2Url from '@/assets/image_2.svg';
+import OnboardingTexts from '../text/onboarding.texts';
 
 import { useOnboardingStore } from '../store/onboarding.store';
 
@@ -35,18 +36,18 @@ const onboardingSteps: OnboardingStepItem[] = [
     id: 1,
     imageSrc: step1Url,
     imageAlt: 'Pokémon',
-    title: 'Todos los Pokémon en un solo lugar',
-    subtitle: 'Accede a una amplia lista de Pokémon de todas las generaciones creadas por Nintendo',
-    buttonText: 'Continuar',
+    title: OnboardingTexts.step1Title,
+    subtitle: OnboardingTexts.step1Subtitle,
+    buttonText: OnboardingTexts.btnContinue,
     buttonTestId: 'btn-continue',
   },
   {
     id: 2,
     imageSrc: step2Url,
     imageAlt: 'Guarda tus Favoritos',
-    title: 'Mantén tu Pokédex actualizada',
-    subtitle: 'Regístrate y guarda tu perfil, Pokémon favoritos, configuraciones y mucho más en la aplicación',
-    buttonText: 'Empecemos',
+    title: OnboardingTexts.step2Title,
+    subtitle: OnboardingTexts.step2Subtitle,
+    buttonText: OnboardingTexts.btnStart,
     buttonTestId: 'btn-finish',
   },
 ];
@@ -70,8 +71,11 @@ const finishOnboarding = () => {
 </script>
 
 <style lang="scss" scoped>
-@use '../../assets/styles/variables' as *;
-@use '../../assets/styles/mixins' as *;
+@use '@/assets/styles/colors' as *;
+@use '@/assets/styles/variables' as *;
+@use '@/assets/styles/fonts' as *;
+@use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/mixins' as *;
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 
 .onboarding-page {
@@ -85,6 +89,12 @@ const finishOnboarding = () => {
   justify-content: space-between;
   position: relative;
   overflow: hidden;
+
+  @media (min-width: $bp-tablet) {
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    box-sizing: border-box;
+  }
 }
 
 .onboarding-main {
@@ -97,6 +107,12 @@ const finishOnboarding = () => {
   flex-grow: 1;
   justify-content: space-between;
   margin: 0 auto;
+
+  @media (min-width: $bp-tablet) {
+    flex-grow: 0;
+    justify-content: center;
+    margin: auto 0;
+  }
 }
 
 .slide-fade-enter-active,
