@@ -30,7 +30,7 @@ El proyecto está organizado con una arquitectura modular orientada a mantener e
 
 - **Enrutamiento y guardas**: el router centraliza la navegación y protege el flujo de onboarding, lo que mejora la coherencia del producto.
 
-Además, algunas mejoras de arquitectura que ya se aprecian en el proyecto son la reducción de lógica en las vistas, la reutilización de piezas comunes a través de composables y la posibilidad de evolucionar hacia servicios o repositorios adicionales si el sistema crece en complejidad.
+Además, algunas mejoras de arquitectura que ya se aprecian en el proyecto son la reducción de lógica en las vistas, la reutilización de piezas comunes a través de composables y componentes dando la posibilidad de evolucionar hacia servicios o repositorios adicionales si el sistema crece en complejidad.
 
 Esta combinación de principios facilita futuras mejoras, como agregar nuevas vistas, introducir más fuentes de datos o refactorizar módulos sin afectar el resto de la aplicación.
 
