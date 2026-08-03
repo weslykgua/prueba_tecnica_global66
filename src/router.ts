@@ -69,8 +69,14 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior() {
-    return { top: 0, behavior: 'smooth' };
+  scrollBehavior(to, _from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    if (to.name === 'PokemonDetail') {
+      return false;
+    }
+    return { top: 0 };
   },
 });
 

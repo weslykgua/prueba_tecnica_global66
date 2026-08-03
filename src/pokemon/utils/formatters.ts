@@ -21,6 +21,32 @@ import waterIcon from '@/assets/icons/types/water.svg';
 import shadowIcon from '@/assets/icons/types/shadow.svg';
 import stellarIcon from '@/assets/icons/types/stellar.svg';
 import unknownIcon from '@/assets/icons/types/unknown.svg';
+import bugIconSvg from '@/assets/icons/types/bug.svg?raw';
+import darkIconSvg from '@/assets/icons/types/dark.svg?raw';
+import dragonIconSvg from '@/assets/icons/types/dragon.svg?raw';
+import electricIconSvg from '@/assets/icons/types/electric.svg?raw';
+import fairyIconSvg from '@/assets/icons/types/fairy.svg?raw';
+import fightingIconSvg from '@/assets/icons/types/fighting.svg?raw';
+import fireIconSvg from '@/assets/icons/types/fire.svg?raw';
+import flyingIconSvg from '@/assets/icons/types/flying.svg?raw';
+import ghostIconSvg from '@/assets/icons/types/ghost.svg?raw';
+import grassIconSvg from '@/assets/icons/types/grass.svg?raw';
+import groundIconSvg from '@/assets/icons/types/ground.svg?raw';
+import iceIconSvg from '@/assets/icons/types/ice.svg?raw';
+import normalIconSvg from '@/assets/icons/types/normal.svg?raw';
+import poisonIconSvg from '@/assets/icons/types/poison.svg?raw';
+import psychicIconSvg from '@/assets/icons/types/psychic.svg?raw';
+import rockIconSvg from '@/assets/icons/types/rock.svg?raw';
+import steelIconSvg from '@/assets/icons/types/steel.svg?raw';
+import waterIconSvg from '@/assets/icons/types/water.svg?raw';
+import shadowIconSvg from '@/assets/icons/types/shadow.svg?raw';
+import stellarIconSvg from '@/assets/icons/types/stellar.svg?raw';
+import unknownIconSvg from '@/assets/icons/types/unknown.svg?raw';
+
+const colorizeTypeIcon = (icon: string): string =>
+  icon
+    .replace(/fill="(?:#fff|#FFF|#ffffff|#FFFFFF|white)"/gi, 'fill="currentColor"')
+    .replace(/stroke="(?:#fff|#FFF|#ffffff|#FFFFFF|white)"/gi, 'stroke="currentColor"');
 
 export function capitalize(str: string): string {
   if (!str) return '';
@@ -189,6 +215,57 @@ export function getTypeIcon(type: PokemonType): string {
     case PokemonType.SHADOW:
       return shadowIcon;
   }
+}
+
+export function getTypeIconSvg(type: PokemonType): string {
+  const icon = (() => {
+    switch (type) {
+      case PokemonType.NORMAL:
+        return normalIconSvg;
+      case PokemonType.FIGHTING:
+        return fightingIconSvg;
+      case PokemonType.FLYING:
+        return flyingIconSvg;
+      case PokemonType.POISON:
+        return poisonIconSvg;
+      case PokemonType.GROUND:
+        return groundIconSvg;
+      case PokemonType.ROCK:
+        return rockIconSvg;
+      case PokemonType.BUG:
+        return bugIconSvg;
+      case PokemonType.GHOST:
+        return ghostIconSvg;
+      case PokemonType.STEEL:
+        return steelIconSvg;
+      case PokemonType.FIRE:
+        return fireIconSvg;
+      case PokemonType.WATER:
+        return waterIconSvg;
+      case PokemonType.GRASS:
+        return grassIconSvg;
+      case PokemonType.ELECTRIC:
+        return electricIconSvg;
+      case PokemonType.PSYCHIC:
+        return psychicIconSvg;
+      case PokemonType.ICE:
+        return iceIconSvg;
+      case PokemonType.DRAGON:
+        return dragonIconSvg;
+      case PokemonType.DARK:
+        return darkIconSvg;
+      case PokemonType.FAIRY:
+        return fairyIconSvg;
+      case PokemonType.STELLAR:
+        return stellarIconSvg;
+      case PokemonType.UNKNOWN:
+        return unknownIconSvg;
+      case PokemonType.SHADOW:
+        return shadowIconSvg;
+    }
+  })();
+
+  return colorizeTypeIcon(icon);
 }
 
 export function extractIdFromUrl(url: string): number {

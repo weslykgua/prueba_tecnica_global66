@@ -101,6 +101,11 @@ npm run build
 
 ---
 
+## 🤖 Proyecto desarrollado con IA: Gemini + Antigravity
+
+Este proyecto se desarrolló con el apoyo de herramientas AI, con Gemini y Antigravity que optimizan tiempos, aceleran las entregas y ayudan a mejorar la calidad del resultado.
+---
+
 ## 📋 Scripts Disponibles en `package.json`
 
 - `npm run dev`: Inicia el servidor de desarrollo local con Vite.

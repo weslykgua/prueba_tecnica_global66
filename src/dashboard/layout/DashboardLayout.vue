@@ -93,14 +93,11 @@ onUnmounted(() => {
 
 .page-fade-enter-active,
 .page-fade-leave-active {
-  transition:
-    opacity 150ms ease,
-    transform 150ms ease;
+  transition: opacity 150ms ease-out;
 }
 
 .page-fade-enter-from,
 .page-fade-leave-to {
   opacity: 0;
-  transform: translateY($size-4px);
 }
 </style>

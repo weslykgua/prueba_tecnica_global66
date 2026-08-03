@@ -124,29 +124,22 @@ onUnmounted(() => {
   display: var(--display-flex);
   justify-content: var(--justify-center);
   align-items: var(--align-flex-end);
-  z-index: 1000;
-
-  @media (min-width: $size-600px) {
-    align-items: var(--align-center);
-  }
+  z-index: 10000;
 }
 
 .base-modal-container {
   background-color: $color-white;
   width: $size-100-percent;
-  max-height: $size-75-vh;
-  border-radius: $size-24px $size-24px $size-0px $size-0px;
+  max-height: $size-85-vh;
+  border-radius: $size-24px $size-24px $size-0px $size-0px !important;
   padding: $size-20px $size-24px $size-24px $size-24px;
   box-sizing: var(--border-box);
   display: var(--display-flex);
   flex-direction: var(--flex-direction-column);
   overflow: var(--overflow-hidden);
   position: var(--position-relative);
-  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.15);
-
-  @media (min-width: $size-600px) {
-    border-radius: $size-24px;
-  }
+  box-shadow: 0px -4px 30px rgba(0, 0, 0, 0.2);
+  margin-bottom: $size-0px;
 }
 
 .close-btn {
@@ -210,10 +203,6 @@ onUnmounted(() => {
 
   .base-modal-container {
     transform: translateY(100%);
-
-    @media (min-width: $size-600px) {
-      transform: scale(0.95);
-    }
   }
 }
 </style>

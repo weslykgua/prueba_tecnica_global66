@@ -83,6 +83,10 @@ const emit = defineEmits<{
   align-items: var(--align-center);
   width: 100%;
   flex-grow: 1;
+  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.2) 45%, rgba(255, 255, 255, 0) 100%);
+  border-radius: 32px;
+  padding: 24px 24px 0;
+  box-sizing: border-box;
 }
 
 .image-container {

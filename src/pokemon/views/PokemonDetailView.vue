@@ -255,6 +255,7 @@ const weaknessTypes = computed<PokemonType[]>(() => {
 });
 
 onMounted(() => {
+  window.scrollTo({ top: 0, behavior: 'instant' });
   fetchDetail();
 });
 </script>
@@ -332,11 +333,12 @@ onMounted(() => {
   width: $size-38px;
   height: $size-38px;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: opacity 0.2s ease;
   z-index: 10;
+  border-radius: 50%;
 
   &:hover {
-    transform: scale(1.1);
+    opacity: 0.8;
   }
 
   &.back-btn {
@@ -397,8 +399,9 @@ onMounted(() => {
 
 .detail-sprite {
   width: $size-180px;
-  height: $size-auto;
+  height: $size-180px;
   object-fit: var(--object-contain);
+  aspect-ratio: 1 / 1;
 }
 
 .detail-body {

@@ -27,7 +27,7 @@
       aria-label="Buscar"
       @click="$emit('open-filter')"
     >
-      <div v-if="isSearching" class="mini-spinner"></div>
+      <PokeballLoader v-if="isSearching" size="small" />
       <img v-else :src="searchIcon" alt="Buscar" class="action-icon" />
     </button>
   </div>
@@ -36,6 +36,7 @@
 <script setup lang="ts">
 import searchIcon from '@/assets/icons/actions/ic_search.svg';
 import clearIcon from '@/assets/icons/actions/ic_clear.svg';
+import PokeballLoader from '@/pokemon/component/PokeballLoader.vue';
 
 withDefaults(
   defineProps<{

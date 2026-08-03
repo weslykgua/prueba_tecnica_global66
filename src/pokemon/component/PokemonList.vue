@@ -79,19 +79,12 @@ const onToggleFavorite = (name: string) => {
 
 .grid-fade-enter-active,
 .grid-fade-leave-active {
-  transition:
-    opacity 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: opacity 150ms ease-out;
 }
 
-.grid-fade-enter-from {
-  opacity: 0;
-  transform: scale(0.97) translateY(8px);
-}
-
+.grid-fade-enter-from,
 .grid-fade-leave-to {
   opacity: 0;
-  transform: scale(0.97) translateY(-8px);
 }
 
 .grid-fade-move {

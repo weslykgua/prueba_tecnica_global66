@@ -14,14 +14,22 @@
     />
 
     <template v-else>
-      <SearchBar
-        v-model="searchQuery"
-        :is-searching="isSearching"
-        :placeholder="HomeTexts.searchPlaceholder"
-        @open-filter="isFilterModalOpen = true"
-      />
+      <div class="sticky-controls">
+        <SearchBar
+          v-model="searchQuery"
+          :is-searching="isSearching || isLoading"
+          :placeholder="HomeTexts.searchPlaceholder"
+          @open-filter="isFilterModalOpen = true"
+        />
 
-      <div v-if="isSearching" class="loader-container">
+        <SearchResultsBar
+          v-if="searchQuery.trim() !== '' || selectedTypes.length > 0"
+          :count="paginatedPokemonList.length"
+          @clear="handleClearFilters"
+        />
+      </div>
+
+      <div v-if="isSearching || isLoading" class="loader-container">
         <PokeballLoader />
       </div>
 
@@ -30,16 +38,10 @@
         :title="HomeTexts.emptyTitle"
         :description="HomeTexts.emptyDescription"
         :action-label="HomeTexts.clearSearchButton"
-        @action="clearFilters"
+        @action="handleClearFilters"
       />
 
       <template v-else>
-        <SearchResultsBar
-          v-if="searchQuery.trim() !== '' || selectedTypes.length > 0"
-          :count="paginatedPokemonList.length"
-          @clear="clearFilters"
-        />
-
         <PokemonList
           :pokemon-list="paginatedPokemonList"
           :is-favorite="isFavorite"
@@ -53,28 +55,56 @@
       :is-open="isFilterModalOpen"
       :selected-types="selectedTypes"
       @close="isFilterModalOpen = false"
-      @apply="applyTypeFilters"
+      @apply="handleApplyTypeFilters"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onActivated, onDeactivated } from 'vue';
+import { useRouter, onBeforeRouteLeave } from 'vue-router';
 import emptyStateIllustration from '@/assets/images/illustrations/empty_state_illustration_fish.svg';
 import { usePokemon } from '@/pokemon/composable/usePokemon';
 import SearchBar from '@/pokemon/component/SearchBar.vue';
 import PokeballLoader from '@/pokemon/component/PokeballLoader.vue';
 import PokemonList from '@/pokemon/component/PokemonList.vue';
-import { useRouter } from 'vue-router';
 import FilterModal from '@/pokemon/component/FilterModal.vue';
 import InfoState from '@/common/component/InfoState.vue';
 import SearchResultsBar from '@/pokemon/component/SearchResultsBar.vue';
 import HomeTexts from '../text/home.texts';
+import { PokemonType } from '@/pokemon/type/PokemonType';
 
 const router = useRouter();
 const isFilterModalOpen = ref(false);
+const scrollPosition = ref(0);
+
+const saveScrollPosition = () => {
+  scrollPosition.value = window.scrollY || document.documentElement.scrollTop || 0;
+};
+
+onDeactivated(() => {
+  saveScrollPosition();
+});
+
+onBeforeRouteLeave(() => {
+  saveScrollPosition();
+});
+
+onActivated(() => {
+  window.scrollTo({
+    top: scrollPosition.value,
+    behavior: 'instant',
+  });
+  requestAnimationFrame(() => {
+    window.scrollTo({
+      top: scrollPosition.value,
+      behavior: 'instant',
+    });
+  });
+});
 
 const onSelectPokemon = (id: number) => {
+  saveScrollPosition();
   router.push(`/pokemon/${id}`);
 };
 
@@ -91,6 +121,18 @@ const {
   toggleFavorite,
   retryFetch,
 } = usePokemon();
+
+const handleClearFilters = () => {
+  scrollPosition.value = 0;
+  clearFilters();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+const handleApplyTypeFilters = (types: PokemonType[]) => {
+  scrollPosition.value = 0;
+  applyTypeFilters(types);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 </script>
 
 <style lang="scss" scoped>
@@ -105,6 +147,19 @@ const {
   min-height: $size-100-percent;
   max-width: $size-800px;
   margin: $size-0px $size-auto;
+}
+
+.sticky-controls {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  width: $size-100-percent;
+  padding: $size-8px $size-0px $size-8px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .loader-container {
