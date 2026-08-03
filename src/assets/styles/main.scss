@@ -1,27 +1,53 @@
+@use './colors' as *;
+@use './fonts' as *;
+@use './sizes' as *;
 @use './variables' as *;
+@use './globals' as *;
 @use './mixins' as *;
 @use './animations' as *;
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #{$color-1e88e5};
+  --primary-hover: #{$color-1565c0};
+  --primary-active: #{$color-0d47a1};
+  --primary-accent: #{$color-173ea5};
+  --danger-color: #{$color-d32f2f};
+  --danger-bg: #{$color-cd3131};
+  --success-color: #{$color-10b981};
+  --gender-male: #{$color-2551c3};
+  --gender-female: #{$color-ff7596};
+  --text-title: #{$color-121212};
+  --text-primary: #{$color-222222};
+  --text-body: #{$color-424242};
+  --text-secondary: #{$color-5e5e5e};
+  --text-muted: #{$color-7a7a7a};
+  --bg-color: #{$color-white};
+  --bg-light: #{$color-fafafa};
+  --border-color: #{$color-e0e0e0};
+  --border-light: #{$color-ececec};
+  --font-family: #{$font-family};
 }
 
-html, body {
+*,
+*::before,
+*::after {
+  box-sizing: var(--border-box);
+  margin: $size-0px;
+  padding: $size-0px;
+}
+
+html,
+body {
   font-family: $font-family;
-  background-color: #f1f5f9;
-  color: $text-dark;
-  min-height: 100vh;
+  background-color: $color-white;
+  color: $color-222222;
+  min-height: $size-100-vh;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   @include custom-scrollbar;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: $dark-bg;
-    color: $text-light;
-  }
 }
 
 a {
@@ -32,7 +58,7 @@ a {
 button {
   font-family: inherit;
   cursor: pointer;
-  border: none;
+  border: var(--border-none);
   background: none;
   outline: none;
 }
@@ -41,15 +67,14 @@ input {
   font-family: inherit;
 }
 
-/* Accessible focus ring */
 :focus-visible {
-  outline: 2px solid $primary-color;
-  outline-offset: 2px;
+  outline: $size-2px solid $color-1e88e5;
+  outline-offset: $size-2px;
 }
 
 .container {
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+  width: $size-100-percent;
+  max-width: $size-1100px;
+  margin: $size-0px $size-auto;
+  padding: $size-0px $size-rem-1-5;
 }

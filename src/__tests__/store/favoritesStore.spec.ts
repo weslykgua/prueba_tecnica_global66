@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
-import { useFavoritesStore } from '../../stores/useFavoritesStore';
+import { useFavoritesStore } from '../../pokemon/local/store/favorites.store';
 
 describe('useFavoritesStore', () => {
   beforeEach(() => {

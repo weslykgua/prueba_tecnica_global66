@@ -1,16 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/pokeball.svg" as="image" type="image/svg+xml" fetchpriority="high" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Global66 Pokédex - Aplicación web moderna para explorar Pokémon y gestionar favoritos utilizando PokeAPI, Vue 3 y TypeScript." />
+    <meta
+      name="description"
+      content="Global66 Pokédex - Aplicación web moderna para explorar Pokémon y gestionar favoritos utilizando PokeAPI, Vue 3 y TypeScript."
+    />
     <meta name="theme-color" content="#1e1e24" />
+
     <title>Pokédex Global66 | Vue 3 + TypeScript</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+      #app,
+      body {
+        background-color: #ffffff;
+        background-image: url('/pokeball.svg');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 155px 155px;
+        min-height: 100vh;
+        margin: 0;
+      }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="app"></div>

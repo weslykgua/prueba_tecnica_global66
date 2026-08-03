@@ -1,0 +1,27 @@
+:root {
+  --display-flex: flex;
+  --display-inline-flex: inline-flex;
+  --display-block: block;
+  --display-none: none;
+  --display-grid: grid;
+  --align-center: center;
+  --align-flex-start: flex-start;
+  --align-flex-end: flex-end;
+  --justify-center: center;
+  --justify-between: space-between;
+  --justify-flex-start: flex-start;
+  --justify-flex-end: flex-end;
+  --justify-normal: normal;
+  --flex-direction-column: column;
+  --flex-direction-row: row;
+  --flex-wrap-wrap: wrap;
+  --position-relative: relative;
+  --position-absolute: absolute;
+  --position-fixed: fixed;
+  --position-sticky: sticky;
+  --overflow-hidden: hidden;
+  --overflow-visible: visible;
+  --border-box: border-box;
+  --border-none: none;
+  --object-contain: contain;
+}

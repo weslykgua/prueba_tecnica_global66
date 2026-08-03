@@ -1,14 +1,16 @@
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
-import PokemonCard from '../../components/pokemon/PokemonCard.vue';
-import { PokemonListItem } from '../../types/pokemon.types';
+import PokemonCard from '../../pokemon/component/PokemonCard.vue';
+import PokemonListItem from '@/pokemon/model/PokemonListItem';
+import { PokemonType } from '@/pokemon/type/PokemonType';
 
 describe('PokemonCard.vue', () => {
   const mockPokemon: PokemonListItem = {
     id: 25,
     name: 'pikachu',
-    url: 'https://pokeapi.co/api/v2/pokemon/25/',
     spriteUrl: 'https://raw.githubusercontent.com/.../25.png',
+    principalType: PokemonType.ELECTRIC,
+    types: [PokemonType.ELECTRIC],
   };
 
   it('renders pokemon formatted name and ID correctly', () => {
@@ -20,7 +22,7 @@ describe('PokemonCard.vue', () => {
     });
 
     expect(wrapper.find('.pokemon-name').text()).toBe('Pikachu');
-    expect(wrapper.find('.pokemon-id').text()).toBe('#025');
+    expect(wrapper.find('.pokemon-id').text()).toBe('Nº025');
   });
 
   it('emits select event when card body is clicked', async () => {
@@ -34,21 +36,21 @@ describe('PokemonCard.vue', () => {
     await wrapper.trigger('click');
 
     expect(wrapper.emitted('select')).toBeTruthy();
-    expect(wrapper.emitted('select')?.[0]).toEqual(['pikachu']);
+    expect(wrapper.emitted('select')![0]).toEqual([25]);
   });
 
-  it('emits toggle-favorite event when star button is clicked', async () => {
+  it('emits toggle-favorite event when favorite button is clicked', async () => {
     const wrapper = mount(PokemonCard, {
       props: {
         pokemon: mockPokemon,
-        isFavorite: true,
+        isFavorite: false,
       },
     });
 
-    const favButton = wrapper.find('.favorite-button');
-    await favButton.trigger('click');
+    const starBtn = wrapper.find('.favorite-button');
+    await starBtn.trigger('click');
 
     expect(wrapper.emitted('toggle-favorite')).toBeTruthy();
-    expect(wrapper.emitted('toggle-favorite')?.[0]).toEqual(['pikachu']);
+    expect(wrapper.emitted('toggle-favorite')![0]).toEqual(['pikachu']);
   });
 });
