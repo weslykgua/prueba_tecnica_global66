@@ -75,8 +75,8 @@ defineEmits<{
 }
 
 .confirm-actions {
-  display: flex;
-  flex-direction: column;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
   gap: $size-12px;
   width: $size-100-percent;
 

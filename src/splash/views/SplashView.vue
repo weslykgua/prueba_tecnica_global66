@@ -15,19 +15,19 @@ import pokeballUrl from '@/assets/icons/common/pokeball.svg';
 @use '@/assets/styles/sizes' as *;
 
 .splash-screen {
-  position: fixed;
+  position: var(--position-fixed);
   inset: $size-0px;
   z-index: 9999;
   background-color: $color-white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
 }
 
 .splash-pokeball {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
 
   .pokeball-svg-img {
     width: $size-155px;

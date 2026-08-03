@@ -34,13 +34,13 @@ defineEmits<{
 @use '@/assets/styles/variables' as *;
 
 .search-results-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: var(--display-flex);
+  justify-content: var(--justify-between);
+  align-items: var(--align-center);
   width: calc(#{$size-100-percent} - #{$size-46px});
   margin: $size-8px $size-30px $size-16px $size-16px;
   padding: $size-0px;
-  box-sizing: border-box;
+  box-sizing: var(--border-box);
   gap: $size-4px;
   white-space: nowrap;
 
@@ -59,13 +59,13 @@ defineEmits<{
   font-size: $font-size-14;
   line-height: 1.4;
   color: $color-9e9e9e;
-  display: inline-flex;
+  display: var(--display-inline-flex);
   gap: $size-4px;
-  align-items: center;
+  align-items: var(--align-center);
   white-space: nowrap;
   flex-shrink: 1;
   min-width: $size-0px;
-  overflow: hidden;
+  overflow: var(--overflow-hidden);
   text-overflow: ellipsis;
 
   .count-highlight {
@@ -77,7 +77,7 @@ defineEmits<{
 
 .clear-filter-btn {
   background: none;
-  border: none;
+  border: var(--border-none);
   padding: $size-0px;
   cursor: pointer;
   font-family: $font-family;

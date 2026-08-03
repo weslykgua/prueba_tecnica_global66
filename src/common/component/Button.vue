@@ -43,7 +43,7 @@ defineEmits<{
 .app-button {
   background-color: $color-1e88e5;
   color: $color-white;
-  border: none;
+  border: var(--border-none);
   border-radius: $size-60px;
   padding: $size-16px;
   font-size: $font-size-19;
@@ -54,8 +54,8 @@ defineEmits<{
   box-shadow: 0 4px 14px rgba(30, 136, 229, 0.25);
   transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
   width: calc(100% - #{$size-32px});
-  justify-content: center;
-  align-items: center;
+  justify-content: var(--justify-center);
+  align-items: var(--align-center);
 
   &:hover:not(:disabled) {
     background-color: $color-1565c0;

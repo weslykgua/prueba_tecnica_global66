@@ -95,13 +95,13 @@ defineEmits<{
 @use '@/assets/styles/mixins' as *;
 
 .toast-container {
-  position: fixed;
+  position: var(--position-fixed);
   bottom: $size-24px;
   right: $size-24px;
   z-index: 99999;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-flex-end);
   gap: $size-10px;
   max-width: $size-380px;
   width: calc(#{$size-100-percent} - #{$size-48px});
@@ -110,9 +110,9 @@ defineEmits<{
 
 .toast-item {
   pointer-events: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-between);
   gap: $size-12px;
   padding: $size-14px $size-18px;
   border-radius: $size-16px;
@@ -129,7 +129,7 @@ defineEmits<{
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   width: $size-100-percent;
-  box-sizing: border-box;
+  box-sizing: var(--border-box);
 
   &.custom-bg {
     color: $color-white;
@@ -148,9 +148,9 @@ defineEmits<{
 }
 
 .toast-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
   flex-shrink: 0;
 
   svg {
@@ -166,11 +166,11 @@ defineEmits<{
 }
 
 .toast-close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
   background: rgba(255, 255, 255, 0.2);
-  border: none;
+  border: var(--border-none);
   border-radius: 50%;
   width: $size-24px;
   height: $size-24px;

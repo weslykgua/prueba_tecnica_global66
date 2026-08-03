@@ -2,6 +2,7 @@
 @use './fonts' as *;
 @use './sizes' as *;
 @use './variables' as *;
+@use './globals' as *;
 @use './mixins' as *;
 @use './animations' as *;
 
@@ -32,7 +33,7 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  box-sizing: var(--border-box);
   margin: $size-0px;
   padding: $size-0px;
 }
@@ -57,7 +58,7 @@ a {
 button {
   font-family: inherit;
   cursor: pointer;
-  border: none;
+  border: var(--border-none);
   background: none;
   outline: none;
 }

@@ -78,17 +78,17 @@ const emit = defineEmits<{
 @use '@/assets/styles/variables' as *;
 
 .onboarding-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
   width: 100%;
   flex-grow: 1;
 }
 
 .image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: var(--display-flex);
+  justify-content: var(--justify-center);
+  align-items: var(--align-center);
   width: 100%;
   margin-top: auto;
 
@@ -103,7 +103,7 @@ const emit = defineEmits<{
     height: auto;
     max-height: 264.89px;
     aspect-ratio: 342 / 264.89;
-    object-fit: contain;
+    object-fit: var(--object-contain);
     filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.06));
     transition: transform 0.3s ease;
 
@@ -114,9 +114,9 @@ const emit = defineEmits<{
 }
 
 .bottom-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
   width: 100%;
 }
 
@@ -150,9 +150,9 @@ const emit = defineEmits<{
 }
 
 .step-indicators {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: var(--display-flex);
+  justify-content: var(--justify-center);
+  align-items: var(--align-center);
   gap: 8px;
 
   .indicator-dot {
@@ -160,7 +160,7 @@ const emit = defineEmits<{
     height: 10px;
     border-radius: 50%;
     background-color: $color-e0e0e0;
-    border: none;
+    border: var(--border-none);
     padding: 0;
     cursor: pointer;
     transition: all 0.3s ease;

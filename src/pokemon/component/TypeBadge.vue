@@ -42,8 +42,8 @@ const typeLabel = computed(() => formatTypeName(props.type));
 @use '@/assets/styles/variables' as *;
 
 .type-badge {
-  display: inline-flex;
-  align-items: center;
+  display: var(--display-inline-flex);
+  align-items: var(--align-center);
   gap: $size-4px;
   padding: $size-4px $size-10px;
   border-radius: $size-full;
@@ -52,24 +52,24 @@ const typeLabel = computed(() => formatTypeName(props.type));
   font-weight: $font-weight-600;
   color: $color-white;
   white-space: nowrap;
-  box-sizing: border-box;
+  box-sizing: var(--border-box);
   flex-shrink: 0;
 }
 
 .type-icon-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
   width: $size-20px;
   height: $size-20px;
   flex-shrink: 0;
   background-color: $color-white;
   border-radius: $size-full;
-  box-sizing: border-box;
+  box-sizing: var(--border-box);
 }
 
 .type-icon-mask {
-  display: block;
+  display: var(--display-block);
   width: $size-12px;
   height: $size-12px;
   mask-size: contain;

@@ -38,17 +38,17 @@ const onBack = () => {
 @use '@/assets/styles/variables' as *;
 
 .view-header {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: var(--position-relative);
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
   width: $size-100-percent;
   max-width: $size-570px;
   height: $size-36px;
   margin: $size-36px $size-auto $size-24px $size-auto;
   padding: $size-0px $size-16px;
   gap: $size-4px;
-  box-sizing: border-box;
+  box-sizing: var(--border-box);
 
   @media (min-width: $bp-tablet) {
     max-width: $size-820px;
@@ -64,17 +64,17 @@ const onBack = () => {
 }
 
 .back-btn {
-  position: absolute;
+  position: var(--position-absolute);
   left: $size-16px;
   top: 50%;
   transform: translateY(-50%);
   background: none;
-  border: none;
+  border: var(--border-none);
   padding: $size-0px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
   width: $size-32px;
   height: $size-32px;
   border-radius: $size-full;

@@ -72,10 +72,10 @@ const handleButtonClick = () => {
 @use '@/assets/styles/variables' as *;
 
 .info-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
   text-align: center;
   width: $size-100-percent;
   height: $size-100-percent;
@@ -84,21 +84,21 @@ const handleButtonClick = () => {
   max-width: $size-540px;
   margin: $size-0px $size-auto;
   padding: $size-32px $size-16px;
-  box-sizing: border-box;
+  box-sizing: var(--border-box);
   font-family: $font-family;
 }
 
 .info-image-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: var(--display-flex);
+  justify-content: var(--justify-center);
+  align-items: var(--align-center);
   margin: $size-16px $size-16px $size-20px;
 }
 
 .info-img {
   width: $size-169px;
   height: $size-209px;
-  object-fit: contain;
+  object-fit: var(--object-contain);
 }
 
 .info-title {

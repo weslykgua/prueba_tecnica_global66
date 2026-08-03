@@ -28,10 +28,10 @@ defineProps<{
 @use '@/assets/styles/animations' as *;
 
 .pokeball-loader {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
   width: $size-100-percent;
   height: $size-100-percent;
   flex: 1;
@@ -39,9 +39,9 @@ defineProps<{
 
 .pokeball-spinner {
   animation: pokeball-spin 1.2s infinite linear;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: var(--display-flex);
+  justify-content: var(--justify-center);
+  align-items: var(--align-center);
 }
 
 .pokeball {
@@ -49,13 +49,13 @@ defineProps<{
   height: $size-160px;
   border-radius: 50%;
   border: 3.5px solid $color-222222;
-  position: relative;
-  overflow: hidden;
+  position: var(--position-relative);
+  overflow: var(--overflow-hidden);
   box-shadow: $shadow-sm;
   background: $color-white;
 
   .pokeball-top {
-    position: absolute;
+    position: var(--position-absolute);
     top: $size-0px;
     left: $size-0px;
     width: $size-100-percent;
@@ -64,7 +64,7 @@ defineProps<{
   }
 
   .pokeball-bottom {
-    position: absolute;
+    position: var(--position-absolute);
     bottom: $size-0px;
     left: $size-0px;
     width: $size-100-percent;
@@ -73,7 +73,7 @@ defineProps<{
   }
 
   .pokeball-band {
-    position: absolute;
+    position: var(--position-absolute);
     top: 50%;
     left: $size-0px;
     width: $size-100-percent;
@@ -84,7 +84,7 @@ defineProps<{
   }
 
   .pokeball-center-button {
-    position: absolute;
+    position: var(--position-absolute);
     top: 50%;
     left: 50%;
     width: $size-44px;
@@ -94,9 +94,9 @@ defineProps<{
     border-radius: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: var(--display-flex);
+    align-items: var(--align-center);
+    justify-content: var(--justify-center);
 
     .pokeball-center-dot {
       width: $size-7px;

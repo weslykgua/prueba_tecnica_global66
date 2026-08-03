@@ -20,10 +20,10 @@
 }
 
 .main-layout {
-  display: flex;
-  flex-direction: column;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
   min-height: $size-100-vh;
-  position: relative;
+  position: var(--position-relative);
 }
 
 .main-content {

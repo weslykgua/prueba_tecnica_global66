@@ -114,20 +114,20 @@ const onImageError = () => {
 @use '@/assets/styles/sizes' as *;
 
 .pokemon-card {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-row);
+  justify-content: var(--justify-between);
   align-items: stretch;
   width: $size-100-percent;
   min-height: $size-102px;
   background-color: $color-white;
   border: $size-1px solid $color-e0e0e0;
   border-radius: $size-16px;
-  box-sizing: border-box;
+  box-sizing: var(--border-box);
   margin-bottom: $size-12px;
-  position: relative;
+  position: var(--position-relative);
   cursor: pointer;
-  overflow: hidden;
+  overflow: var(--overflow-hidden);
   transition:
     border-color 0.2s ease,
     transform 0.2s ease;
@@ -139,15 +139,15 @@ const onImageError = () => {
 }
 
 .card-left-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  justify-content: var(--justify-between);
+  align-items: var(--align-flex-start);
   flex: 1 1 auto;
   min-width: $size-0px;
   padding: $size-12px $size-0px $size-12px $size-16px;
-  box-sizing: border-box;
-  overflow: hidden;
+  box-sizing: var(--border-box);
+  overflow: var(--overflow-hidden);
 }
 
 .pokemon-id {
@@ -168,17 +168,17 @@ const onImageError = () => {
   color: $color-121212;
   margin: $size-0px $size-0px $size-8px $size-0px;
   text-align: left;
-  display: block;
+  display: var(--display-block);
   width: $size-100-percent;
   max-width: $size-100-percent;
   white-space: nowrap;
-  overflow: hidden;
+  overflow: var(--overflow-hidden);
   text-overflow: ellipsis;
 }
 
 .types-container {
-  display: flex;
-  flex-direction: row;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-row);
   gap: $size-6px;
   width: $size-100-percent;
   max-width: $size-100-percent;
@@ -188,37 +188,37 @@ const onImageError = () => {
   -ms-overflow-style: none;
 
   &::-webkit-scrollbar {
-    display: none;
+    display: var(--display-none);
     width: $size-0px;
     height: $size-0px;
   }
 }
 
 .card-right-media {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  display: var(--display-flex);
+  justify-content: var(--justify-center);
+  align-items: var(--align-center);
+  position: var(--position-relative);
   width: $size-126px;
   min-width: $size-126px;
   max-width: $size-126px;
   height: $size-auto;
   align-self: stretch;
   border-radius: $size-16px;
-  overflow: hidden;
-  box-sizing: border-box;
+  overflow: var(--overflow-hidden);
+  box-sizing: var(--border-box);
   flex: 0 0 $size-126px;
   padding: $size-4px $size-auto;
 }
 
 .card-bg-svg {
-  position: absolute;
+  position: var(--position-absolute);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: $size-94px;
   height: $size-94px;
-  object-fit: contain;
+  object-fit: var(--object-contain);
   z-index: 0;
   pointer-events: none;
   mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.1) 100%);
@@ -230,24 +230,24 @@ const onImageError = () => {
 }
 
 .pokemon-sprite {
-  position: absolute;
+  position: var(--position-absolute);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: $size-94px;
   height: $size-auto;
-  object-fit: contain;
+  object-fit: var(--object-contain);
   z-index: 1;
   pointer-events: none;
 }
 
 .favorite-button {
-  position: absolute;
+  position: var(--position-absolute);
   top: $size-9px;
   right: $size-9px;
   width: $size-32px;
   height: $size-32px;
-  border: none;
+  border: var(--border-none);
   background: transparent;
   padding: $size-0px;
   cursor: pointer;
@@ -256,7 +256,7 @@ const onImageError = () => {
   .heart-icon {
     width: $size-32px;
     height: $size-32px;
-    display: block;
+    display: var(--display-block);
   }
 }
 
@@ -270,8 +270,8 @@ const onImageError = () => {
   }
 
   .types-container {
-    flex-wrap: wrap;
-    overflow: visible;
+    flex-wrap: var(--flex-wrap-wrap);
+    overflow: var(--overflow-visible);
   }
 }
 </style>

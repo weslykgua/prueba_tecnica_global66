@@ -83,34 +83,34 @@ const finishOnboarding = () => {
   width: $size-100-percent;
   min-height: $size-100-vh;
   background-color: $color-white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  overflow: hidden;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
+  justify-content: var(--justify-between);
+  position: var(--position-relative);
+  overflow: var(--overflow-hidden);
 
   @media (min-width: $bp-tablet) {
-    justify-content: center;
+    justify-content: var(--justify-center);
     padding: $size-32px $size-24px;
-    box-sizing: border-box;
+    box-sizing: var(--border-box);
   }
 }
 
 .onboarding-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
   text-align: center;
   max-width: $size-540px;
   width: $size-100-percent;
   flex-grow: 1;
-  justify-content: space-between;
+  justify-content: var(--justify-between);
   margin: $size-0px $size-auto;
 
   @media (min-width: $bp-tablet) {
     flex-grow: 0;
-    justify-content: center;
+    justify-content: var(--justify-center);
     margin: $size-auto $size-0px;
   }
 }

@@ -29,8 +29,8 @@ defineProps<{
 }
 
 .stat-label-row {
-  display: flex;
-  align-items: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
   gap: $size-6px;
   padding-left: $size-2px;
 }
@@ -52,12 +52,12 @@ defineProps<{
   width: $size-154px;
   height: $size-43px;
   max-width: $size-100-percent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
   border: $size-1px solid $color-e0e0e0;
   border-radius: $size-15px;
-  box-sizing: border-box;
+  box-sizing: var(--border-box);
   margin: $size-4px $size-auto $size-0px $size-auto;
 }
 

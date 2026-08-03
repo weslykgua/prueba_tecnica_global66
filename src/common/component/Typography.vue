@@ -84,7 +84,7 @@ const weightClass = computed(() => (props.weight ? `weight-${props.weight}` : ''
   font-family: $font-family;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: var(--border-box);
 
   &.variant-h1 {
     font-size: $font-size-32;

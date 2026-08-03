@@ -180,11 +180,11 @@ const onDeleteClick = () => {
 @use '@/assets/styles/variables' as *;
 
 .swipeable-card-wrapper {
-  position: relative;
+  position: var(--position-relative);
   width: $size-100-percent;
   border-radius: $size-16px;
-  overflow: hidden;
-  box-sizing: border-box;
+  overflow: var(--overflow-hidden);
+  box-sizing: var(--border-box);
   margin-bottom: $size-12px;
   background-color: transparent;
   transition: max-height 0.25s ease, margin-bottom 0.25s ease, opacity 0.25s ease;
@@ -202,7 +202,7 @@ const onDeleteClick = () => {
 }
 
 .delete-action-bg {
-  position: absolute;
+  position: var(--position-absolute);
   top: $size-0px;
   right: $size-0px;
   bottom: $size-0px;
@@ -211,14 +211,14 @@ const onDeleteClick = () => {
   height: $size-100-percent;
   background-color: $color-cd3131;
   border-radius: $size-16px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-flex-end);
   cursor: pointer;
   z-index: 1;
   opacity: 0;
   pointer-events: none;
-  box-sizing: border-box;
+  box-sizing: var(--border-box);
   transition: opacity 0.15s ease-in-out;
 
   &.visible {
@@ -229,9 +229,9 @@ const onDeleteClick = () => {
   .trash-icon-container {
     width: $size-80px;
     height: $size-100-percent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: var(--display-flex);
+    align-items: var(--align-center);
+    justify-content: var(--justify-center);
   }
 
   .trash-icon {
@@ -247,7 +247,7 @@ const onDeleteClick = () => {
 }
 
 .swipeable-card-content {
-  position: relative;
+  position: var(--position-relative);
   z-index: 2;
   width: $size-100-percent;
   height: $size-100-percent;

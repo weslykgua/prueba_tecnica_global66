@@ -115,19 +115,19 @@ onUnmounted(() => {
 @use '@/assets/styles/sizes' as *;
 
 .base-modal-backdrop {
-  position: fixed;
+  position: var(--position-fixed);
   top: $size-0px;
   left: $size-0px;
   width: $size-100-vw;
   height: $size-100-vh;
   background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  display: var(--display-flex);
+  justify-content: var(--justify-center);
+  align-items: var(--align-flex-end);
   z-index: 1000;
 
   @media (min-width: $size-600px) {
-    align-items: center;
+    align-items: var(--align-center);
   }
 }
 
@@ -137,11 +137,11 @@ onUnmounted(() => {
   max-height: $size-75-vh;
   border-radius: $size-24px $size-24px $size-0px $size-0px;
   padding: $size-20px $size-24px $size-24px $size-24px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
+  box-sizing: var(--border-box);
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  overflow: var(--overflow-hidden);
+  position: var(--position-relative);
   box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.15);
 
   @media (min-width: $size-600px) {
@@ -151,14 +151,14 @@ onUnmounted(() => {
 
 .close-btn {
   background: none;
-  border: none;
+  border: var(--border-none);
   padding: $size-0px;
   margin-bottom: $size-14px;
   cursor: pointer;
   align-self: flex-start;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
   width: $size-24px;
   height: $size-24px;
   transition: opacity 0.2s ease;
@@ -185,8 +185,8 @@ onUnmounted(() => {
 
 .base-modal-body {
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
   overflow-y: auto;
 }
 

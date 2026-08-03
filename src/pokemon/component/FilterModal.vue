@@ -130,15 +130,15 @@ const cancelFilters = () => {
 
 .filter-section {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  overflow: var(--overflow-hidden);
 }
 
 .section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: var(--display-flex);
+  justify-content: var(--justify-between);
+  align-items: var(--align-center);
   padding: $size-8px $size-0px;
   cursor: pointer;
 
@@ -151,12 +151,12 @@ const cancelFilters = () => {
 
   .toggle-btn {
     background: none;
-    border: none;
+    border: var(--border-none);
     padding: $size-0px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: var(--display-flex);
+    align-items: var(--align-center);
+    justify-content: var(--justify-center);
 
     .chevron-icon-img {
       transition: transform 0.2s ease;
@@ -171,17 +171,17 @@ const cancelFilters = () => {
 .types-container {
   flex: 1;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
   gap: $size-12px;
   padding-right: $size-4px;
   margin-top: $size-8px;
 }
 
 .type-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: var(--display-flex);
+  justify-content: var(--justify-between);
+  align-items: var(--align-center);
   padding: $size-10px $size-0px;
   cursor: pointer;
   border-bottom: $size-1px solid $color-ececec;
@@ -196,17 +196,17 @@ const cancelFilters = () => {
   }
 
   .checkbox-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: var(--display-flex);
+    align-items: var(--align-center);
+    justify-content: var(--justify-center);
     width: $size-18px;
     height: $size-18px;
   }
 }
 
 .filter-actions {
-  display: flex;
-  flex-direction: column;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
   gap: $size-12px;
   width: $size-100-percent;
 

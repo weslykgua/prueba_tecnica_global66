@@ -58,31 +58,31 @@ onUnmounted(() => {
 @use '@/assets/styles/sizes' as *;
 
 .dashboard-layout {
-  display: flex;
-  flex-direction: column;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
   min-height: $size-100-vh;
-  position: relative;
+  position: var(--position-relative);
   width: $size-100-percent;
 }
 
 .dashboard-content {
   flex: 1;
   width: $size-100-percent;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  box-sizing: var(--border-box);
 
   :deep(> *) {
     flex: 1;
-    display: flex;
-    flex-direction: column;
+    display: var(--display-flex);
+    flex-direction: var(--flex-direction-column);
     width: $size-100-percent;
   }
 
   :deep(.home-view) {
     flex: 1;
-    display: flex;
-    flex-direction: column;
+    display: var(--display-flex);
+    flex-direction: var(--flex-direction-column);
     width: $size-100-percent;
   }
 }

@@ -100,8 +100,8 @@ const {
   width: $size-100-percent;
   height: $size-100-percent;
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
   min-height: $size-100-percent;
   max-width: $size-800px;
   margin: $size-0px $size-auto;
@@ -111,9 +111,9 @@ const {
   width: $size-100-percent;
   height: $size-100-percent;
   flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
   min-height: $size-100-percent;
 }
 </style>

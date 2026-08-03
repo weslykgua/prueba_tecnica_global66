@@ -72,19 +72,19 @@ const clear = () => {
 @use '@/assets/styles/variables' as *;
 
 .search-bar-container {
-  display: flex;
-  flex-direction: row;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-row);
   align-items: stretch;
   gap: $size-11px;
   width: calc(#{$size-100-percent} - #{$size-32px});
   margin: $size-44px $size-16px $size-16px $size-16px;
   padding: $size-0px;
-  box-sizing: border-box;
+  box-sizing: var(--border-box);
 }
 
 .search-input-wrapper {
-  display: flex;
-  align-items: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
   flex: 1;
   height: $size-48px;
   background-color: $color-white;
@@ -92,8 +92,8 @@ const clear = () => {
   border-radius: $size-30px;
   padding: $size-0px $size-16px;
   gap: $size-10px;
-  box-sizing: border-box;
-  position: relative;
+  box-sizing: var(--border-box);
+  position: var(--position-relative);
   transition: border-color 0.2s ease;
 
   &:focus-within {
@@ -110,7 +110,7 @@ const clear = () => {
 
 .search-input {
   width: $size-100-percent;
-  border: none;
+  border: var(--border-none);
   outline: none;
   background: transparent;
   font-family: $font-family;
@@ -124,12 +124,12 @@ const clear = () => {
 }
 
 .clear-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
   width: $size-24px;
   height: $size-24px;
-  border: none;
+  border: var(--border-none);
   background: transparent;
   cursor: pointer;
 
@@ -141,9 +141,9 @@ const clear = () => {
 }
 
 .search-action-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
   width: $size-48px;
   min-width: $size-48px;
   max-width: $size-48px;
@@ -154,7 +154,7 @@ const clear = () => {
   border-radius: 50%;
   background-color: $color-white;
   border: 1.5px solid $color-e0e0e0;
-  box-sizing: border-box;
+  box-sizing: var(--border-box);
   cursor: pointer;
   transition: border-color 0.2s ease;
 

@@ -69,14 +69,14 @@ const currentRoute = computed(() => route.path);
 @use '@/assets/styles/variables' as *;
 
 .app-tabbar {
-  position: fixed;
+  position: var(--position-fixed);
   bottom: $size-0px;
   left: $size-0px;
   right: $size-0px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-row);
+  justify-content: var(--justify-between);
+  align-items: var(--align-center);
   padding: $size-16px;
   width: $size-100-percent;
   height: $size-auto;
@@ -85,19 +85,19 @@ const currentRoute = computed(() => route.path);
   border-radius: $size-16px $size-16px $size-0px $size-0px !important;
   border-top-left-radius: $size-16px !important;
   border-top-right-radius: $size-16px !important;
-  overflow: hidden;
+  overflow: var(--overflow-hidden);
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
   z-index: 1000;
-  box-sizing: border-box;
+  box-sizing: var(--border-box);
 }
 
 .tabbar-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-row);
+  justify-content: var(--justify-between);
+  align-items: var(--align-center);
   width: $size-100-percent;
   max-width: $size-570px;
   margin: $size-0px $size-auto;
@@ -108,9 +108,9 @@ const currentRoute = computed(() => route.path);
 }
 
 .nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
   padding: $size-0px;
   gap: $size-4px;
 
@@ -142,10 +142,10 @@ const currentRoute = computed(() => route.path);
   }
 
   .icon-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    display: var(--display-flex);
+    flex-direction: var(--flex-direction-row);
+    justify-content: var(--justify-center);
+    align-items: var(--align-center);
     padding: $size-4px;
 
     width: $size-62px;
@@ -165,10 +165,10 @@ const currentRoute = computed(() => route.path);
     flex: none;
     order: 0;
     flex-grow: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    object-fit: contain;
+    display: var(--display-flex);
+    align-items: var(--align-center);
+    justify-content: var(--justify-center);
+    object-fit: var(--object-contain);
     filter: invert(24%) sepia(0%) saturate(0%) hue-rotate(193deg) brightness(96%) contrast(88%);
   }
 

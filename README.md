@@ -17,6 +17,25 @@ Una aplicación web de grado de producción desarrollada en **Vue 3**, **TypeScr
 
 ---
 
+## 🧱 Arquitectura y mejoras de diseño
+
+El proyecto está organizado con una arquitectura modular orientada a mantener el código desacoplado, fácil de escalar y sencillo de probar. La estructura refleja una separación clara entre presentación, lógica de dominio y acceso a datos:
+
+- **Módulos por dominio**: carpetas como `pokemon`, `onboarding`, `home` y `dashboard` concentran la lógica y los componentes de cada área, evitando que el proyecto crezca como una sola bola de negocio.
+
+- **Separación de capas**: las vistas y componentes se encargan de la UI; los `composables` y `stores` centralizan la lógica reactiva y el estado; la capa `remote` gestiona el consumo de la API; y los `mappers` traducen los DTOs remotos a modelos locales.
+- **Estado centralizado con Pinia**: los stores para Pokémon, favoritos y onboarding evitan duplicar estado y facilitan la comunicación entre vistas.
+
+- **Acceso a datos aislado**: la API remota está separada del resto de la app, lo que facilita reemplazar o extender la integración con PokeAPI sin afectar la experiencia de usuario.
+
+- **Enrutamiento y guardas**: el router centraliza la navegación y protege el flujo de onboarding, lo que mejora la coherencia del producto.
+
+Además, algunas mejoras de arquitectura que ya se aprecian en el proyecto son la reducción de lógica en las vistas, la reutilización de piezas comunes a través de composables y la posibilidad de evolucionar hacia servicios o repositorios adicionales si el sistema crece en complejidad.
+
+Esta combinación de principios facilita futuras mejoras, como agregar nuevas vistas, introducir más fuentes de datos o refactorizar módulos sin afectar el resto de la aplicación.
+
+---
+
 ## 🛠️ Stack Tecnológico
 
 | Tecnología                  | Rol en el Proyecto                                                                       |

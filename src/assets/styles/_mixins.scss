@@ -4,15 +4,15 @@
 @use './colors' as *;
 
 @mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
 }
 
 @mixin flex-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-between);
 }
 
 @mixin glass-card {

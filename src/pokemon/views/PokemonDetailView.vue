@@ -272,15 +272,15 @@ onMounted(() => {
   max-width: none !important;
   height: $size-100-percent;
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  box-sizing: var(--border-box);
 }
 
 .detail-loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: var(--display-flex);
+  justify-content: var(--justify-center);
+  align-items: var(--align-center);
   flex: 1;
   min-height: $size-300px;
 }
@@ -290,17 +290,17 @@ onMounted(() => {
   max-width: none !important;
   margin: $size-0px $size-auto;
   background-color: white;
-  overflow: hidden;
+  overflow: var(--overflow-hidden);
 }
 
 .detail-banner {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: var(--position-relative);
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
   background-color: transparent;
-  overflow: hidden;
-  box-sizing: border-box;
+  overflow: var(--overflow-hidden);
+  box-sizing: var(--border-box);
 
   @media (min-width: $size-425px) {
     background-color: var(--banner-bg-color);
@@ -308,7 +308,7 @@ onMounted(() => {
 }
 
 .banner-type-circle {
-  position: absolute;
+  position: var(--position-absolute);
   top: -#{$size-227px};
   left: 50%;
   transform: translateX(-50%);
@@ -319,15 +319,15 @@ onMounted(() => {
   z-index: 0;
 
   @media (min-width: $size-425px) {
-    display: none;
+    display: var(--display-none);
   }
 }
 
 .header-action-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
+  position: var(--position-absolute);
   top: $size-20px;
   width: $size-38px;
   height: $size-38px;
@@ -362,20 +362,20 @@ onMounted(() => {
   .header-btn-icon {
     width: $size-28px;
     height: $size-28px;
-    display: block;
-    object-fit: contain;
+    display: var(--display-block);
+    object-fit: var(--object-contain);
   }
 }
 
 .banner-type-bg-icon {
-  position: absolute;
+  position: var(--position-absolute);
   top: $size-0px;
   left: 50%;
   transform: translateX(-50%);
   margin-top: $size-40px;
   width: $size-204px;
   height: $size-204px;
-  object-fit: contain;
+  object-fit: var(--object-contain);
   pointer-events: none;
   z-index: 1;
   mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.1) 100%);
@@ -388,17 +388,17 @@ onMounted(() => {
 
 .sprite-wrapper {
   margin-top: $size-140px;
-  position: relative;
+  position: var(--position-relative);
   z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: var(--display-flex);
+  justify-content: var(--justify-center);
+  align-items: var(--align-center);
 }
 
 .detail-sprite {
   width: $size-180px;
   height: $size-auto;
-  object-fit: contain;
+  object-fit: var(--object-contain);
 }
 
 .detail-body {
@@ -413,15 +413,15 @@ onMounted(() => {
 }
 
 .pokemon-id-subtag {
-  display: block;
+  display: var(--display-block);
   font-size: $font-size-16;
   font-weight: $font-weight-500;
   color: $color-5e5e5e;
 }
 
 .types-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: var(--display-flex);
+  flex-wrap: var(--flex-wrap-wrap);
   gap: $size-16px;
   margin-top: $size-24px;
 }
@@ -436,7 +436,7 @@ onMounted(() => {
 }
 
 .stats-grid {
-  display: flex;
+  display: var(--display-flex);
   flex-flow: row wrap;
   gap: $size-20px;
   padding-top: $size-16px;
@@ -474,8 +474,8 @@ onMounted(() => {
 }
 
 .gender-column {
-  display: flex;
-  flex-direction: column;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
   gap: $size-8px;
 }
 
@@ -484,7 +484,7 @@ onMounted(() => {
   height: $size-8px;
   background-color: $color-ff7596;
   border-radius: $size-full;
-  overflow: hidden;
+  overflow: var(--overflow-hidden);
 }
 
 .gender-bar-fill {
@@ -495,13 +495,13 @@ onMounted(() => {
 }
 
 .gender-labels {
-  display: flex;
-  justify-content: space-between;
+  display: var(--display-flex);
+  justify-content: var(--justify-between);
 }
 
 .gender-end {
-  display: flex;
-  align-items: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
   gap: $size-4px;
 }
 

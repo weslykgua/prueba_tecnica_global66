@@ -54,10 +54,10 @@ const {
   width: $size-100-percent;
   height: $size-100-percent;
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
+  justify-content: var(--justify-flex-start);
   min-height: $size-100-percent;
   max-width: $size-800px;
   margin: $size-0px $size-auto;
