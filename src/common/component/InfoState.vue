@@ -101,11 +101,12 @@ const handleButtonClick = () => {
   object-fit: var(--object-contain);
 }
 
-.info-title {
+.info-title,
+:deep(.info-title) {
   font-family: $font-family;
   font-weight: $font-weight-600;
   font-style: normal;
-  font-size: $font-size-20;
+  font-size: $font-size-20 !important;
   line-height: $size-100-percent;
   letter-spacing: 0%;
   text-align: center;

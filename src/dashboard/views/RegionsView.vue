@@ -15,6 +15,7 @@ import RegionsTexts from '../text/regions.texts';
 </script>
 
 <style lang="scss" scoped>
+@use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
 
 .regions-view {
@@ -28,5 +29,9 @@ import RegionsTexts from '../text/regions.texts';
   min-height: $size-100-percent;
   padding: $size-44px $size-16px;
   box-sizing: var(--border-box);
+
+  :deep(.info-title) {
+    font-size: $font-size-20 !important;
+  }
 }
 </style>

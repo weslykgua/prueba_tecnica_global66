@@ -262,7 +262,7 @@ const onImageError = () => {
 
 @media (max-width: $size-380px) {
   .pokemon-card {
-    gap: $size-12px;
+    gap: $size-8px;
   }
 
   .pokemon-name {
@@ -271,7 +271,8 @@ const onImageError = () => {
 
   .types-container {
     flex-wrap: var(--flex-wrap-wrap);
-    overflow: var(--overflow-visible);
+    gap: $size-4px;
+    overflow: var(--overflow-hidden);
   }
 }
 </style>
