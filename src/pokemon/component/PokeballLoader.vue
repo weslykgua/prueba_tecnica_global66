@@ -1,5 +1,5 @@
 <template>
-  <div class="pokeball-loader" role="status" aria-label="Cargando">
+  <div class="pokeball-loader" :class="[sizeClass]" role="status" aria-label="Cargando">
     <div class="pokeball-spinner">
       <div class="pokeball">
         <div class="pokeball-top"></div>
@@ -14,9 +14,19 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  label?: string;
-}>();
+import { computed } from 'vue';
+
+const props = withDefaults(
+  defineProps<{
+    label?: string;
+    size?: 'small' | 'medium' | 'large';
+  }>(),
+  {
+    size: 'large',
+  }
+);
+
+const sizeClass = computed(() => `size-${props.size}`);
 </script>
 
 <style lang="scss" scoped>
@@ -35,6 +45,34 @@ defineProps<{
   width: $size-100-percent;
   height: $size-100-percent;
   flex: 1;
+
+  &.size-small {
+    width: auto;
+    height: auto;
+    flex: none;
+
+    .pokeball {
+      width: $size-24px;
+      height: $size-24px;
+      border: 1.5px solid $color-222222;
+
+      .pokeball-band {
+        height: 3px;
+      }
+
+      .pokeball-center-button {
+        width: 8px;
+        height: 8px;
+        border: 1.5px solid $color-222222;
+
+        .pokeball-center-dot {
+          width: 2px;
+          height: 2px;
+          border: 0.5px solid $color-7a7a7a;
+        }
+      }
+    }
+  }
 }
 
 .pokeball-spinner {

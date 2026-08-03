@@ -22,8 +22,9 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onActivated, onDeactivated } from 'vue';
+import { useRouter, onBeforeRouteLeave } from 'vue-router';
 import InfoState from '@/common/component/InfoState.vue';
-import { useRouter } from 'vue-router';
 import ViewHeader from '@/common/component/ViewHeader.vue';
 import emptyStateIllustration from '@/assets/images/illustrations/empty_state_illustration_fish.svg';
 import PokemonList from '@/pokemon/component/PokemonList.vue';
@@ -31,8 +32,35 @@ import { usePokemon } from '@/pokemon/composable/usePokemon';
 import FavoritesTexts from '../text/favorites.texts';
 
 const router = useRouter();
+const scrollPosition = ref(0);
+
+const saveScrollPosition = () => {
+  scrollPosition.value = window.scrollY || document.documentElement.scrollTop || 0;
+};
+
+onDeactivated(() => {
+  saveScrollPosition();
+});
+
+onBeforeRouteLeave(() => {
+  saveScrollPosition();
+});
+
+onActivated(() => {
+  window.scrollTo({
+    top: scrollPosition.value,
+    behavior: 'instant',
+  });
+  requestAnimationFrame(() => {
+    window.scrollTo({
+      top: scrollPosition.value,
+      behavior: 'instant',
+    });
+  });
+});
 
 const onSelectPokemon = (id: number) => {
+  saveScrollPosition();
   router.push(`/pokemon/${id}`);
 };
 

@@ -1,22 +1,19 @@
 <template>
   <div class="onboarding-page">
     <main class="onboarding-main" data-testid="onboarding-main">
-      <transition name="slide-fade" mode="out-in">
-        <OnboardingStepCard
-          :key="currentStep"
-          :step-data="onboardingSteps[currentStep - 1]"
-          :current-step="currentStep"
-          :total-steps="onboardingSteps.length"
-          @button-click="handleButtonClick"
-          @step-change="goToStep"
-        />
-      </transition>
+      <OnboardingStepCard
+        :step-data="currentStepData"
+        :current-step="currentStep"
+        :total-steps="onboardingSteps.length"
+        @button-click="handleButtonClick"
+        @step-change="goToStep"
+      />
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import OnboardingStepCard, { type OnboardingStepItem } from '../component/OnboardingStepCard.vue';
@@ -52,6 +49,8 @@ const onboardingSteps: OnboardingStepItem[] = [
   },
 ];
 
+const currentStepData = computed(() => onboardingSteps[currentStep.value - 1]);
+
 const handleButtonClick = () => {
   if (currentStep.value < onboardingSteps.length) {
     currentStep.value += 1;
@@ -81,7 +80,7 @@ const finishOnboarding = () => {
 .onboarding-page {
   font-family: 'Poppins', sans-serif;
   width: $size-100-percent;
-  min-height: $size-100-vh;
+  min-height: $size-100-dvh;
   background-color: $color-white;
   display: var(--display-flex);
   flex-direction: var(--flex-direction-column);
@@ -115,18 +114,4 @@ const finishOnboarding = () => {
   }
 }
 
-.slide-fade-enter-active,
-.slide-fade-leave-active {
-  transition: all 0.3s ease-out;
-}
-
-.slide-fade-enter-from {
-  opacity: 0;
-  transform: translateX(30px);
-}
-
-.slide-fade-leave-to {
-  opacity: 0;
-  transform: translateX(-30px);
-}
 </style>

@@ -53,4 +53,18 @@ describe('PokemonCard.vue', () => {
     expect(wrapper.emitted('toggle-favorite')).toBeTruthy();
     expect(wrapper.emitted('toggle-favorite')![0]).toEqual(['pikachu']);
   });
+
+  it('renders the type background image for the card media', () => {
+    const wrapper = mount(PokemonCard, {
+      props: {
+        pokemon: mockPokemon,
+        isFavorite: false,
+      },
+    });
+
+    const backgroundImage = wrapper.find('.card-bg-svg');
+
+    expect(backgroundImage.exists()).toBe(true);
+    expect(backgroundImage.attributes('src')).toMatch(/\.svg/);
+  });
 });

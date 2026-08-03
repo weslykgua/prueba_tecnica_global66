@@ -5,12 +5,9 @@
   >
     <span v-if="typeIcon" class="type-icon-wrapper">
       <span
-        class="type-icon-mask"
-        :style="({
-          backgroundColor: typeColor,
-          maskImage: `url(${typeIcon})`,
-          WebkitMaskImage: `url(${typeIcon})`,
-        }) as Record<string, string>"
+        class="type-badge-icon"
+        :style="{ color: typeColor }"
+        v-html="typeIcon"
       ></span>
     </span>
     {{ typeLabel }}
@@ -23,7 +20,7 @@ import { PokemonType } from '@/pokemon/type/PokemonType';
 import {
   formatTypeName,
   getTypeBackgroundColor,
-  getTypeIcon,
+  getTypeIconSvg,
 } from '@/pokemon/utils/formatters';
 
 const props = defineProps<{
@@ -31,7 +28,7 @@ const props = defineProps<{
 }>();
 
 const typeColor = computed(() => getTypeBackgroundColor(props.type));
-const typeIcon = computed(() => getTypeIcon(props.type));
+const typeIcon = computed(() => getTypeIconSvg(props.type));
 const typeLabel = computed(() => formatTypeName(props.type));
 </script>
 
@@ -64,19 +61,31 @@ const typeLabel = computed(() => formatTypeName(props.type));
   height: $size-20px;
   flex-shrink: 0;
   background-color: $color-white;
+  border: 2px solid $color-white;
   border-radius: $size-full;
   box-sizing: var(--border-box);
 }
 
-.type-icon-mask {
+.type-badge-icon {
   display: var(--display-block);
   width: $size-12px;
   height: $size-12px;
-  mask-size: contain;
-  mask-position: center;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
-  -webkit-mask-position: center;
-  -webkit-mask-repeat: no-repeat;
+  color: inherit;
+}
+
+.type-badge-icon :deep(svg) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+}
+
+.type-badge-icon :deep(svg path),
+.type-badge-icon :deep(svg circle),
+.type-badge-icon :deep(svg rect),
+.type-badge-icon :deep(svg polygon),
+.type-badge-icon :deep(svg ellipse) {
+  fill: currentColor;
+  stroke: currentColor;
 }
 </style>

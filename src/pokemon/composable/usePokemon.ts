@@ -230,6 +230,9 @@ export function usePokemon(api = pokemonApi) {
       selectedTypes.value = [];
       visibleCount.value = 30;
       filteredPokemonList.value = undefined;
+      if (typeof window !== 'undefined') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     },
 
     fetchPokemonList,
