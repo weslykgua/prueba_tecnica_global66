@@ -188,7 +188,7 @@ const onDeleteClick = () => {
   margin-bottom: $size-12px;
   background-color: transparent;
   transition: max-height 0.25s ease, margin-bottom 0.25s ease, opacity 0.25s ease;
-  max-height: $size-120px;
+  max-height: $size-200px;
 
   &.deleting-wrapper {
     max-height: $size-0px !important;

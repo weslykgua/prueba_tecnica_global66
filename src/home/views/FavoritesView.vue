@@ -84,7 +84,6 @@ const {
   flex: 1;
   display: var(--display-flex);
   flex-direction: var(--flex-direction-column);
-  align-items: var(--align-center);
   justify-content: var(--justify-flex-start);
   min-height: $size-100-percent;
   max-width: $size-800px;

@@ -124,22 +124,24 @@ const emit = defineEmits<{
   width: 100%;
 }
 
-.step-title {
-  font-size: $font-size-32;
+.step-title,
+:deep(.step-title) {
+  font-size: $font-size-26 !important;
   font-weight: $font-weight-500;
   color: $color-121212;
   line-height: 1.4;
   margin-bottom: 10px;
 
   @media (max-width: $bp-mobile) {
-    font-size: $font-size-24;
+    font-size: $font-size-26 !important;
     margin-bottom: 0.85rem;
     padding: 0 1rem;
   }
 }
 
-.step-subtitle {
-  font-size: $font-size-19;
+.step-subtitle,
+:deep(.step-subtitle) {
+  font-size: $font-size-14 !important;
   font-weight: $font-weight-400;
   color: $color-424242;
   line-height: 1.3;
@@ -147,7 +149,7 @@ const emit = defineEmits<{
   max-width: 460px;
 
   @media (max-width: $bp-mobile) {
-    font-size: $font-size-16;
+    font-size: $font-size-14 !important;
     margin-bottom: 1.5rem;
     padding: 0 1rem;
   }
