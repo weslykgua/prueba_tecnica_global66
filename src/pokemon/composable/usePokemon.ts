@@ -216,6 +216,7 @@ export function usePokemon(api = pokemonApi) {
     favoritesCount: computed(() => favoritesStore.favoritesCount),
     favoritesList,
     totalCount: computed(() => pokemonStore.pokemonList.length),
+    filteredPokemonList: computed(() => filteredPokemonList.value ?? pokemonStore.pokemonList),
     paginatedPokemonList,
 
     selectedTypes,

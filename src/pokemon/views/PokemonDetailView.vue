@@ -15,20 +15,29 @@
         ></div>
 
         <button
-          @click="goBack"
           class="header-action-btn back-btn"
-          :aria-label="PokemonDetailTexts.backButtonAria"
           type="button"
+          :aria-label="PokemonDetailTexts.backButtonAria"
+          @click="goBack"
         >
           <img :src="arrowBackIcon" :alt="PokemonDetailTexts.backButtonAria" class="header-btn-icon" />
         </button>
 
         <button
-          @click="toggleFav"
+          class="header-action-btn share-btn-top"
+          type="button"
+          aria-label="Compartir información del Pokémon"
+          @click="onShare"
+        >
+          <img :src="shareIcon" alt="Compartir" class="header-btn-icon" />
+        </button>
+
+        <button
           class="header-action-btn favorite-btn-top"
+          type="button"
           :class="{ active: isFav }"
           :aria-label="PokemonDetailTexts.favoriteButtonAria(pokemon.formattedName)"
-          type="button"
+          @click="toggleFav"
         >
           <img
             :src="isFav ? heartFilledIcon2 : heartOutlineIcon2"
@@ -113,8 +122,9 @@ import { useRoute, useRouter } from 'vue-router';
 import PokeballLoader from '@/pokemon/component/PokeballLoader.vue';
 import TypeBadge from '@/pokemon/component/TypeBadge.vue';
 import StatCard from '@/pokemon/component/StatCard.vue';
-import heartFilledIcon2 from '@/assets/ic_heart_filled2.svg';
-import heartOutlineIcon2 from '@/assets/ic_heart_outline2.svg';
+import shareIcon from '@/assets/icons/actions/ic_share.svg';
+import heartFilledIcon2 from '@/assets/icons/favorites/ic_heart_filled2.svg';
+import heartOutlineIcon2 from '@/assets/icons/favorites/ic_heart_outline2.svg';
 import arrowBackIcon from '@/assets/icons/actions/ic_arrow_back.svg';
 import weightIcon from '@/assets/icons/detail/ic_weight.svg';
 import heightIcon from '@/assets/icons/detail/ic_height.svg';
@@ -131,12 +141,21 @@ import {
 import PokemonDetail from '@/pokemon/model/PokemonDetail';
 import { PokemonType, toPokemonType } from '@/pokemon/type/PokemonType';
 import { usePokemon } from '@/pokemon/composable/usePokemon';
+import { useClipboard } from '@/common/utils/useClipboard';
 import { pokemonApi } from '@/pokemon/remote/api/pokemon.api';
 import PokemonDetailTexts from '../text/detail.texts';
 
 const route = useRoute();
 const router = useRouter();
 const { isFavorite, toggleFavorite } = usePokemon();
+const { sharePokemon } = useClipboard();
+
+const onShare = () => {
+  if (pokemon.value) {
+    const bannerColor = getTypeBackgroundColor(mainType.value);
+    sharePokemon(pokemon.value, bannerColor);
+  }
+};
 
 const pokemon = ref<PokemonDetail | undefined>(undefined);
 const isLoading = ref(true);
@@ -249,69 +268,69 @@ onMounted(() => {
 
 
 .pokemon-detail-page {
-  width: 100%;
+  width: $size-100-percent;
   max-width: none !important;
-  height: 100%;
+  height: $size-100-percent;
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  box-sizing: var(--border-box);
 }
 
 .detail-loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: var(--display-flex);
+  justify-content: var(--justify-center);
+  align-items: var(--align-center);
   flex: 1;
-  min-height: 300px;
+  min-height: $size-300px;
 }
 
 .detail-container {
-  width: 100%;
+  width: $size-100-percent;
   max-width: none !important;
-  margin: 0 auto;
+  margin: $size-0px $size-auto;
   background-color: white;
-  overflow: hidden;
+  overflow: var(--overflow-hidden);
 }
 
 .detail-banner {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: var(--position-relative);
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
   background-color: transparent;
-  overflow: hidden;
-  box-sizing: border-box;
+  overflow: var(--overflow-hidden);
+  box-sizing: var(--border-box);
 
-  @media (min-width: 425px) {
+  @media (min-width: $size-425px) {
     background-color: var(--banner-bg-color);
   }
 }
 
 .banner-type-circle {
-  position: absolute;
-  top: -227px;
+  position: var(--position-absolute);
+  top: -#{$size-227px};
   left: 50%;
   transform: translateX(-50%);
-  width: 498px;
-  height: 498px;
+  width: $size-498px;
+  height: $size-498px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
 
-  @media (min-width: 425px) {
-    display: none;
+  @media (min-width: $size-425px) {
+    display: var(--display-none);
   }
 }
 
 .header-action-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 20px;
-  width: 38px;
-  height: 38px;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
+  position: var(--position-absolute);
+  top: $size-20px;
+  width: $size-38px;
+  height: $size-38px;
   cursor: pointer;
   transition: transform 0.2s ease;
   z-index: 10;
@@ -321,7 +340,15 @@ onMounted(() => {
   }
 
   &.back-btn {
-    left: 16px;
+    left: $size-16px;
+
+    .header-btn-icon {
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  &.share-btn-top {
+    right: $size-64px;
 
     .header-btn-icon {
       filter: brightness(0) invert(1);
@@ -329,26 +356,26 @@ onMounted(() => {
   }
 
   &.favorite-btn-top {
-    right: 16px;
+    right: $size-16px;
   }
 
   .header-btn-icon {
-    width: 28px;
-    height: 28px;
-    display: block;
-    object-fit: contain;
+    width: $size-28px;
+    height: $size-28px;
+    display: var(--display-block);
+    object-fit: var(--object-contain);
   }
 }
 
 .banner-type-bg-icon {
-  position: absolute;
-  top: 0;
+  position: var(--position-absolute);
+  top: $size-0px;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 40px;
-  width: 204px;
-  height: 204px;
-  object-fit: contain;
+  margin-top: $size-40px;
+  width: $size-204px;
+  height: $size-204px;
+  object-fit: var(--object-contain);
   pointer-events: none;
   z-index: 1;
   mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.1) 100%);
@@ -360,145 +387,145 @@ onMounted(() => {
 }
 
 .sprite-wrapper {
-  margin-top: 140px;
-  position: relative;
+  margin-top: $size-140px;
+  position: var(--position-relative);
   z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: var(--display-flex);
+  justify-content: var(--justify-center);
+  align-items: var(--align-center);
 }
 
 .detail-sprite {
-  width: 180px;
-  height: auto;
-  object-fit: contain;
+  width: $size-180px;
+  height: $size-auto;
+  object-fit: var(--object-contain);
 }
 
 .detail-body {
-  padding: 0 16px 32px 16px;
+  padding: $size-0px $size-16px $size-32px $size-16px;
 }
 
 .pokemon-title {
-  font-size: $font-size-xl;
-  font-weight: 500;
-  color: $text-primary;
-  margin: 0;
+  font-size: $font-size-32;
+  font-weight: $font-weight-500;
+  color: $color-222222;
+  margin: $size-0px;
 }
 
 .pokemon-id-subtag {
-  display: block;
-  font-size: $font-size-base;
-  font-weight: 500;
-  color: $text-secondary;
+  display: var(--display-block);
+  font-size: $font-size-16;
+  font-weight: $font-weight-500;
+  color: $color-5e5e5e;
 }
 
 .types-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 24px;
+  display: var(--display-flex);
+  flex-wrap: var(--flex-wrap-wrap);
+  gap: $size-16px;
+  margin-top: $size-24px;
 }
 
 .pokemon-description {
-  margin-top: 24px;
+  margin-top: $size-24px;
   font-family: $font-family;
-  font-size: $font-size-md;
-  font-weight: 400;
-  color: $text-body;
+  font-size: $font-size-14;
+  font-weight: $font-weight-400;
+  color: $color-424242;
   line-height: 1.6;
 }
 
 .stats-grid {
-  display: flex;
+  display: var(--display-flex);
   flex-flow: row wrap;
-  gap: 20px;
-  padding-top: 16px;
-  border-top: solid 1px #E0E0E0;
-  margin-top: 20px;
+  gap: $size-20px;
+  padding-top: $size-16px;
+  border-top: solid $size-1px $color-e0e0e0;
+  margin-top: $size-20px;
   justify-content: space-around;
 }
 
 .gender-section {
-  margin-top: 24px;
+  margin-top: $size-24px;
 }
 
 .section-title {
   font-family: $font-family;
-  font-size: $font-size-md;
-  font-weight: 500;
-  color: $text-body;
+  font-size: $font-size-14;
+  font-weight: $font-weight-500;
+  color: $color-424242;
   text-align: center;
-  margin: 0 0 12px 0;
+  margin: $size-0px $size-0px $size-12px $size-0px;
 }
 
 .weaknesses-title {
   font-family: $font-family;
-  font-size: $font-size-md;
-  font-weight: 600;
-  color: $text-primary;
+  font-size: $font-size-14;
+  font-weight: $font-weight-600;
+  color: $color-222222;
   text-align: left;
 }
 
 .genderless-label {
   font-family: $font-family;
-  font-size: $font-size-md;
-  color: $text-muted;
+  font-size: $font-size-14;
+  color: $color-7a7a7a;
   text-align: center;
 }
 
 .gender-column {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  gap: $size-8px;
 }
 
 .gender-bar-track {
-  width: 100%;
-  height: 8px;
-  background-color: $gender-female;
-  border-radius: $radius-full;
-  overflow: hidden;
+  width: $size-100-percent;
+  height: $size-8px;
+  background-color: $color-ff7596;
+  border-radius: $size-full;
+  overflow: var(--overflow-hidden);
 }
 
 .gender-bar-fill {
-  height: 100%;
-  background-color: $gender-male;
-  border-radius: $radius-full;
+  height: $size-100-percent;
+  background-color: $color-2551c3;
+  border-radius: $size-full;
   transition: width 0.6s ease;
 }
 
 .gender-labels {
-  display: flex;
-  justify-content: space-between;
+  display: var(--display-flex);
+  justify-content: var(--justify-between);
 }
 
 .gender-end {
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  gap: $size-4px;
 }
 
 .gender-icon {
-  width: 16px;
-  height: 16px;
+  width: $size-16px;
+  height: $size-16px;
 }
 
 .gender-percent {
   font-family: $font-family;
-  font-size: $font-size-percent;
-  font-weight: 600;
+  font-size: $font-size-13;
+  font-weight: $font-weight-600;
   white-space: nowrap;
 }
 
 .male-percent {
-  color: $text-body;
+  color: $color-424242;
 }
 
 .female-percent {
-  color: $text-body;
+  color: $color-424242;
 }
 
 .weaknesses-section {
-  margin-top: 24px;
+  margin-top: $size-24px;
 }
 </style>

@@ -25,7 +25,7 @@
 import InfoState from '@/common/component/InfoState.vue';
 import { useRouter } from 'vue-router';
 import ViewHeader from '@/common/component/ViewHeader.vue';
-import emptyStateIllustration from '@/assets/empty_state_illustration_fish.svg';
+import emptyStateIllustration from '@/assets/images/illustrations/empty_state_illustration_fish.svg';
 import PokemonList from '@/pokemon/component/PokemonList.vue';
 import { usePokemon } from '@/pokemon/composable/usePokemon';
 import FavoritesTexts from '../text/favorites.texts';
@@ -51,15 +51,15 @@ const {
 @use '@/assets/styles/sizes' as *;
 
 .favorites-view {
-  width: 100%;
-  height: 100%;
+  width: $size-100-percent;
+  height: $size-100-percent;
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100%;
-  max-width: 800px;
-  margin: 0 auto;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
+  justify-content: var(--justify-flex-start);
+  min-height: $size-100-percent;
+  max-width: $size-800px;
+  margin: $size-0px $size-auto;
 }
 </style>

@@ -67,70 +67,70 @@ const handleButtonClick = () => {
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
-@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/variables' as *;
 
 .info-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
   text-align: center;
-  width: 100%;
-  height: 100%;
+  width: $size-100-percent;
+  height: $size-100-percent;
   flex: 1;
-  min-height: 100%;
-  max-width: 540px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  box-sizing: border-box;
+  min-height: $size-100-percent;
+  max-width: $size-540px;
+  margin: $size-0px $size-auto;
+  padding: $size-32px $size-16px;
+  box-sizing: var(--border-box);
   font-family: $font-family;
 }
 
 .info-image-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 16px 16px 20px;
+  display: var(--display-flex);
+  justify-content: var(--justify-center);
+  align-items: var(--align-center);
+  margin: $size-16px $size-16px $size-20px;
 }
 
 .info-img {
-  width: 169px;
-  height: 209px;
-  object-fit: contain;
+  width: $size-169px;
+  height: $size-209px;
+  object-fit: var(--object-contain);
 }
 
 .info-title {
   font-family: $font-family;
-  font-weight: 600;
+  font-weight: $font-weight-600;
   font-style: normal;
-  font-size: $font-size-subtitle;
-  line-height: 100%;
+  font-size: $font-size-20;
+  line-height: $size-100-percent;
   letter-spacing: 0%;
   text-align: center;
-  color: $text-title;
-  margin: 0 16px 8px 16px;
+  color: $color-121212;
+  margin: $size-0px $size-16px $size-8px $size-16px;
 }
 
 .info-message {
   font-family: $font-family;
-  font-weight: 400;
+  font-weight: $font-weight-400;
   font-style: normal;
-  font-size: $font-size-md;
+  font-size: $font-size-14;
   line-height: 140%;
   letter-spacing: 0%;
   text-align: center;
-  color: $text-body;
-  max-width: 440px;
-  margin: 0 16px 16px;
+  color: $color-424242;
+  max-width: $size-440px;
+  margin: $size-0px $size-16px $size-16px;
 }
 
 .info-btn {
-  margin: 16px 16px;
+  margin: $size-16px $size-16px;
 
   @media (min-width: $bp-tablet) {
-    margin: 24px auto 40px auto;
+    margin: $size-24px $size-auto $size-40px $size-auto;
   }
 }
 </style>

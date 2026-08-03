@@ -31,7 +31,7 @@ describe('PokemonApi Service', () => {
       heightM: 0.4,
       weightKg: 6,
       spriteUrl: 'https://raw.githubusercontent.com/.../25.png',
-      types: ['electric'],
+      types: [PokemonType.ELECTRIC],
       abilities: ['static'],
     };
 

@@ -55,38 +55,40 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
+@use '@/assets/styles/sizes' as *;
+
 .dashboard-layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  position: relative;
-  width: 100%;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  min-height: $size-100-vh;
+  position: var(--position-relative);
+  width: $size-100-percent;
 }
 
 .dashboard-content {
   flex: 1;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+  width: $size-100-percent;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  box-sizing: var(--border-box);
 
   :deep(> *) {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+    display: var(--display-flex);
+    flex-direction: var(--flex-direction-column);
+    width: $size-100-percent;
   }
 
   :deep(.home-view) {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+    display: var(--display-flex);
+    flex-direction: var(--flex-direction-column);
+    width: $size-100-percent;
   }
 }
 
 .nav-container {
-  width: 100%;
+  width: $size-100-percent;
 }
 
 .page-fade-enter-active,
@@ -99,6 +101,6 @@ onUnmounted(() => {
 .page-fade-enter-from,
 .page-fade-leave-to {
   opacity: 0;
-  transform: translateY(4px);
+  transform: translateY($size-4px);
 }
 </style>

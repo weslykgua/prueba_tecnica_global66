@@ -73,22 +73,22 @@ const emit = defineEmits<{
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
-@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/variables' as *;
 
 .onboarding-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
   width: 100%;
   flex-grow: 1;
 }
 
 .image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: var(--display-flex);
+  justify-content: var(--justify-center);
+  align-items: var(--align-center);
   width: 100%;
   margin-top: auto;
 
@@ -103,7 +103,7 @@ const emit = defineEmits<{
     height: auto;
     max-height: 264.89px;
     aspect-ratio: 342 / 264.89;
-    object-fit: contain;
+    object-fit: var(--object-contain);
     filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.06));
     transition: transform 0.3s ease;
 
@@ -114,53 +114,53 @@ const emit = defineEmits<{
 }
 
 .bottom-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
   width: 100%;
 }
 
 .step-title {
-  font-size: $font-size-xl;
-  font-weight: 500;
-  color: $text-title;
+  font-size: $font-size-32;
+  font-weight: $font-weight-500;
+  color: $color-121212;
   line-height: 1.4;
   margin-bottom: 10px;
 
   @media (max-width: $bp-mobile) {
-    font-size: $font-size-lg;
+    font-size: $font-size-24;
     margin-bottom: 0.85rem;
     padding: 0 1rem;
   }
 }
 
 .step-subtitle {
-  font-size: $font-size-btn;
-  font-weight: 400;
-  color: $text-body;
+  font-size: $font-size-19;
+  font-weight: $font-weight-400;
+  color: $color-424242;
   line-height: 1.3;
   margin-bottom: 1.75rem;
   max-width: 460px;
 
   @media (max-width: $bp-mobile) {
-    font-size: $font-size-base;
+    font-size: $font-size-16;
     margin-bottom: 1.5rem;
     padding: 0 1rem;
   }
 }
 
 .step-indicators {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: var(--display-flex);
+  justify-content: var(--justify-center);
+  align-items: var(--align-center);
   gap: 8px;
 
   .indicator-dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: $border-color;
-    border: none;
+    background-color: $color-e0e0e0;
+    border: var(--border-none);
     padding: 0;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -168,7 +168,7 @@ const emit = defineEmits<{
     &.active {
       width: 28px;
       border-radius: 12px;
-      background-color: $primary-accent;
+      background-color: $color-173ea5;
     }
   }
 }

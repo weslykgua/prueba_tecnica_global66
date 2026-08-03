@@ -20,8 +20,8 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import OnboardingStepCard, { type OnboardingStepItem } from '../component/OnboardingStepCard.vue';
-import step1Url from '@/assets/image_1_11.svg';
-import step2Url from '@/assets/image_2.svg';
+import step1Url from '@/assets/images/illustrations/image_1_11.svg';
+import step2Url from '@/assets/images/illustrations/image_2.svg';
 import OnboardingTexts from '../text/onboarding.texts';
 
 import { useOnboardingStore } from '../store/onboarding.store';
@@ -80,38 +80,38 @@ const finishOnboarding = () => {
 
 .onboarding-page {
   font-family: 'Poppins', sans-serif;
-  width: 100%;
-  min-height: 100vh;
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  overflow: hidden;
+  width: $size-100-percent;
+  min-height: $size-100-vh;
+  background-color: $color-white;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
+  justify-content: var(--justify-between);
+  position: var(--position-relative);
+  overflow: var(--overflow-hidden);
 
   @media (min-width: $bp-tablet) {
-    justify-content: center;
-    padding: 2rem 1.5rem;
-    box-sizing: border-box;
+    justify-content: var(--justify-center);
+    padding: $size-32px $size-24px;
+    box-sizing: var(--border-box);
   }
 }
 
 .onboarding-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
   text-align: center;
-  max-width: 540px;
-  width: 100%;
+  max-width: $size-540px;
+  width: $size-100-percent;
   flex-grow: 1;
-  justify-content: space-between;
-  margin: 0 auto;
+  justify-content: var(--justify-between);
+  margin: $size-0px $size-auto;
 
   @media (min-width: $bp-tablet) {
     flex-grow: 0;
-    justify-content: center;
-    margin: auto 0;
+    justify-content: var(--justify-center);
+    margin: $size-auto $size-0px;
   }
 }
 

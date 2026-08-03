@@ -7,28 +7,31 @@
 </template>
 
 <script setup lang="ts">
-import pokeballUrl from '@/assets/pokeball.svg';
+import pokeballUrl from '@/assets/icons/common/pokeball.svg';
 </script>
 
 <style lang="scss" scoped>
+@use '@/assets/styles/colors' as *;
+@use '@/assets/styles/sizes' as *;
+
 .splash-screen {
-  position: fixed;
-  inset: 0;
+  position: var(--position-fixed);
+  inset: $size-0px;
   z-index: 9999;
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: $color-white;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
 }
 
 .splash-pokeball {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
 
   .pokeball-svg-img {
-    width: 155px;
-    height: 155px;
+    width: $size-155px;
+    height: $size-155px;
     user-select: none;
   }
 }

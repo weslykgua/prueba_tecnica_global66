@@ -33,20 +33,19 @@ export function formatPokemonId(id: number | string): string {
   return `Nº${String(numericId).padStart(3, '0')}`;
 }
 
-export function formatWeight(weightInHectograms: number): string {
-  return `${(weightInHectograms / 10).toFixed(1)} kg`;
-}
 
-export function formatHeight(heightInDecimeters: number): string {
-  return `${(heightInDecimeters / 10).toFixed(1)} m`;
-}
 
 export function buildPokemonShareText(pokemon: PokemonDetail): string {
-  const name = pokemon.formattedName;
+  if (!pokemon) return '';
+  const name = pokemon.formattedName || capitalize(pokemon.name);
   const weight = pokemon.weightKg;
   const height = pokemon.heightM;
-  const types = pokemon.types.map(capitalize).join(', ');
-  const abilities = pokemon.abilities.map(capitalize).join(', ');
+  const types = Array.isArray(pokemon.types)
+    ? pokemon.types.map(t => capitalize(String(t))).join(', ')
+    : '';
+  const abilities = Array.isArray(pokemon.abilities)
+    ? pokemon.abilities.map(a => capitalize(String(a))).join(', ')
+    : '';
 
   return `${name}, ${weight}, ${height}, ${types}, ${abilities}`;
 }

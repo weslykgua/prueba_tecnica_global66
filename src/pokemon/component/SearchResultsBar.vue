@@ -29,72 +29,72 @@ defineEmits<{
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
-@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/variables' as *;
 
 .search-results-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: calc(100% - 46px);
-  margin: 8px 30px 16px 16px;
-  padding: 0;
-  box-sizing: border-box;
-  gap: 4px;
+  display: var(--display-flex);
+  justify-content: var(--justify-between);
+  align-items: var(--align-center);
+  width: calc(#{$size-100-percent} - #{$size-46px});
+  margin: $size-8px $size-30px $size-16px $size-16px;
+  padding: $size-0px;
+  box-sizing: var(--border-box);
+  gap: $size-4px;
   white-space: nowrap;
 
   @media (min-width: $bp-tablet) {
-    max-width: 820px;
+    max-width: $size-820px;
   }
 
   @media (min-width: $bp-desktop) {
-    max-width: 1100px;
+    max-width: $size-1100px;
   }
 }
 
 .search-results-count {
   font-family: $font-family;
-  font-weight: 500;
-  font-size: $font-size-md;
+  font-weight: $font-weight-500;
+  font-size: $font-size-14;
   line-height: 1.4;
-  color: $text-subtle;
-  display: inline-flex;
-  gap: 4px;
-  align-items: center;
+  color: $color-9e9e9e;
+  display: var(--display-inline-flex);
+  gap: $size-4px;
+  align-items: var(--align-center);
   white-space: nowrap;
   flex-shrink: 1;
-  min-width: 0;
-  overflow: hidden;
+  min-width: $size-0px;
+  overflow: var(--overflow-hidden);
   text-overflow: ellipsis;
 
   .count-highlight {
-    font-weight: 700;
-    color: $text-subtle;
+    font-weight: $font-weight-700;
+    color: $color-9e9e9e;
     white-space: nowrap;
   }
 }
 
 .clear-filter-btn {
   background: none;
-  border: none;
-  padding: 0;
+  border: var(--border-none);
+  padding: $size-0px;
   cursor: pointer;
   font-family: $font-family;
-  font-weight: 500;
-  font-size: $font-size-md;
+  font-weight: $font-weight-500;
+  font-size: $font-size-14;
   line-height: 1.4;
-  color: $primary-color;
+  color: $color-1e88e5;
   white-space: nowrap;
   flex-shrink: 0;
-  margin-left: 4px;
+  margin-left: $size-4px;
   text-decoration: underline;
   text-decoration-style: solid;
   text-decoration-thickness: auto;
   text-underline-offset: 0%;
 
   &:hover {
-    color: $primary-hover;
+    color: $color-1565c0;
   }
 }
 </style>

@@ -5,17 +5,17 @@
       <input
         type="text"
         :value="modelValue"
-        @input="onInput"
         :placeholder="placeholder"
         class="search-input"
         aria-label="Buscar Pokémon por nombre o número"
+        @input="onInput"
       />
       <button
         v-if="modelValue"
-        @click="clear"
         class="clear-button"
         type="button"
         aria-label="Limpiar búsqueda"
+        @click="clear"
       >
         <img :src="clearIcon" alt="Limpiar" class="clear-icon-img" />
       </button>
@@ -34,8 +34,8 @@
 </template>
 
 <script setup lang="ts">
-import searchIcon from '@/assets/ic_search.svg';
-import clearIcon from '@/assets/ic_clear.svg';
+import searchIcon from '@/assets/icons/actions/ic_search.svg';
+import clearIcon from '@/assets/icons/actions/ic_clear.svg';
 
 withDefaults(
   defineProps<{
@@ -67,113 +67,113 @@ const clear = () => {
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
-@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/variables' as *;
 
 .search-bar-container {
-  display: flex;
-  flex-direction: row;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-row);
   align-items: stretch;
-  gap: 11px;
-  width: calc(100% - 32px);
-  margin: 44px 16px 16px 16px;
-  padding: 0;
-  box-sizing: border-box;
+  gap: $size-11px;
+  width: calc(#{$size-100-percent} - #{$size-32px});
+  margin: $size-44px $size-16px $size-16px $size-16px;
+  padding: $size-0px;
+  box-sizing: var(--border-box);
 }
 
 .search-input-wrapper {
-  display: flex;
-  align-items: center;
+  display: var(--display-flex);
+  align-items: var(--align-center);
   flex: 1;
-  height: 48px;
-  background-color: $surface-color;
-  border: 1.5px solid $border-color;
-  border-radius: 30px;
-  padding: 0 16px;
-  gap: 10px;
-  box-sizing: border-box;
-  position: relative;
+  height: $size-48px;
+  background-color: $color-white;
+  border: 1.5px solid $color-e0e0e0;
+  border-radius: $size-30px;
+  padding: $size-0px $size-16px;
+  gap: $size-10px;
+  box-sizing: var(--border-box);
+  position: var(--position-relative);
   transition: border-color 0.2s ease;
 
   &:focus-within {
-    border-color: $primary-color;
+    border-color: $color-1e88e5;
   }
 }
 
 .search-left-icon {
-  width: 20px;
-  height: 20px;
+  width: $size-20px;
+  height: $size-20px;
   flex-shrink: 0;
   filter: invert(68%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(92%) contrast(88%);
 }
 
 .search-input {
-  width: 100%;
-  border: none;
+  width: $size-100-percent;
+  border: var(--border-none);
   outline: none;
   background: transparent;
   font-family: $font-family;
-  font-size: $font-size-md;
-  color: $text-subtle;
-  padding: 0;
+  font-size: $font-size-14;
+  color: $color-9e9e9e;
+  padding: $size-0px;
 
   &::placeholder {
-    color: $text-subtle;
+    color: $color-9e9e9e;
   }
 }
 
 .clear-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border: none;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
+  width: $size-24px;
+  height: $size-24px;
+  border: var(--border-none);
   background: transparent;
   cursor: pointer;
 
   .clear-icon-img {
-    width: 14px;
-    height: 14px;
+    width: $size-14px;
+    height: $size-14px;
     filter: invert(68%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(92%) contrast(88%);
   }
 }
 
 .search-action-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  min-width: 48px;
-  max-width: 48px;
-  height: 48px;
-  min-height: 48px;
-  max-height: 48px;
-  flex: 0 0 48px;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
+  width: $size-48px;
+  min-width: $size-48px;
+  max-width: $size-48px;
+  height: $size-48px;
+  min-height: $size-48px;
+  max-height: $size-48px;
+  flex: 0 0 $size-48px;
   border-radius: 50%;
-  background-color: $surface-color;
-  border: 1.5px solid $border-color;
-  box-sizing: border-box;
+  background-color: $color-white;
+  border: 1.5px solid $color-e0e0e0;
+  box-sizing: var(--border-box);
   cursor: pointer;
   transition: border-color 0.2s ease;
 
   &:hover {
-    border-color: $primary-color;
+    border-color: $color-1e88e5;
   }
 
   .action-icon {
-    width: 20px;
-    height: 20px;
+    width: $size-20px;
+    height: $size-20px;
     filter: invert(68%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(92%) contrast(88%);
   }
 }
 
 .mini-spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid $border-color;
-  border-top-color: $primary-color;
+  width: $size-18px;
+  height: $size-18px;
+  border: $size-2px solid $color-e0e0e0;
+  border-top-color: $color-1e88e5;
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
 }

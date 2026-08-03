@@ -1,3 +1,5 @@
+import { PokemonType } from '../../type/PokemonType';
+
 export default interface PokemonDetailLocal {
   id: number;
   name: string;
@@ -5,11 +7,11 @@ export default interface PokemonDetailLocal {
   heightM: number;
   weightKg: number;
   spriteUrl: string;
-  types: string[];
+  types: PokemonType[];
   abilities: string[];
   description?: string;
   category?: string;
   genderRate?: number;
-  weaknesses?: string[];
+  weaknesses?: PokemonType[];
 }
 

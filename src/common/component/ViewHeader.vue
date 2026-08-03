@@ -1,6 +1,6 @@
 <template>
   <div class="view-header">
-    <button type="button" class="back-btn" @click="onBack" aria-label="Volver atrás">
+    <button type="button" class="back-btn" aria-label="Volver atrás" @click="onBack">
       <img :src="arrowBackIcon" alt="Volver atrás" class="back-icon" />
     </button>
 
@@ -33,51 +33,51 @@ const onBack = () => {
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
-@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/variables' as *;
 
 .view-header {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 570px;
-  height: 36px;
-  margin: 36px auto 24px auto;
-  padding: 0 16px;
-  gap: 4px;
-  box-sizing: border-box;
+  position: var(--position-relative);
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
+  width: $size-100-percent;
+  max-width: $size-570px;
+  height: $size-36px;
+  margin: $size-36px $size-auto $size-24px $size-auto;
+  padding: $size-0px $size-16px;
+  gap: $size-4px;
+  box-sizing: var(--border-box);
 
   @media (min-width: $bp-tablet) {
-    max-width: 820px;
-    margin: 40px auto 28px auto;
-    padding: 0 24px;
+    max-width: $size-820px;
+    margin: $size-40px $size-auto $size-28px $size-auto;
+    padding: $size-0px $size-24px;
   }
 
   @media (min-width: $bp-desktop) {
-    max-width: 1100px;
-    margin: 48px auto 32px auto;
-    padding: 0 32px;
+    max-width: $size-1100px;
+    margin: $size-48px $size-auto $size-32px $size-auto;
+    padding: $size-0px $size-32px;
   }
 }
 
 .back-btn {
-  position: absolute;
-  left: 16px;
+  position: var(--position-absolute);
+  left: $size-16px;
   top: 50%;
   transform: translateY(-50%);
   background: none;
-  border: none;
-  padding: 0;
+  border: var(--border-none);
+  padding: $size-0px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: $radius-full;
+  display: var(--display-flex);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
+  width: $size-32px;
+  height: $size-32px;
+  border-radius: $size-full;
   transition: background-color $anim-duration $anim-ease;
 
   &:hover {
@@ -85,37 +85,37 @@ const onBack = () => {
   }
 
   @media (min-width: $bp-tablet) {
-    left: 24px;
+    left: $size-24px;
   }
 
   @media (min-width: $bp-desktop) {
-    left: 32px;
+    left: $size-32px;
   }
 }
 
 .back-icon {
-  width: 24px;
-  height: 24px;
+  width: $size-24px;
+  height: $size-24px;
 }
 
 .view-title {
   font-family: $font-family;
-  font-weight: 600;
+  font-weight: $font-weight-600;
   font-style: normal;
-  font-size: $font-size-header;
+  font-size: $font-size-18;
   line-height: 24px;
   letter-spacing: 0px;
   text-align: center;
-  color: $text-title;
+  color: $color-121212;
   margin: 0;
 
   @media (min-width: $bp-tablet) {
-    font-size: $font-size-header-md;
+    font-size: $font-size-22;
     line-height: 28px;
   }
 
   @media (min-width: $bp-desktop) {
-    font-size: $font-size-lg;
+    font-size: $font-size-24;
     line-height: 32px;
   }
 }

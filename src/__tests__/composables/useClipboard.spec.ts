@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { useClipboard } from '../../common/utils/useClipboard';
+import { PokemonType } from '@/pokemon/type/PokemonType';
 import PokemonDetail from '@/pokemon/model/PokemonDetail';
 
 describe('useClipboard Composable', () => {
@@ -10,7 +11,7 @@ describe('useClipboard Composable', () => {
     heightM: 4,
     weightKg: 60,
     spriteUrl: 'https://raw.githubusercontent.com/.../25.png',
-    types: ['electric'],
+    types: [PokemonType.ELECTRIC],
     abilities: ['static'],
   };
 

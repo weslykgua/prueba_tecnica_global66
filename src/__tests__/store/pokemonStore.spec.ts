@@ -64,7 +64,7 @@ describe('usePokemonStore', () => {
       heightM: 4,
       weightKg: 60,
       spriteUrl: 'sprite.png',
-      types: ['electric'],
+      types: [PokemonType.ELECTRIC],
       abilities: ['static'],
     };
 

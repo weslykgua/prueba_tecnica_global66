@@ -4,6 +4,7 @@ import PokeApiAbilitySlot from '../remote/model/PokeApiAbilitySlot';
 import PokeApiPokemon from '../remote/model/PokeApiPokemon';
 import PokeApiSpecies from '../remote/model/PokeApiSpecies';
 import PokeApiTypeSlot from '../remote/model/PokeApiTypeSlot';
+import { toPokemonType } from '../type/PokemonType';
 import { capitalize } from '../utils/formatters';
 import { PokemonSpeciesMapper } from './PokemonSpeciesMapper';
 
@@ -61,12 +62,12 @@ export class PokemonDetailMapper {
       heightM: dto.height / 10,
       weightKg: dto.weight / 10,
       spriteUrl,
-      types: dto.types.map((t: PokeApiTypeSlot) => t.type.name),
+      types: dto.types.map((t: PokeApiTypeSlot) => toPokemonType(t.type.name)!),
       abilities: dto.abilities.map((a: PokeApiAbilitySlot) => a.ability.name),
       description: species?.description,
       category: species?.category,
       genderRate: species?.genderRate,
-      weaknesses,
+      weaknesses: weaknesses.map((w: string) => toPokemonType(w)!),
     };
   }
 }

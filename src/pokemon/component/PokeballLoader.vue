@@ -28,81 +28,81 @@ defineProps<{
 @use '@/assets/styles/animations' as *;
 
 .pokeball-loader {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
+  justify-content: var(--justify-center);
+  width: $size-100-percent;
+  height: $size-100-percent;
   flex: 1;
 }
 
 .pokeball-spinner {
   animation: pokeball-spin 1.2s infinite linear;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: var(--display-flex);
+  justify-content: var(--justify-center);
+  align-items: var(--align-center);
 }
 
 .pokeball {
-  width: 160px;
-  height: 160px;
+  width: $size-160px;
+  height: $size-160px;
   border-radius: 50%;
-  border: 3.5px solid #222222;
-  position: relative;
-  overflow: hidden;
+  border: 3.5px solid $color-222222;
+  position: var(--position-relative);
+  overflow: var(--overflow-hidden);
   box-shadow: $shadow-sm;
-  background: white;
+  background: $color-white;
 
   .pokeball-top {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background-color: $pokeball-top;
+    position: var(--position-absolute);
+    top: $size-0px;
+    left: $size-0px;
+    width: $size-100-percent;
+    height: $size-50-percent;
+    background-color: $color-f22539;
   }
 
   .pokeball-bottom {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background-color: #ffffff;
+    position: var(--position-absolute);
+    bottom: $size-0px;
+    left: $size-0px;
+    width: $size-100-percent;
+    height: $size-50-percent;
+    background-color: $color-white;
   }
 
   .pokeball-band {
-    position: absolute;
+    position: var(--position-absolute);
     top: 50%;
-    left: 0;
-    width: 100%;
-    height: 12px;
-    background-color: #222222;
+    left: $size-0px;
+    width: $size-100-percent;
+    height: $size-12px;
+    background-color: $color-222222;
     transform: translateY(-50%);
     z-index: 2;
   }
 
   .pokeball-center-button {
-    position: absolute;
+    position: var(--position-absolute);
     top: 50%;
     left: 50%;
-    width: 44px;
-    height: 44px;
-    background-color: #ffffff;
-    border: 5px solid #222222;
+    width: $size-44px;
+    height: $size-44px;
+    background-color: $color-white;
+    border: $size-5px solid $color-222222;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: var(--display-flex);
+    align-items: var(--align-center);
+    justify-content: var(--justify-center);
 
     .pokeball-center-dot {
-      width: 7px;
-      height: 7px;
-      background-color: #ececec;
-      border: 1px solid #7a7a7a;
+      width: $size-7px;
+      height: $size-7px;
+      background-color: $color-ececec;
+      border: $size-1px solid $color-7a7a7a;
       border-radius: 50%;
     }
   }

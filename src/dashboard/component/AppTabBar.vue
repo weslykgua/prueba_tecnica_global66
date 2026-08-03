@@ -18,10 +18,10 @@
 </template>
 
 <script lang="ts">
-import pokedexIcon from '@/assets/ic_pokedex.svg';
-import regionsIcon from '@/assets/ic_regions.svg';
-import favoritesIcon from '@/assets/ic_favorites.svg';
-import profileIcon from '@/assets/ic_profile.svg';
+import pokedexIcon from '@/assets/icons/navigation/ic_pokedex.svg';
+import regionsIcon from '@/assets/icons/navigation/ic_regions.svg';
+import favoritesIcon from '@/assets/icons/navigation/ic_favorites.svg';
+import profileIcon from '@/assets/icons/navigation/ic_profile.svg';
 import TabBarTexts from '../text/tabbar.texts';
 
 export interface NavItem {
@@ -64,77 +64,77 @@ const currentRoute = computed(() => route.path);
 
 <style lang="scss" scoped>
 @use '@/assets/styles/colors' as *;
-@use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
+@use '@/assets/styles/variables' as *;
 
 .app-tabbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  width: 100%;
-  height: auto;
-  background: $bg-light;
-  border: 1px solid $border-color;
-  border-radius: 16px 16px 0px 0px !important;
-  border-top-left-radius: 16px !important;
-  border-top-right-radius: 16px !important;
-  overflow: hidden;
+  position: var(--position-fixed);
+  bottom: $size-0px;
+  left: $size-0px;
+  right: $size-0px;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-row);
+  justify-content: var(--justify-between);
+  align-items: var(--align-center);
+  padding: $size-16px;
+  width: $size-100-percent;
+  height: $size-auto;
+  background: $color-fafafa;
+  border: $size-1px solid $color-e0e0e0;
+  border-radius: $size-16px $size-16px $size-0px $size-0px !important;
+  border-top-left-radius: $size-16px !important;
+  border-top-right-radius: $size-16px !important;
+  overflow: var(--overflow-hidden);
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
   z-index: 1000;
-  box-sizing: border-box;
+  box-sizing: var(--border-box);
 }
 
 .tabbar-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 570px;
-  margin: 0 auto;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-row);
+  justify-content: var(--justify-between);
+  align-items: var(--align-center);
+  width: $size-100-percent;
+  max-width: $size-570px;
+  margin: $size-0px $size-auto;
 
   @media (min-width: $bp-tablet) {
-    max-width: 800px;
+    max-width: $size-800px;
   }
 }
 
 .nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0px;
-  gap: 4px;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  align-items: var(--align-center);
+  padding: $size-0px;
+  gap: $size-4px;
 
-  margin: 0 auto;
-  width: 62px;
-  height: 44px;
+  margin: $size-0px $size-auto;
+  width: $size-62px;
+  height: $size-44px;
   flex: none;
   order: 0;
   flex-grow: 0;
   text-decoration: none;
-  color: $text-body;
+  color: $color-424242;
 
   .nav-label {
-    width: 62px;
-    height: 13px;
+    width: $size-62px;
+    height: $size-13px;
 
     font-family: $font-family;
     font-style: normal;
-    font-weight: 500;
-    font-size: $font-size-xs;
+    font-weight: $font-weight-500;
+    font-size: $font-size-10;
     line-height: 16px;
     text-align: center;
 
-    color: $text-body;
+    color: $color-424242;
 
     flex: none;
     order: 1;
@@ -142,16 +142,16 @@ const currentRoute = computed(() => route.path);
   }
 
   .icon-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 4px;
+    display: var(--display-flex);
+    flex-direction: var(--flex-direction-row);
+    justify-content: var(--justify-center);
+    align-items: var(--align-center);
+    padding: $size-4px;
 
-    width: 62px;
-    height: 24px;
+    width: $size-62px;
+    height: $size-24px;
 
-    border-radius: 16px;
+    border-radius: $size-16px;
 
     flex: none;
     order: 0;
@@ -160,22 +160,22 @@ const currentRoute = computed(() => route.path);
   }
 
   .nav-icon {
-    width: 24px;
-    height: 24px;
+    width: $size-24px;
+    height: $size-24px;
     flex: none;
     order: 0;
     flex-grow: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    object-fit: contain;
+    display: var(--display-flex);
+    align-items: var(--align-center);
+    justify-content: var(--justify-center);
+    object-fit: var(--object-contain);
     filter: invert(24%) sepia(0%) saturate(0%) hue-rotate(193deg) brightness(96%) contrast(88%);
   }
 
   &.active {
     .nav-label {
-      font-weight: 700;
-      color: $primary-active;
+      font-weight: $font-weight-700;
+      color: $color-0d47a1;
     }
 
     .nav-icon {

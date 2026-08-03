@@ -1,11 +1,11 @@
 <template>
   <div
     class="pokemon-card"
-    :style="{ backgroundColor: cardBgColor + '80' }"
-    @click="$emit('select', pokemon.id)"
     tabindex="0"
     role="button"
+    :style="{ backgroundColor: cardBgColor + '80' }"
     :aria-label="CardTexts.viewDetailAria(formattedName)"
+    @click="$emit('select', pokemon.id)"
     @keydown.enter="$emit('select', pokemon.id)"
   >
     <div class="card-left-info">
@@ -16,7 +16,7 @@
         {{ formattedName }}
       </Typography>
 
-      <div class="types-container" v-if="displayTypes.length > 0">
+      <div v-if="displayTypes.length > 0" class="types-container">
         <TypeBadge v-for="typeCategory in displayTypes" :key="typeCategory" :type="typeCategory" />
       </div>
     </div>
@@ -27,17 +27,17 @@
       <img
         :src="currentImageSrc"
         :alt="formattedName"
-        @error="onImageError"
         loading="lazy"
         class="pokemon-sprite"
+        @error="onImageError"
       />
 
       <button
         type="button"
         class="favorite-button"
         :class="{ active: isFavorite }"
-        @click.stop="$emit('toggle-favorite', pokemon.name)"
         :aria-label="CardTexts.favoriteAria(isFavorite)"
+        @click.stop="$emit('toggle-favorite', pokemon.name)"
       >
         <img
           :src="isFavorite ? heartFilledIcon : heartOutlineIcon"
@@ -54,8 +54,8 @@ import { ref, computed } from 'vue';
 import TypeBadge from '@/pokemon/component/TypeBadge.vue';
 import Typography from '@/common/component/Typography.vue';
 import CardTexts from '../text/card.texts';
-import heartFilledIcon from '@/assets/ic_heart_filled.svg';
-import heartOutlineIcon from '@/assets/ic_heart_outline.svg';
+import heartFilledIcon from '@/assets/icons/favorites/ic_heart_filled.svg';
+import heartOutlineIcon from '@/assets/icons/favorites/ic_heart_outline.svg';
 import {
   capitalize,
   formatPokemonId,
@@ -112,114 +112,113 @@ const onImageError = () => {
 @use '@/assets/styles/variables' as *;
 @use '@/assets/styles/fonts' as *;
 @use '@/assets/styles/sizes' as *;
-@use '../../assets/styles/fonts' as *;
-@use '../../assets/styles/sizes' as *;
 
 .pokemon-card {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-row);
+  justify-content: var(--justify-between);
   align-items: stretch;
-  width: 100%;
-  min-height: 102px;
-  border: 1px solid $border-color;
-  border-radius: 16px;
-  box-sizing: border-box;
-  margin-bottom: 12px;
-  position: relative;
+  width: $size-100-percent;
+  min-height: $size-102px;
+  background-color: $color-white;
+  border: $size-1px solid $color-e0e0e0;
+  border-radius: $size-16px;
+  box-sizing: var(--border-box);
+  margin-bottom: $size-12px;
+  position: var(--position-relative);
   cursor: pointer;
-  overflow: hidden;
+  overflow: var(--overflow-hidden);
   transition:
     border-color 0.2s ease,
     transform 0.2s ease;
 
   &:hover {
     transform: translateY(-2px);
-    border-color: $primary-color;
+    border-color: $color-1e88e5;
   }
 }
 
 .card-left-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-column);
+  justify-content: var(--justify-between);
+  align-items: var(--align-flex-start);
   flex: 1 1 auto;
-  min-width: 0;
-  padding: 12px 0 12px 16px;
-  box-sizing: border-box;
-  overflow: hidden;
+  min-width: $size-0px;
+  padding: $size-12px $size-0px $size-12px $size-16px;
+  box-sizing: var(--border-box);
+  overflow: var(--overflow-hidden);
 }
 
 .pokemon-id {
   font-family: $font-family;
-  font-weight: 600;
-  font-size: $font-size-sm;
-  line-height: 100%;
-  color: $text-body;
-  margin: 0 0 2px 0;
+  font-weight: $font-weight-600;
+  font-size: $font-size-12;
+  line-height: $size-100-percent;
+  color: $color-424242;
+  margin: $size-0px $size-0px $size-2px $size-0px;
 }
 
 .pokemon-name {
   font-family: $font-family;
-  font-weight: 600;
+  font-weight: $font-weight-600;
   font-style: normal;
-  font-size: $font-size-title-sm;
+  font-size: $font-size-21;
   letter-spacing: 0%;
-  color: $text-title;
-  margin: 0 0 8px 0;
+  color: $color-121212;
+  margin: $size-0px $size-0px $size-8px $size-0px;
   text-align: left;
-  display: block;
-  width: 100%;
-  max-width: 100%;
+  display: var(--display-block);
+  width: $size-100-percent;
+  max-width: $size-100-percent;
   white-space: nowrap;
-  overflow: hidden;
+  overflow: var(--overflow-hidden);
   text-overflow: ellipsis;
 }
 
 .types-container {
-  display: flex;
-  flex-direction: row;
-  gap: 6px;
-  width: 100%;
-  max-width: 100%;
+  display: var(--display-flex);
+  flex-direction: var(--flex-direction-row);
+  gap: $size-6px;
+  width: $size-100-percent;
+  max-width: $size-100-percent;
   flex-wrap: nowrap;
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
 
   &::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    height: 0;
+    display: var(--display-none);
+    width: $size-0px;
+    height: $size-0px;
   }
 }
 
 .card-right-media {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 126px;
-  min-width: 126px;
-  max-width: 126px;
-  height: auto;
+  display: var(--display-flex);
+  justify-content: var(--justify-center);
+  align-items: var(--align-center);
+  position: var(--position-relative);
+  width: $size-126px;
+  min-width: $size-126px;
+  max-width: $size-126px;
+  height: $size-auto;
   align-self: stretch;
-  border-radius: 16px;
-  overflow: hidden;
-  box-sizing: border-box;
-  flex: 0 0 126px;
-  padding: 4px auto;
+  border-radius: $size-16px;
+  overflow: var(--overflow-hidden);
+  box-sizing: var(--border-box);
+  flex: 0 0 $size-126px;
+  padding: $size-4px $size-auto;
 }
 
 .card-bg-svg {
-  position: absolute;
+  position: var(--position-absolute);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 94px;
-  height: 94px;
-  object-fit: contain;
+  width: $size-94px;
+  height: $size-94px;
+  object-fit: var(--object-contain);
   z-index: 0;
   pointer-events: none;
   mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.1) 100%);
@@ -231,48 +230,48 @@ const onImageError = () => {
 }
 
 .pokemon-sprite {
-  position: absolute;
+  position: var(--position-absolute);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 94px;
-  height: auto;
-  object-fit: contain;
+  width: $size-94px;
+  height: $size-auto;
+  object-fit: var(--object-contain);
   z-index: 1;
   pointer-events: none;
 }
 
 .favorite-button {
-  position: absolute;
-  top: 9px;
-  right: 9px;
-  width: 32px;
-  height: 32px;
-  border: none;
+  position: var(--position-absolute);
+  top: $size-9px;
+  right: $size-9px;
+  width: $size-32px;
+  height: $size-32px;
+  border: var(--border-none);
   background: transparent;
-  padding: 0;
+  padding: $size-0px;
   cursor: pointer;
   z-index: 5;
 
   .heart-icon {
-    width: 32px;
-    height: 32px;
-    display: block;
+    width: $size-32px;
+    height: $size-32px;
+    display: var(--display-block);
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: $size-380px) {
   .pokemon-card {
-    gap: 12px;
+    gap: $size-12px;
   }
 
   .pokemon-name {
-    margin-bottom: 4px;
+    margin-bottom: $size-4px;
   }
 
   .types-container {
-    flex-wrap: wrap;
-    overflow: visible;
+    flex-wrap: var(--flex-wrap-wrap);
+    overflow: var(--overflow-visible);
   }
 }
 </style>
